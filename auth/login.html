@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sign in — MA3AN Camp Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --card-shadow: 0 20px 40px -18px rgba(15,61,62,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ BACK LINK ============ */
+  .back-link{
+    position:relative;
+    z-index:20;
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    padding:26px 0 0 40px;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:700;
+    font-size:16px;
+  }
+  .back-link svg{width:20px; height:20px;}
+  .back-link:hover{color:var(--teal);}
+
+  /* ============ DECORATION ============ */
+  .deco-piece{
+    position:absolute;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,0.08));
+    z-index:1;
+  }
+  .dot{
+    position:absolute;
+    border-radius:50%;
+  }
+  .dotgrid{
+    position:absolute;
+    display:grid;
+    grid-template-columns:repeat(5, 10px);
+    gap:12px;
+  }
+  .dotgrid span{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(30,142,130,0.28);
+  }
+  .spark{ position:absolute; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .float{ animation:float 6s ease-in-out infinite; }
+    @keyframes float{
+      0%,100%{transform:translateY(0px);}
+      50%{transform:translateY(-14px);}
+    }
+  }
+
+  /* ============ MAIN CONTENT ============ */
+  main{
+    position:relative;
+    z-index:5;
+    max-width:640px;
+    margin:0 auto;
+    padding:20px 20px 100px;
+    text-align:center;
+  }
+
+  .logo-tile{
+    width:190px;
+    height:150px;
+    margin:0 auto 26px;
+    background:#fff;
+    border:2px solid var(--orange);
+    border-radius:22px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    box-shadow:var(--card-shadow);
+  }
+  .logo-tile .wordmark{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:38px;
+    letter-spacing:1px;
+    margin:0;
+  }
+  .logo-tile .c1{color:var(--orange);}
+  .logo-tile .c2{color:var(--blue);}
+  .logo-tile .c3{color:var(--green);}
+  .logo-tile .c4{color:var(--purple);}
+  .logo-tile .c5{color:var(--orange);}
+
+  h1.page-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(30px, 5vw, 40px);
+    color:var(--ink);
+    margin:0 0 10px;
+  }
+  .page-subtitle{
+    font-size:17px;
+    font-weight:700;
+    color:var(--ink);
+    opacity:0.75;
+    margin:0 0 34px;
+  }
+
+  form.card{
+    background:#fff;
+    border-radius:22px;
+    box-shadow:var(--card-shadow);
+    padding:36px 40px 34px;
+    text-align:left;
+  }
+
+  label{
+    display:block;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+
+  .field{ margin-bottom:24px; }
+
+  .input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
+  .input-wrap svg{
+    position:absolute;
+    left:16px;
+    width:20px;
+    height:20px;
+    color:var(--blue);
+    pointer-events:none;
+  }
+  .input-wrap input{
+    width:100%;
+    padding:15px 16px 15px 48px;
+    border-radius:12px;
+    border:1.5px solid #b9d3ea;
+    background:#fff;
+    font-family:'Nunito', sans-serif;
+    font-size:16px;
+    color:var(--ink);
+    outline-offset:2px;
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .input-wrap input::placeholder{ color:#9aa8a8; }
+  .input-wrap input:focus{
+    border-color:var(--blue);
+    box-shadow:0 0 0 4px rgba(47,123,214,0.15);
+  }
+
+  .field-row-between{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:10px;
+  }
+  .field-row-between label{ margin-bottom:0; }
+  .forgot-link{
+    font-size:14px;
+    font-weight:700;
+    color:var(--purple);
+    text-decoration:none;
+  }
+  .forgot-link:hover{ text-decoration:underline; }
+
+  .error-banner{
+    display:none;
+    background:#fdeceb;
+    border:1.5px solid #f4c3bd;
+    color:var(--red);
+    font-weight:700;
+    font-size:14px;
+    border-radius:12px;
+    padding:12px 16px;
+    margin-bottom:20px;
+  }
+  .error-banner.show{ display:block; }
+
+  .btn-signin{
+    width:100%;
+    background:var(--blue);
+    color:#fff;
+    border:none;
+    padding:17px 20px;
+    border-radius:12px;
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+    box-shadow:0 14px 26px -10px rgba(47,123,214,0.55);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-signin svg{ width:20px; height:20px; }
+  .btn-signin:hover{ transform:translateY(-2px); }
+  .btn-signin:disabled{ opacity:0.7; cursor:default; transform:none; }
+
+  .signup-note{
+    text-align:center;
+    margin:24px 0 0;
+    font-size:15px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .signup-note a{
+    color:var(--purple);
+    font-weight:800;
+    text-decoration:none;
+  }
+  .signup-note a:hover{ text-decoration:underline; }
+
+  .ground{
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:260px;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  :focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  @media (max-width:640px){
+    form.card{ padding:28px 22px; }
+    .back-link{ padding:20px 0 0 20px; }
+    .deco-piece{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<a href="index.html" class="back-link">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+  Back to Home
+</a>
+
+<!-- decorative puzzle pieces -->
+<svg class="deco-piece float" style="top:120px; left:-40px; width:230px;" viewBox="0 0 100 100"><path fill="#2f7bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="top:220px; left:-90px; width:180px;" viewBox="0 0 100 100"><path fill="#f2a022" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece float" style="top:60px; right:-60px; width:250px;" viewBox="0 0 100 100"><path fill="#6c4bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="top:220px; right:-70px; width:190px;" viewBox="0 0 100 100"><path fill="#2fa84f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece float" style="bottom:210px; left:-40px; width:210px;" viewBox="0 0 100 100"><path fill="#1e8e82" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="bottom:150px; left:130px; width:120px;" viewBox="0 0 100 100"><path fill="#e8562f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<!-- sparks -->
+<svg class="spark" style="top:150px; left:38%; width:34px;" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#1e8e82"/></svg>
+<svg class="spark" style="top:150px; right:38%; width:34px;" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#e8562f"/></svg>
+<svg class="spark" style="top:280px; right:23%; width:22px; opacity:.8" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#1e8e82"/></svg>
+
+<!-- small dots -->
+<div class="dot" style="top:350px; left:200px; width:10px; height:10px; background:#6c4bd6;"></div>
+<div class="dot" style="top:430px; left:242px; width:14px; height:14px; background:#2fa84f;"></div>
+<div class="dot" style="top:465px; right:265px; width:12px; height:12px; background:#2fa84f;"></div>
+<div class="dot" style="top:510px; right:200px; width:14px; height:14px; background:#2f7bd6;"></div>
+
+<div class="dotgrid" style="top:415px; left:100px;">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="dotgrid" style="top:415px; right:100px;">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<main>
+  <div class="logo-tile">
+    <div class="wordmark">
+      <span class="c1">M</span><span class="c2">A</span><span class="c3">3</span><span class="c4">A</span><span class="c5">N</span>
+    </div>
+  </div>
+
+  <h1 class="page-title">Welcome back</h1>
+  <p class="page-subtitle">Sign in to your camp account</p>
+
+  <form class="card" id="login-form">
+    <div class="error-banner" id="login-error"></div>
+
+    <div class="field">
+      <label for="email">Email address</label>
+      <div class="input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+        <input type="email" id="email" name="email" placeholder="you@example.com" autocomplete="email" required>
+      </div>
+    </div>
+
+    <div class="field">
+      <div class="field-row-between">
+        <label for="password">Password</label>
+        <a href="#" class="forgot-link" id="forgot-link">Forgot password?</a>
+      </div>
+      <div class="input-wrap">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+        <input type="password" id="password" name="password" placeholder="Enter your password" autocomplete="current-password" required>
+      </div>
+    </div>
+
+    <button type="submit" class="btn-signin">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg>
+      Sign In
+    </button>
+  </form>
+
+  <p class="signup-note">Don't have an account? <a href="signup.html">Create one</a></p>
+</main>
+
+<div class="ground">
+  <svg viewBox="0 0 1440 260" preserveAspectRatio="none" style="position:absolute; bottom:0; left:0; width:100%; height:100%;">
+    <path d="M0 140 C 200 60, 400 60, 620 130 C 850 200, 1050 90, 1440 150 L1440 260 L0 260 Z" fill="#2fa84f" opacity="0.85"/>
+    <path d="M0 180 C 250 120, 500 200, 760 150 C 1000 105, 1200 200, 1440 170 L1440 260 L0 260 Z" fill="#f2a022" opacity="0.9"/>
+    <path d="M900 260 C 950 150, 1150 150, 1200 260 Z" fill="#1e8e82"/>
+  </svg>
+</div>
+
+<script>
+  document.getElementById('forgot-link').addEventListener('click', function (e) {
+    e.preventDefault();
+    alert('Please contact your camp administrator to reset your password.');
+  });
+
+  document.getElementById('login-form').addEventListener('submit', async function (e) {
+    e.preventDefault();
+    const form = this;
+    const btn = form.querySelector('.btn-signin');
+    const errorBox = document.getElementById('login-error');
+    errorBox.classList.remove('show');
+    errorBox.textContent = '';
+
+    const email = document.getElementById('email').value.trim();
+    const password = document.getElementById('password').value;
+
+    btn.disabled = true;
+    btn.textContent = 'Signing in…';
+
+    const res = await window.MA3AN.login(email, password);
+
+    if (res.success) {
+      // Send the camper wherever they were headed (?next=...), or the dashboard.
+      const params = new URLSearchParams(window.location.search);
+      const next = params.get('next') || 'dashboard.html';
+      window.location.href = window.MA3AN_buildUrl(next, { email: res.profile.email, name: res.profile.fullName });
+    } else {
+      btn.disabled = false;
+      btn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"/><polyline points="10 17 15 12 10 7"/><line x1="15" y1="12" x2="3" y2="12"/></svg> Sign In';
+      errorBox.textContent = res.error || 'Something went wrong. Please try again.';
+      errorBox.classList.add('show');
+    }
+  });
+</script>
+
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
+</body>
+</html>

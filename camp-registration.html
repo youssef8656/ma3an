@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Register for Summer Camp 2026 — MA3AN Camp Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --card-shadow: 0 20px 40px -18px rgba(15,61,62,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:relative;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px 40px 0;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:700;
+    font-size:16px;
+  }
+  .back-link svg{width:20px; height:20px;}
+  .back-link:hover{color:var(--teal);}
+
+  .btn-signin-top{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:linear-gradient(135deg, var(--teal), var(--green));
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:12px;
+    font-weight:700;
+    font-size:15px;
+    font-family:'Nunito', sans-serif;
+    cursor:pointer;
+    text-decoration:none;
+    box-shadow:0 10px 20px -8px rgba(30,142,130,0.5);
+    transition:transform .15s ease;
+  }
+  .btn-signin-top:hover{ transform:translateY(-2px); }
+  .btn-signin-top svg{ width:16px; height:16px; }
+
+  /* ============ DECORATION ============ */
+  .deco-piece{
+    position:absolute;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,0.08));
+    z-index:1;
+  }
+  .dot{ position:absolute; border-radius:50%; }
+  .dotgrid{
+    position:absolute;
+    display:grid;
+    grid-template-columns:repeat(5, 10px);
+    gap:12px;
+  }
+  .dotgrid span{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(30,142,130,0.28);
+  }
+  .spark{ position:absolute; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .float{ animation:float 6s ease-in-out infinite; }
+    @keyframes float{
+      0%,100%{transform:translateY(0px);}
+      50%{transform:translateY(-14px);}
+    }
+    .spin-slow{ animation:spin 12s linear infinite; }
+    @keyframes spin{ to{ transform:rotate(360deg); } }
+  }
+
+  /* ============ MAIN CONTENT ============ */
+  main{
+    position:relative;
+    z-index:5;
+    max-width:760px;
+    margin:0 auto;
+    padding:6px 20px 100px;
+    text-align:center;
+  }
+
+  .sun-badge{
+    width:64px;
+    height:64px;
+    border-radius:50%;
+    background:radial-gradient(circle at 35% 30%, #ffcf6b, var(--orange));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:6px auto 10px;
+    box-shadow:0 12px 22px -8px rgba(242,160,34,0.55);
+  }
+  .sun-badge svg{ width:32px; height:32px; color:#fff; }
+
+  h1.wordmark{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(44px, 8vw, 68px);
+    letter-spacing:1px;
+    margin:0 0 8px;
+    position:relative;
+  }
+  .wordmark .c1{color:var(--orange);}
+  .wordmark .c2{color:var(--blue);}
+  .wordmark .c3{color:var(--green);}
+  .wordmark .c4{color:var(--purple);}
+  .wordmark .c5{color:var(--orange);}
+
+  h2.page-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(24px, 4vw, 32px);
+    color:var(--teal);
+    margin:0 0 12px;
+  }
+
+  .date-range{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    font-size:16px;
+    font-weight:700;
+    color:var(--ink);
+    margin:0 0 30px;
+  }
+  .date-range svg{ width:18px; height:18px; color:var(--ink); }
+
+  form.card{
+    background:#fff;
+    border-radius:22px;
+    box-shadow:var(--card-shadow);
+    padding:34px 36px 30px;
+    text-align:left;
+  }
+
+  .form-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px 24px;
+  }
+
+  .field{ margin-bottom:0; }
+
+  label{
+    display:block;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--teal);
+    margin-bottom:8px;
+  }
+  label .req{ color:var(--red); }
+
+  .input-wrap{
+    position:relative;
+    display:flex;
+    align-items:center;
+  }
+  .input-wrap svg{
+    position:absolute;
+    left:14px;
+    width:19px;
+    height:19px;
+    color:var(--green);
+    pointer-events:none;
+  }
+  .input-wrap input{
+    width:100%;
+    padding:13px 14px 13px 44px;
+    border-radius:10px;
+    border:1.5px solid #b8ddc4;
+    background:#fff;
+    font-family:'Nunito', sans-serif;
+    font-size:15px;
+    color:var(--ink);
+    transition:border-color .15s ease, box-shadow .15s ease;
+  }
+  .input-wrap input::placeholder{ color:#9aa8a8; }
+  .input-wrap input:focus{
+    border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(47,168,79,0.15);
+    outline:none;
+  }
+
+  .gender-row{
+    grid-column:1 / -1;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:24px;
+    margin-top:2px;
+  }
+
+  .radio-box{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    border:1.5px solid #cfd9d8;
+    border-radius:10px;
+    padding:13px 14px;
+    font-weight:700;
+    font-size:15px;
+    color:var(--ink);
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease;
+    user-select:none;
+  }
+  .radio-box input{
+    width:16px; height:16px;
+    accent-color:var(--green);
+    margin:0;
+  }
+  .radio-box:has(input:checked){
+    border-color:var(--green);
+    background:rgba(47,168,79,0.06);
+  }
+
+  .checkbox-row{
+    grid-column:1 / -1;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    margin:6px 0 24px;
+  }
+  .checkbox-row input{
+    width:20px; height:20px;
+    accent-color:var(--green);
+    cursor:pointer;
+  }
+  .checkbox-row label{
+    margin:0;
+    font-family:'Nunito', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--ink);
+    cursor:pointer;
+  }
+
+  .btn-submit{
+    grid-column:1 / -1;
+    background:var(--green);
+    color:#fff;
+    border:none;
+    padding:17px 20px;
+    border-radius:12px;
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+    box-shadow:0 14px 26px -10px rgba(47,168,79,0.55);
+    transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-submit svg{ width:20px; height:20px; }
+  .btn-submit:hover{ transform:translateY(-2px); }
+  .btn-submit:disabled{
+    opacity:0.5;
+    cursor:not-allowed;
+    box-shadow:none;
+    transform:none;
+  }
+
+  .ground{
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:260px;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  :focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  @media (max-width:700px){
+    .form-grid, .gender-row{ grid-template-columns:1fr; }
+    form.card{ padding:26px 20px; }
+    .topbar{ padding:20px 20px 0; }
+    .deco-piece{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="profile.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to Home
+  </a>
+  <a href="#" class="btn-signin-top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="19 8 22 11 19 14"/><line x1="22" y1="11" x2="14" y2="11"/></svg>
+    Sign in
+  </a>
+</div>
+
+<!-- decorative puzzle pieces -->
+<svg class="deco-piece float" style="top:90px; left:-40px; width:230px;" viewBox="0 0 100 100"><path fill="#f2a022" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="top:210px; left:-90px; width:180px;" viewBox="0 0 100 100"><path fill="#e8562f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece float" style="top:60px; right:-60px; width:250px;" viewBox="0 0 100 100"><path fill="#6c4bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="top:220px; right:-70px; width:190px;" viewBox="0 0 100 100"><path fill="#2fa84f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece float" style="bottom:180px; left:-40px; width:210px;" viewBox="0 0 100 100"><path fill="#1e8e82" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="bottom:120px; left:130px; width:120px;" viewBox="0 0 100 100"><path fill="#2f7bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<!-- sparks -->
+<svg class="spark" style="top:130px; left:36%; width:28px;" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#1e8e82"/></svg>
+<svg class="spark" style="top:130px; right:36%; width:28px;" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#6c4bd6"/></svg>
+<svg class="spark" style="top:200px; right:22%; width:20px; opacity:.8" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#1e8e82"/></svg>
+
+<!-- small dots -->
+<div class="dot" style="top:340px; left:200px; width:10px; height:10px; background:#6c4bd6;"></div>
+<div class="dot" style="top:430px; left:242px; width:14px; height:14px; background:#2fa84f;"></div>
+<div class="dot" style="top:475px; right:265px; width:12px; height:12px; background:#2fa84f;"></div>
+<div class="dot" style="top:530px; right:200px; width:14px; height:14px; background:#2f7bd6;"></div>
+
+<div class="dotgrid" style="top:440px; left:100px;">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="dotgrid" style="top:440px; right:100px;">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<main>
+  <div class="sun-badge">
+    <svg class="spin-slow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.93" y1="4.93" x2="6.34" y2="6.34"/><line x1="17.66" y1="17.66" x2="19.07" y2="19.07"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.93" y1="19.07" x2="6.34" y2="17.66"/><line x1="17.66" y1="6.34" x2="19.07" y2="4.93"/></svg>
+  </div>
+
+  <h1 class="wordmark">
+    <span class="c1">M</span><span class="c2">A</span><span class="c3">3</span><span class="c4">A</span><span class="c5">N</span>
+  </h1>
+
+  <h2 class="page-title">Register for Summer Camp 2026</h2>
+  <div class="date-range">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    August 20, 2026 - August 24, 2026
+  </div>
+
+  <form class="card" id="camp-form">
+    <div class="form-grid">
+
+      <div class="field">
+        <label for="fullname">Full Name <span class="req">*</span></label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input type="text" id="fullname" name="fullname" placeholder="Enter your full name" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="age">Age <span class="req">*</span></label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+          <input type="number" id="age" name="age" placeholder="Enter your age" min="1" max="120" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="mobile">Mobile Number <span class="req">*</span></label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <input type="tel" id="mobile" name="mobile" placeholder="Enter your mobile number" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="guardian">Parent/Guardian Name <span class="req">*</span></label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <input type="text" id="guardian" name="guardian" placeholder="Enter parent/guardian name" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="guardianphone">Parent/Guardian Phone Number <span class="req">*</span></label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+          <input type="tel" id="guardianphone" name="guardianphone" placeholder="Enter parent/guardian phone number" required>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="grade">Grade <span class="req">*</span></label>
+        <div class="input-wrap">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
+          <input type="number" id="grade" name="grade" placeholder="Enter your grade (1-12)" min="1" max="12" required>
+        </div>
+      </div>
+
+      <div class="gender-row">
+        <label class="radio-box" for="gender-male">
+          <input type="radio" id="gender-male" name="gender" value="male" required>
+          Male
+        </label>
+        <label class="radio-box" for="gender-female">
+          <input type="radio" id="gender-female" name="gender" value="female">
+          Female
+        </label>
+      </div>
+
+      <div class="checkbox-row">
+        <input type="checkbox" id="team-activities" name="team-activities" checked>
+        <label for="team-activities">I want to participate in team activities</label>
+      </div>
+
+      <button type="submit" class="btn-submit" id="btn-submit" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/></svg>
+        Complete Registration
+      </button>
+
+    </div>
+  </form>
+</main>
+
+<div class="ground">
+  <svg viewBox="0 0 1440 260" preserveAspectRatio="none" style="position:absolute; bottom:0; left:0; width:100%; height:100%;">
+    <path d="M0 140 C 200 60, 400 60, 620 130 C 850 200, 1050 90, 1440 150 L1440 260 L0 260 Z" fill="#2fa84f" opacity="0.85"/>
+    <path d="M0 180 C 250 120, 500 200, 760 150 C 1000 105, 1200 200, 1440 170 L1440 260 L0 260 Z" fill="#f2a022" opacity="0.9"/>
+    <path d="M900 260 C 950 150, 1150 150, 1200 260 Z" fill="#1e8e82"/>
+  </svg>
+</div>
+
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
+<script>
+  // Must be logged in (via login.html or signup.html) to reach this step —
+  // this is where we save into THEIR existing Users row, not create a new one.
+  const _session = window.MA3AN.requireLogin();
+
+  if (_session) {
+    document.getElementById('fullname').value = _session.fullName || '';
+  }
+
+  const teamCheckbox = document.getElementById('team-activities');
+  const submitBtn = document.getElementById('btn-submit');
+
+  function syncSubmitState(){
+    submitBtn.disabled = !teamCheckbox.checked;
+  }
+  teamCheckbox.addEventListener('change', syncSubmitState);
+  syncSubmitState();
+
+  document.getElementById('camp-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    if (submitBtn.disabled || !_session) return;
+
+    const payload = {
+      age: document.getElementById('age').value,
+      grade: document.getElementById('grade').value,
+      gender: (document.querySelector('input[name="gender"]:checked') || {}).value || '',
+      mobile: document.getElementById('mobile').value,
+      parentGuardianName: document.getElementById('guardian').value,
+      parentPhone: document.getElementById('guardianphone').value,
+    };
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Submitting…';
+
+    const res = await window.MA3AN.updateContact(payload);
+
+    if (!res.success) {
+      alert(res.error || 'Could not save your details. Please try again.');
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Complete Registration';
+      return;
+    }
+
+    window.location.href = window.MA3AN_buildUrl('camp-rules.html', { email: _session.email, name: _session.fullName });
+  });
+</script>
+</body>
+</html>

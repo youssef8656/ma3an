@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>My Profile — MA3AN Camp Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --border:#e7e5db;
+    --card-shadow: 0 20px 40px -18px rgba(15,61,62,0.14);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    position:relative;
+    overflow-x:hidden;
+    min-height:100vh;
+  }
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ TOP NAV ============ */
+  .topnav{
+    position:relative;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:18px 40px;
+    flex-wrap:wrap;
+  }
+  .topnav-left{ display:flex; align-items:baseline; gap:12px; }
+  .brand-mark{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; }
+  .brand-mark span:nth-child(1){color:var(--orange);}
+  .brand-mark span:nth-child(2){color:var(--blue);}
+  .brand-mark span:nth-child(3){color:var(--green);}
+  .brand-mark span:nth-child(4){color:var(--purple);}
+  .brand-mark span:nth-child(5){color:var(--red);}
+  .brand-sub{ font-family:'Baloo 2', sans-serif; font-weight:600; font-size:21px; color:var(--ink); }
+
+  .topnav-center{ display:flex; align-items:center; gap:36px; }
+  .nav-pill{
+    display:flex; align-items:center; gap:8px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:15px;
+    padding-bottom:8px;
+    position:relative;
+  }
+  .nav-pill svg{ width:18px; height:18px; }
+  .nav-pill:hover{ color:var(--teal); }
+  .nav-pill.active{ color:var(--green); }
+  .nav-pill.active::after{
+    content:"";
+    position:absolute;
+    left:0; right:0; bottom:0;
+    height:3px;
+    border-radius:3px;
+    background:var(--green);
+  }
+
+  .topnav-right{ display:flex; align-items:center; gap:10px; }
+  .icon-btn{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--border); background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink);
+  }
+  .icon-btn svg{ width:17px; height:17px; }
+
+  .lang-pill, .profile-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:999px;
+    border:1px solid var(--border); background:#fff;
+    font-weight:700; font-size:14px; color:var(--ink); cursor:pointer;
+  }
+  .lang-pill svg{ width:15px; height:15px; }
+  .profile-pill{ border-color:var(--green); }
+  .profile-avatar{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--green); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:11px;
+    flex-shrink:0;
+  }
+  .chevron{ width:14px; height:14px; }
+
+  /* ============ DECORATION ============ */
+  .deco-piece{
+    position:absolute;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,0.08));
+    z-index:1;
+  }
+  @media (prefers-reduced-motion: no-preference){
+    .float{ animation:float 6s ease-in-out infinite; }
+    @keyframes float{
+      0%,100%{transform:translateY(0px);}
+      50%{transform:translateY(-14px);}
+    }
+  }
+
+  /* ============ MAIN ============ */
+  main.content{
+    position:relative;
+    z-index:5;
+    max-width:1200px;
+    margin:0 auto;
+    padding:6px 40px 90px;
+  }
+
+  .page-title{
+    display:flex;
+    align-items:center;
+    gap:12px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:26px;
+    color:var(--ink);
+    margin:10px 0 22px;
+  }
+  .page-title svg{ width:24px; height:24px; color:var(--green); }
+
+  .profile-card{
+    position:relative;
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--card-shadow);
+    padding:34px 40px;
+    display:flex;
+    align-items:center;
+    gap:28px;
+    margin-bottom:24px;
+    flex-wrap:wrap;
+  }
+  .avatar-lg{
+    width:110px; height:110px;
+    border-radius:50%;
+    background:linear-gradient(135deg, #ffcf6b, var(--orange));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:34px;
+    flex-shrink:0;
+    box-shadow:0 14px 26px -10px rgba(242,160,34,0.55);
+  }
+  .profile-info{ flex:1; min-width:220px; }
+  .profile-name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:28px;
+    color:var(--ink);
+    margin:0 0 6px;
+  }
+  .profile-meta{
+    font-size:15.5px;
+    font-weight:700;
+    color:#5c6e6e;
+    margin:0 0 16px;
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .meta-dot{
+    width:6px; height:6px;
+    border-radius:50%;
+    background:var(--green);
+    display:inline-block;
+  }
+  .profile-pills{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+  }
+  .info-pill{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    padding:9px 16px;
+    border-radius:999px;
+    font-weight:800;
+    font-size:14px;
+    border:1.5px solid;
+  }
+  .info-pill svg{ width:16px; height:16px; }
+  .info-pill.team{ color:var(--orange); border-color:var(--orange); background:#fdf3df; }
+  .info-pill.switches{ color:var(--purple); border-color:#d7c8f5; background:#f3effc; }
+  .info-pill.points{ color:var(--teal); border-color:#bfe6e2; background:#e8f6f4; }
+
+  /* ============ CONTACT INFO ============ */
+  .contact-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--card-shadow);
+    padding:26px 32px 30px;
+  }
+  .contact-heading{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    margin-bottom:20px;
+  }
+  .contact-heading-left{
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .contact-heading-left svg{ width:20px; height:20px; color:var(--green); }
+  .contact-heading-left h2{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    margin:0;
+  }
+
+  .btn-edit{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background:#fff;
+    border:1.5px solid var(--green);
+    color:var(--green);
+    padding:9px 18px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:14px;
+    cursor:pointer;
+    transition:background .15s ease;
+  }
+  .btn-edit svg{ width:15px; height:15px; }
+  .btn-edit:hover{ background:#eaf7ee; }
+
+  .contact-row{
+    display:flex;
+    align-items:center;
+    gap:16px;
+    border:1px solid #ededdf;
+    border-radius:14px;
+    padding:16px 18px;
+    margin-bottom:14px;
+  }
+  .contact-row:last-of-type{ margin-bottom:0; }
+  .contact-icon{
+    width:44px; height:44px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .contact-icon svg{ width:20px; height:20px; }
+  .contact-icon.mobile{ background:#e6f0fb; color:var(--blue); }
+  .contact-icon.guardian{ background:#e1f5e6; color:var(--green); }
+  .contact-icon.parentphone{ background:#efe9fb; color:var(--purple); }
+
+  .contact-text{ flex:1; min-width:0; }
+  .contact-label{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:15px;
+    color:var(--ink);
+    margin:0 0 2px;
+  }
+  .contact-value{
+    margin:0;
+    font-size:14.5px;
+    font-weight:700;
+    color:#9aa8a8;
+  }
+  .contact-value.filled{ color:#4a5f60; }
+
+  .contact-input{
+    width:100%;
+    padding:10px 12px;
+    border-radius:8px;
+    border:1.5px solid #b8ddc4;
+    font-family:'Nunito', sans-serif;
+    font-size:14.5px;
+    color:var(--ink);
+  }
+  .contact-input:focus{
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 4px rgba(47,168,79,0.15);
+  }
+
+  .edit-actions{
+    display:flex;
+    justify-content:flex-end;
+    gap:12px;
+    margin-top:18px;
+  }
+  .btn-save, .btn-cancel{
+    padding:11px 22px;
+    border-radius:10px;
+    font-weight:800;
+    font-size:14.5px;
+    cursor:pointer;
+    border:none;
+    display:flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-save{ background:var(--green); color:#fff; box-shadow:0 10px 18px -8px rgba(47,168,79,0.5); }
+  .btn-save svg{ width:15px; height:15px; }
+  .btn-cancel{ background:#f4f2ea; color:#5c6e6e; }
+  .btn-save:disabled{ opacity:0.6; cursor:not-allowed; }
+
+  .save-status{
+    font-size:13.5px;
+    font-weight:700;
+    margin-top:12px;
+    text-align:right;
+  }
+  .save-status.ok{ color:var(--green); }
+  .save-status.err{ color:var(--red); }
+
+  .footnote{
+    text-align:center;
+    margin:26px 0 0;
+    font-size:14px;
+    font-weight:700;
+    color:#8a8a7a;
+  }
+
+  @media (max-width:640px){
+    .topnav-center{ display:none; }
+    .topnav{ padding:16px 20px; }
+    main.content{ padding:6px 18px 60px; }
+    .profile-card{ padding:26px 22px; }
+    .contact-card{ padding:22px 20px 24px; }
+    .deco-piece{ display:none; }
+  }
+
+  :focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
+    <div class="brand-sub">Camp Teams</div>
+  </div>
+
+  <nav class="topnav-center">
+    <a href="dashboard.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="sports.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
+      Sports
+    </a>
+    <a href="#" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Check In
+    </a>
+    <a href="my-profile.html" class="nav-pill active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="topnav-right">
+    <button class="icon-btn" aria-label="Light mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Messages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    </button>
+    <div class="lang-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      العربية EG
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="profile-pill">
+      <div class="profile-avatar" id="nav-avatar">MM</div>
+      <span id="nav-team">Yellow</span>
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div>
+</div>
+
+<!-- decorative puzzle pieces -->
+<svg class="deco-piece float" style="top:200px; left:-40px; width:190px;" viewBox="0 0 100 100"><path fill="#f2a022" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+<svg class="deco-piece" style="top:300px; left:-80px; width:150px;" viewBox="0 0 100 100"><path fill="#e8562f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+<svg class="deco-piece float" style="top:190px; right:-50px; width:210px;" viewBox="0 0 100 100"><path fill="#6c4bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+<svg class="deco-piece" style="top:300px; right:-80px; width:160px;" viewBox="0 0 100 100"><path fill="#2fa84f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<main class="content">
+  <h1 class="page-title">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    My Profile
+  </h1>
+
+  <div class="profile-card">
+    <div class="avatar-lg" id="profile-avatar">MM</div>
+    <div class="profile-info">
+      <h2 class="profile-name" id="profile-name">Moder Manf</h2>
+      <p class="profile-meta">
+        <span id="profile-grade">3rd Secondary 11B</span>
+        <span class="meta-dot"></span>
+        <span id="profile-gender">Male</span>
+      </p>
+      <div class="profile-pills">
+        <span class="info-pill team">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+          <span id="profile-team">Yellow Team</span>
+        </span>
+        <span class="info-pill switches">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          <span id="profile-switches">3 Switches remaining</span>
+        </span>
+        <span class="info-pill points">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
+          <span id="profile-points">0 pts</span>
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <div class="contact-card">
+    <div class="contact-heading">
+      <div class="contact-heading-left">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        <h2>Contact Info</h2>
+      </div>
+      <button class="btn-edit" id="btn-edit">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.12 2.12 0 0 1 3 3L12 15l-4 1 1-4Z"/></svg>
+        Edit
+      </button>
+    </div>
+
+    <form id="contact-form">
+      <div class="contact-row">
+        <div class="contact-icon mobile">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-text">
+          <p class="contact-label">Mobile</p>
+          <p class="contact-value" id="view-mobile" data-empty-text="Not provided">Not provided</p>
+          <input type="tel" class="contact-input" id="input-mobile" style="display:none;" placeholder="Enter mobile number">
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-icon guardian">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+        </div>
+        <div class="contact-text">
+          <p class="contact-label">Parent / Guardian</p>
+          <p class="contact-value" id="view-guardian" data-empty-text="Not provided">Not provided</p>
+          <input type="text" class="contact-input" id="input-guardian" style="display:none;" placeholder="Enter parent/guardian name">
+        </div>
+      </div>
+
+      <div class="contact-row">
+        <div class="contact-icon parentphone">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </div>
+        <div class="contact-text">
+          <p class="contact-label">Parent Number</p>
+          <p class="contact-value" id="view-parentphone" data-empty-text="Not provided">Not provided</p>
+          <input type="tel" class="contact-input" id="input-parentphone" style="display:none;" placeholder="Enter parent's phone number">
+        </div>
+      </div>
+
+      <div class="edit-actions" id="edit-actions" style="display:none;">
+        <button type="button" class="btn-cancel" id="btn-cancel">Cancel</button>
+        <button type="submit" class="btn-save" id="btn-save">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+          Save Changes
+        </button>
+      </div>
+      <p class="save-status" id="save-status"></p>
+    </form>
+  </div>
+
+  <p class="footnote">Name, age, grade, and gender can only be changed by an admin.</p>
+</main>
+
+<script>
+  /* =========================================================
+     Backend connection (Google Apps Script + Google Sheets)
+     -----------------------------------------------------------
+     1. Paste your Web App URL below (see sheets-backend/README.md).
+     2. Identify the camper via a ?email= query param on this page's
+        URL, e.g. my-profile.html?email=fady@example.com
+        (Swap this for your real login/session mechanism later —
+        there's no auth system built yet, so this is a stand-in.)
+     If no SCRIPT_URL is set or the request fails, the page falls
+     back to showing the placeholder demo profile from the design.
+  ========================================================= */
+  const SCRIPT_URL = ''; // e.g. 'https://script.google.com/macros/s/XXXX/exec'
+
+  const params = new URLSearchParams(window.location.search);
+  const currentEmail = params.get('email') || '';
+
+  const els = {
+    avatarNav: document.getElementById('nav-avatar'),
+    teamNav: document.getElementById('nav-team'),
+    avatar: document.getElementById('profile-avatar'),
+    name: document.getElementById('profile-name'),
+    grade: document.getElementById('profile-grade'),
+    gender: document.getElementById('profile-gender'),
+    team: document.getElementById('profile-team'),
+    switches: document.getElementById('profile-switches'),
+    points: document.getElementById('profile-points'),
+    viewMobile: document.getElementById('view-mobile'),
+    viewGuardian: document.getElementById('view-guardian'),
+    viewParentPhone: document.getElementById('view-parentphone'),
+    inputMobile: document.getElementById('input-mobile'),
+    inputGuardian: document.getElementById('input-guardian'),
+    inputParentPhone: document.getElementById('input-parentphone'),
+  };
+
+  function initials(name){
+    return name.trim().split(/\s+/).slice(0,2).map(w => w[0]?.toUpperCase() || '').join('') || '??';
+  }
+
+  function renderProfile(p){
+    els.name.textContent = p.name || 'Camper';
+    els.grade.textContent = p.grade || 'Grade not set';
+    els.gender.textContent = p.gender || '—';
+    els.team.textContent = p.team ? `${p.team} Team` : 'No team yet';
+    els.switches.textContent = `${p.switchesRemaining ?? 3} Switches remaining`;
+    els.points.textContent = `${p.points ?? 0} pts`;
+    const ini = initials(p.name || 'MM');
+    els.avatar.textContent = ini;
+    els.avatarNav.textContent = ini;
+    els.teamNav.textContent = p.team || '—';
+
+    setContactValue(els.viewMobile, els.inputMobile, p.mobile);
+    setContactValue(els.viewGuardian, els.inputGuardian, p.parentGuardianName);
+    setContactValue(els.viewParentPhone, els.inputParentPhone, p.parentPhone);
+  }
+
+  function setContactValue(viewEl, inputEl, value){
+    if (value){
+      viewEl.textContent = value;
+      viewEl.classList.add('filled');
+    } else {
+      viewEl.textContent = viewEl.dataset.emptyText;
+      viewEl.classList.remove('filled');
+    }
+    inputEl.value = value || '';
+  }
+
+  async function loadProfile(){
+    if (!SCRIPT_URL || !currentEmail){
+      // No backend configured (or no email in the URL) — keep the demo
+      // placeholder from the design so the page still looks complete.
+      return;
+    }
+    try{
+      const url = `${SCRIPT_URL}?action=getProfile&email=${encodeURIComponent(currentEmail)}`;
+      const res = await fetch(url);
+      const data = await res.json();
+      if (data.success && data.profile){
+        renderProfile(data.profile);
+      }
+    }catch(err){
+      console.warn('Could not load profile from backend:', err);
+    }
+  }
+
+  loadProfile();
+
+  /* ---------------- Edit / Save / Cancel ---------------- */
+  const editBtn = document.getElementById('btn-edit');
+  const cancelBtn = document.getElementById('btn-cancel');
+  const saveBtn = document.getElementById('btn-save');
+  const editActions = document.getElementById('edit-actions');
+  const saveStatus = document.getElementById('save-status');
+  const viewEls = [els.viewMobile, els.viewGuardian, els.viewParentPhone];
+  const inputEls = [els.inputMobile, els.inputGuardian, els.inputParentPhone];
+
+  function setEditMode(on){
+    viewEls.forEach(el => el.style.display = on ? 'none' : 'block');
+    inputEls.forEach(el => el.style.display = on ? 'block' : 'none');
+    editActions.style.display = on ? 'flex' : 'none';
+    editBtn.style.display = on ? 'none' : 'flex';
+    saveStatus.textContent = '';
+    saveStatus.className = 'save-status';
+  }
+
+  editBtn.addEventListener('click', () => setEditMode(true));
+  cancelBtn.addEventListener('click', () => {
+    // Revert inputs to last known values
+    setContactValue(els.viewMobile, els.inputMobile, els.viewMobile.classList.contains('filled') ? els.viewMobile.textContent : '');
+    setContactValue(els.viewGuardian, els.inputGuardian, els.viewGuardian.classList.contains('filled') ? els.viewGuardian.textContent : '');
+    setContactValue(els.viewParentPhone, els.inputParentPhone, els.viewParentPhone.classList.contains('filled') ? els.viewParentPhone.textContent : '');
+    setEditMode(false);
+  });
+
+  document.getElementById('contact-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const payload = {
+      action: 'updateContact',
+      email: currentEmail,
+      mobile: els.inputMobile.value.trim(),
+      parentGuardianName: els.inputGuardian.value.trim(),
+      parentPhone: els.inputParentPhone.value.trim(),
+    };
+
+    if (!SCRIPT_URL){
+      saveStatus.textContent = 'No backend connected yet — add your Web App URL in the script to save for real.';
+      saveStatus.classList.add('err');
+      // Still reflect the change locally so the UI feels responsive in the meantime.
+      setContactValue(els.viewMobile, els.inputMobile, payload.mobile);
+      setContactValue(els.viewGuardian, els.inputGuardian, payload.parentGuardianName);
+      setContactValue(els.viewParentPhone, els.inputParentPhone, payload.parentPhone);
+      setEditMode(false);
+      return;
+    }
+
+    saveBtn.disabled = true;
+    saveBtn.textContent = 'Saving…';
+
+    try{
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload),
+      });
+      const data = await res.json();
+
+      if (!data.success){
+        throw new Error(data.error || 'Could not save your changes.');
+      }
+
+      setContactValue(els.viewMobile, els.inputMobile, payload.mobile);
+      setContactValue(els.viewGuardian, els.inputGuardian, payload.parentGuardianName);
+      setContactValue(els.viewParentPhone, els.inputParentPhone, payload.parentPhone);
+      setEditMode(false);
+      saveStatus.textContent = 'Saved!';
+      saveStatus.classList.add('ok');
+    }catch(err){
+      saveStatus.textContent = err.message;
+      saveStatus.classList.add('err');
+    }finally{
+      saveBtn.disabled = false;
+      saveBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg> Save Changes';
+    }
+  });
+</script>
+
+<script src="page-transitions.js"></script>
+</body>
+</html>

@@ -1,0 +1,1044 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Team Rosters & Sports — MA3AN Youth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --border:#e7e5db;
+    --card-shadow: 0 12px 28px -16px rgba(15,61,62,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#fbfaf5;
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+  }
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ TOP NAV (shared) ============ */
+  .topnav{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:20px;
+    padding:16px 28px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    flex-wrap:wrap;
+  }
+  .topnav-left{ display:flex; align-items:center; gap:18px; }
+  .brand{ display:flex; align-items:baseline; gap:10px; }
+  .brand-mark{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; }
+  .brand-mark span:nth-child(1){color:var(--orange);}
+  .brand-mark span:nth-child(2){color:var(--blue);}
+  .brand-mark span:nth-child(3){color:var(--green);}
+  .brand-mark span:nth-child(4){color:var(--purple);}
+  .brand-mark span:nth-child(5){color:var(--red);}
+  .brand-youth{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:16px; letter-spacing:2px; color:var(--green); }
+
+  .topnav-center{ display:flex; align-items:center; gap:8px; }
+  .nav-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:14.5px;
+    transition:background .15s ease;
+  }
+  .nav-pill svg{ width:18px; height:18px; }
+  .nav-pill:hover{ background:#f3f4ee; }
+  .nav-pill.active{ background:var(--orange); color:#fff; }
+
+  .topnav-right{ display:flex; align-items:center; gap:10px; }
+  .icon-btn{
+    width:38px; height:38px; border-radius:50%;
+    border:1px solid var(--border); background:#fff;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer; color:var(--ink);
+  }
+  .icon-btn svg{ width:17px; height:17px; }
+
+  .lang-pill, .profile-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:999px;
+    border:1px solid var(--border); background:#fff;
+    font-weight:700; font-size:14px; color:var(--ink); cursor:pointer;
+  }
+  .lang-pill svg{ width:15px; height:15px; }
+  .profile-avatar{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--orange); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:12px;
+    flex-shrink:0;
+  }
+  .chevron{ width:14px; height:14px; }
+
+  /* ============ PAGE HEADER ============ */
+  main.content{
+    max-width:1400px;
+    margin:0 auto;
+    padding:26px 32px 60px;
+  }
+
+  .page-header{
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+    flex-wrap:wrap;
+    gap:14px;
+    margin-bottom:6px;
+  }
+  .page-header-left h1{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:24px;
+    margin:0 0 8px;
+  }
+  .page-header-left h1 svg{ width:24px; height:24px; color:var(--orange); }
+
+  .team-tally{
+    display:flex;
+    flex-wrap:wrap;
+    gap:22px;
+    font-size:14.5px;
+    font-weight:700;
+    color:#4a5f60;
+  }
+  .team-tally span{ display:inline-flex; align-items:center; gap:7px; }
+  .tally-dot{ width:9px; height:9px; border-radius:50%; }
+
+  .switches-info{
+    display:flex;
+    align-items:center;
+    gap:8px;
+    font-size:14.5px;
+    font-weight:700;
+    color:#4a5f60;
+  }
+  .switches-info svg{ width:16px; height:16px; }
+  .switches-info .info-icon{ color:#9aa8a8; cursor:pointer; }
+
+  /* ============ TEAM CARDS ============ */
+  .team-grid{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+    margin:22px 0 30px;
+  }
+  .team-card{
+    position:relative;
+    background:#fff;
+    border-radius:16px;
+    border:1.5px solid var(--border);
+    overflow:hidden;
+    display:flex;
+    flex-direction:column;
+    box-shadow:var(--card-shadow);
+  }
+  .team-card.best{ border-color:var(--green); }
+  .team-card.you{ border-color:var(--orange); }
+
+  .team-card-head{
+    padding:16px 20px;
+    color:#fff;
+    display:flex;
+    align-items:flex-start;
+    justify-content:space-between;
+  }
+  .team-card-head h3{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    margin:0 0 4px;
+  }
+  .team-card-head p{
+    margin:0;
+    font-size:13.5px;
+    font-weight:700;
+    opacity:0.9;
+  }
+  .team-card.red .team-card-head{ background:var(--red); }
+  .team-card.blue .team-card-head{ background:var(--blue); }
+  .team-card.green .team-card-head{ background:#fff; color:var(--ink); border-bottom:1px solid #e3f3e8; }
+  .team-card.green .team-card-head p{ color:#5c6e6e; }
+  .team-card.yellow .team-card-head{ background:var(--orange); }
+
+  .status-pill{
+    font-size:11.5px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    padding:5px 10px;
+    border-radius:999px;
+    background:rgba(255,255,255,0.25);
+    flex-shrink:0;
+  }
+  .status-pill.spot{
+    background:#e9f6ec;
+    color:var(--green);
+  }
+  .status-pill.you{
+    background:#fff;
+    color:var(--orange);
+  }
+
+  .best-badge{
+    position:absolute;
+    top:0; left:50%;
+    transform:translate(-50%, -50%);
+    background:var(--green);
+    color:#fff;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:11.5px;
+    letter-spacing:0.5px;
+    padding:6px 16px;
+    border-radius:999px;
+    z-index:2;
+  }
+
+  .team-card-body{
+    padding:26px 20px 22px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    text-align:center;
+    flex:1;
+  }
+  .team-icon-circle{
+    width:64px; height:64px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:16px;
+  }
+  .team-icon-circle svg{ width:30px; height:30px; }
+  .team-card.red .team-icon-circle{ background:#fbe4df; color:var(--red); }
+  .team-card.blue .team-icon-circle{ background:#dfeafa; color:var(--blue); }
+  .team-card.green .team-icon-circle{ background:#e1f5e6; color:var(--green); }
+  .team-card.yellow .team-icon-circle{ background:#fdecc7; color:var(--orange); }
+
+  .team-card-body h4{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:17px;
+    margin:0 0 6px;
+  }
+  .team-card.green .team-card-body h4{ color:var(--green); }
+  .team-card-body p{
+    margin:0 0 20px;
+    font-size:13.5px;
+    font-weight:700;
+    color:#5c6e6e;
+    line-height:1.5;
+  }
+
+  .team-btn{
+    width:100%;
+    margin-top:auto;
+    padding:13px 16px;
+    border-radius:10px;
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:14.5px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    cursor:pointer;
+    border:none;
+    transition:transform .15s ease;
+  }
+  .team-btn svg{ width:16px; height:16px; }
+  .team-btn:hover:not(:disabled){ transform:translateY(-1px); }
+  .team-btn.locked{
+    background:#f4f2ea;
+    color:#9aa8a8;
+    cursor:not-allowed;
+  }
+  .team-btn.join{
+    background:var(--green);
+    color:#fff;
+    box-shadow:0 10px 18px -8px rgba(47,168,79,0.5);
+  }
+  .team-btn.switch{
+    background:#fff;
+    color:var(--orange);
+    border:1.5px solid var(--orange);
+  }
+
+  /* ============ SPORTS SELECTION ============ */
+  .section-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:18px;
+    padding:24px 26px 26px;
+    box-shadow:var(--card-shadow);
+    margin-bottom:22px;
+  }
+  .section-heading{
+    display:flex;
+    align-items:flex-start;
+    gap:12px;
+    margin-bottom:20px;
+  }
+  .section-heading svg{ width:22px; height:22px; color:var(--orange); margin-top:2px; flex-shrink:0; }
+  .section-heading h2{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    margin:0 0 4px;
+  }
+  .section-heading p{
+    margin:0;
+    font-size:14px;
+    font-weight:700;
+    color:#5c6e6e;
+  }
+
+  .sports-grid{
+    display:grid;
+    grid-template-columns:repeat(5, 1fr);
+    gap:16px;
+  }
+  .sport-card{
+    border-radius:14px;
+    border:1.5px solid var(--border);
+    padding:18px 18px 16px;
+    display:flex;
+    flex-direction:column;
+  }
+  .sport-card.soccer{ background:#eaf7ee; border-color:#bfe3cb; }
+  .sport-card.dodgeball{ background:#fdeceb; border-color:#f4c3bd; }
+  .sport-card.chairball{ background:#fdf3df; border-color:#f2ddab; }
+  .sport-card.biggame{ background:#efe9fb; border-color:#d7c8f5; }
+  .sport-card.pool{ background:#e6f0fb; border-color:#c3d9f2; }
+
+  .sport-icon{
+    width:44px; height:44px;
+    border-radius:12px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin-bottom:12px;
+    color:#fff;
+  }
+  .sport-icon svg{ width:22px; height:22px; }
+  .sport-card.soccer .sport-icon{ background:var(--green); }
+  .sport-card.dodgeball .sport-icon{ background:var(--red); }
+  .sport-card.chairball .sport-icon{ background:var(--orange); }
+  .sport-card.biggame .sport-icon{ background:var(--purple); }
+  .sport-card.pool .sport-icon{ background:var(--blue); }
+
+  .sport-card h3{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:16px;
+    margin:0 0 2px;
+  }
+  .sport-card.soccer h3{ color:var(--green); }
+  .sport-card.dodgeball h3{ color:var(--red); }
+  .sport-card.chairball h3{ color:var(--orange); }
+  .sport-card.biggame h3{ color:var(--purple); }
+  .sport-card.pool h3{ color:var(--blue); }
+
+  .sport-count{
+    font-size:13px;
+    font-weight:700;
+    color:#7a8a89;
+    margin:0 0 10px;
+  }
+  .sport-desc{
+    font-size:13.5px;
+    font-weight:700;
+    color:#4a5f60;
+    line-height:1.5;
+    margin:0 0 16px;
+    flex:1;
+  }
+
+  .sport-join{
+    width:100%;
+    padding:11px 14px;
+    border-radius:10px;
+    border:none;
+    color:#fff;
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:14px;
+    cursor:pointer;
+    transition:transform .15s ease, opacity .15s ease;
+  }
+  .sport-join:hover{ transform:translateY(-1px); }
+  .sport-card.soccer .sport-join{ background:var(--green); }
+  .sport-card.dodgeball .sport-join{ background:var(--red); }
+  .sport-card.chairball .sport-join{ background:var(--orange); }
+  .sport-card.biggame .sport-join{ background:var(--purple); }
+  .sport-card.pool .sport-join{ background:var(--blue); }
+
+  .sport-join.joined{
+    background:var(--ink) !important;
+  }
+
+  .sport-restriction{
+    display:flex;
+    align-items:center;
+    gap:6px;
+    margin-top:10px;
+    font-size:12.5px;
+    font-weight:700;
+    color:#9aa8a8;
+  }
+  .sport-restriction svg{ width:13px; height:13px; }
+
+  /* ============ ROSTER LISTS (who's registered) ============ */
+  .roster-list{
+    display:flex;
+    flex-wrap:wrap;
+    gap:6px;
+    margin:0 0 16px;
+    max-height:88px;
+    overflow-y:auto;
+  }
+  .roster-list:empty{ display:none; }
+  .roster-tag{
+    display:inline-flex;
+    align-items:center;
+    gap:5px;
+    padding:4px 10px;
+    border-radius:999px;
+    background:rgba(15,61,62,0.06);
+    font-size:12px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .roster-empty{
+    font-size:12.5px;
+    font-weight:700;
+    color:#9aa8a8;
+    margin:0 0 16px;
+    font-style:italic;
+  }
+  .roster-note{
+    font-size:12px;
+    font-weight:700;
+    color:#9aa8a8;
+    margin:0 0 20px;
+  }
+
+  .identity-banner{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    background:#fdf3df;
+    border:1px solid #f2ddab;
+    border-radius:12px;
+    padding:12px 18px;
+    font-size:13.5px;
+    font-weight:700;
+    color:#8a7a55;
+    margin-bottom:18px;
+  }
+  .identity-banner svg{ width:16px; height:16px; flex-shrink:0; }
+
+  /* ============ HOW IT WORKS ============ */
+  .how-card{
+    position:relative;
+    overflow:hidden;
+    background:#f3effc;
+    border:1px solid #ddd2f7;
+    border-radius:18px;
+    padding:22px 26px;
+    margin-bottom:22px;
+    display:flex;
+    align-items:flex-start;
+    gap:16px;
+  }
+  .how-card svg.info{ width:22px; height:22px; color:var(--purple); flex-shrink:0; margin-top:3px; }
+  .how-card h3{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:16px;
+    color:var(--purple);
+    margin:0 0 8px;
+  }
+  .how-card ul{
+    margin:0;
+    padding-left:18px;
+    font-size:14px;
+    font-weight:700;
+    color:#5c4f7d;
+    line-height:1.8;
+  }
+  .how-deco{
+    position:absolute;
+    right:20px;
+    bottom:10px;
+    display:flex;
+    gap:8px;
+    opacity:0.85;
+  }
+  .how-deco svg{ width:38px; height:38px; }
+
+  /* ============ BOTTOM STAT STRIP ============ */
+  .strip{
+    display:grid;
+    grid-template-columns:repeat(4, 1fr);
+    gap:18px;
+  }
+  .strip-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:18px 20px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    box-shadow:var(--card-shadow);
+  }
+  .strip-icon{
+    width:42px; height:42px;
+    border-radius:50%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#fff;
+    flex-shrink:0;
+  }
+  .strip-icon svg{ width:20px; height:20px; }
+  .strip-card:nth-child(1) .strip-icon{ background:var(--purple); }
+  .strip-card:nth-child(2) .strip-icon{ background:var(--green); }
+  .strip-card:nth-child(3) .strip-icon{ background:var(--orange); }
+  .strip-card:nth-child(4) .strip-icon{ background:var(--blue); }
+  .strip-card h4{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:15px;
+    margin:0 0 2px;
+  }
+  .strip-card p{
+    margin:0;
+    font-size:13px;
+    font-weight:700;
+    color:#7a8a89;
+  }
+
+  @media (max-width:1200px){
+    .team-grid{ grid-template-columns:repeat(2, 1fr); }
+    .sports-grid{ grid-template-columns:repeat(3, 1fr); }
+    .strip{ grid-template-columns:repeat(2, 1fr); }
+  }
+  @media (max-width:900px){
+    .topnav-center{ display:none; }
+  }
+  @media (max-width:640px){
+    .team-grid, .sports-grid, .strip{ grid-template-columns:1fr; }
+    main.content{ padding:20px 16px 50px; }
+    .how-deco{ display:none; }
+  }
+
+  :focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <div class="brand">
+      <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
+      <div class="brand-youth">YOUTH</div>
+    </div>
+  </div>
+
+  <nav class="topnav-center">
+    <a href="Home.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="sports.html" class="nav-pill active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Sports
+    </a>
+    <a href="#" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Check In
+    </a>
+    <a href="my-profile.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="topnav-right">
+    <button class="icon-btn" aria-label="Light mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Dark mode">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Notifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Messages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+    </button>
+    <div class="lang-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      العربية EG
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+    <div class="profile-pill">
+      <div class="profile-avatar">NN</div>
+      Yellow
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div>
+  </div>
+</div>
+
+<main class="content">
+
+  <div class="identity-banner" id="identity-banner" style="display:none;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <span>Open this page as <code>sports.html?name=Your+Name&email=you@example.com</code> so your name is saved with your team &amp; sports. Showing demo data for now.</span>
+  </div>
+
+  <div class="page-header">
+    <div class="page-header-left">
+      <h1>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        Team Rosters
+      </h1>
+      <div class="team-tally">
+        <span><span class="tally-dot" style="background:var(--red);"></span>Red: <strong id="tally-red">24/24 FULL</strong></span>
+        <span><span class="tally-dot" style="background:var(--blue);"></span>Blue: <strong id="tally-blue">24/24 FULL</strong></span>
+        <span><span class="tally-dot" style="background:var(--green);"></span>Green: <strong id="tally-green">23/24</strong></span>
+        <span><span class="tally-dot" style="background:var(--orange);"></span>Yellow: <strong id="tally-yellow">13/24</strong></span>
+      </div>
+    </div>
+    <div class="switches-info">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+      <span id="switches-remaining">3 switches remaining</span>
+      <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </div>
+  </div>
+
+  <div class="team-grid">
+
+    <div class="team-card red">
+      <div class="team-card-head">
+        <div>
+          <h3>Red</h3>
+          <p>24/24 Members</p>
+        </div>
+        <span class="status-pill">FULL</span>
+      </div>
+      <div class="team-card-body">
+        <div class="team-icon-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Team is full</h4>
+        <p>This team has reached its maximum capacity.</p>
+        <div class="roster-list" id="roster-Red"></div>
+        <button class="team-btn locked" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Team Full
+        </button>
+      </div>
+    </div>
+
+    <div class="team-card blue">
+      <div class="team-card-head">
+        <div>
+          <h3>Blue</h3>
+          <p>24/24 Members</p>
+        </div>
+        <span class="status-pill">FULL</span>
+      </div>
+      <div class="team-card-body">
+        <div class="team-icon-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>Team is full</h4>
+        <p>This team has reached its maximum capacity.</p>
+        <div class="roster-list" id="roster-Blue"></div>
+        <button class="team-btn locked" disabled>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Team Full
+        </button>
+      </div>
+    </div>
+
+    <div class="team-card green best">
+      <div class="best-badge">BEST CHOICE</div>
+      <div class="team-card-head">
+        <div>
+          <h3>Green</h3>
+          <p>23/24 Members</p>
+        </div>
+        <span class="status-pill spot">1 spot left!</span>
+      </div>
+      <div class="team-card-body">
+        <div class="team-icon-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4 id="green-title">Join Green Team</h4>
+        <p id="green-sub">Spots are limited! Be part of something great.</p>
+        <div class="roster-list" id="roster-Green"></div>
+        <button class="team-btn join" id="btn-green">
+          <span>Join Green Team</span>
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </div>
+    </div>
+
+    <div class="team-card yellow you">
+      <div class="team-card-head">
+        <div>
+          <h3>Yellow</h3>
+          <p>13/24 Members</p>
+        </div>
+        <span class="status-pill you">YOU</span>
+      </div>
+      <div class="team-card-body">
+        <div class="team-icon-circle">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+        </div>
+        <h4>&nbsp;</h4>
+        <p>&nbsp;</p>
+        <div class="roster-list" id="roster-Yellow"></div>
+        <button class="team-btn switch" id="btn-yellow">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
+          Switch to Yellow
+        </button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section-card">
+    <div class="section-heading">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
+      <div>
+        <h2>Sports Selection</h2>
+        <p>Choose which sports you want to participate in and start earning points!</p>
+      </div>
+    </div>
+
+    <div class="sports-grid">
+
+      <div class="sport-card soccer">
+        <div class="sport-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 8 15 10 14 14 10 14 9 10"/></svg>
+        </div>
+        <h3>Soccer</h3>
+        <p class="sport-count">17 participants</p>
+        <p class="sport-desc">Team football matches on the sports field</p>
+        <div class="roster-list" id="roster-sport-Soccer"></div>
+        <button class="sport-join" data-sport="Soccer">Join</button>
+      </div>
+
+      <div class="sport-card dodgeball">
+        <div class="sport-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/></svg>
+        </div>
+        <h3>Dodgeball</h3>
+        <p class="sport-count">32 participants</p>
+        <p class="sport-desc">Fast-paced team dodgeball games in the gym</p>
+        <div class="roster-list" id="roster-sport-Dodgeball"></div>
+        <button class="sport-join" data-sport="Dodgeball">Join</button>
+      </div>
+
+      <div class="sport-card chairball">
+        <div class="sport-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v8H6z"/><path d="M6 12v6a2 2 0 0 0 2 2h2"/><path d="M18 12v8"/><path d="M6 20h2"/></svg>
+        </div>
+        <h3>Chairball</h3>
+        <p class="sport-count">25 participants</p>
+        <p class="sport-desc">Unique chair-based ball game for all skill levels</p>
+        <div class="roster-list" id="roster-sport-Chairball"></div>
+        <button class="sport-join" data-sport="Chairball" disabled>Join</button>
+        <div class="sport-restriction">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+          Chairball is for girls only.
+        </div>
+      </div>
+
+      <div class="sport-card biggame">
+        <div class="sport-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+        </div>
+        <h3>Big Game</h3>
+        <p class="sport-count">47 participants</p>
+        <p class="sport-desc">Exciting large-scale team challenges</p>
+        <div class="roster-list" id="roster-sport-BigGame"></div>
+        <button class="sport-join" data-sport="Big Game">Join</button>
+      </div>
+
+      <div class="sport-card pool">
+        <div class="sport-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 12c0-1 6-1 6 0s6 1 6 0 6-1 6 0"/><path d="M2 17c0-1 6-1 6 0s6 1 6 0 6-1 6 0"/><circle cx="12" cy="6" r="3"/></svg>
+        </div>
+        <h3>Pool Time</h3>
+        <p class="sport-count">21 participants</p>
+        <p class="sport-desc">Fun and relaxing water activities</p>
+        <div class="roster-list" id="roster-sport-PoolTime"></div>
+        <button class="sport-join" data-sport="Pool Time">Join</button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="how-card">
+    <svg class="info" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    <div>
+      <h3>How it works:</h3>
+      <ul>
+        <li>Click on any sport to join or leave</li>
+        <li>You can participate in multiple sports</li>
+        <li>Changes are saved automatically</li>
+      </ul>
+    </div>
+    <div class="how-deco">
+      <svg viewBox="0 0 100 100"><path fill="#2fa84f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+      <svg viewBox="0 0 100 100"><path fill="#6c4bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+      <svg viewBox="0 0 100 100"><path fill="#f2a022" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+    </div>
+  </div>
+
+  <div class="strip">
+    <div class="strip-card">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="currentColor"><polygon points="12 2 15 8.5 22 9.3 17 14 18.5 21 12 17.5 5.5 21 7 14 2 9.3 9 8.5 12 2"/></svg>
+      </div>
+      <div>
+        <h4>Check in Daily</h4>
+        <p>Earn 10 pts</p>
+      </div>
+    </div>
+    <div class="strip-card">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+      </div>
+      <div>
+        <h4>Join Sports</h4>
+        <p>Earn 5 pts</p>
+      </div>
+    </div>
+    <div class="strip-card">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
+      </div>
+      <div>
+        <h4>Win Challenges</h4>
+        <p>Earn more points!</p>
+      </div>
+    </div>
+    <div class="strip-card">
+      <div class="strip-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="8" width="18" height="4" rx="1"/><path d="M12 8v13"/><path d="M19 12v7a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2v-7"/><path d="M7.5 8a2.5 2.5 0 0 1 0-5C11 3 12 8 12 8"/><path d="M16.5 8a2.5 2.5 0 0 0 0-5C13 3 12 8 12 8"/></svg>
+      </div>
+      <div>
+        <h4>Participate to Earn Points!</h4>
+        <p>The more you participate, the more points you earn. Help your team win!</p>
+      </div>
+    </div>
+  </div>
+
+</main>
+
+<script>
+  /* =========================================================
+     Backend connection (same Google Apps Script from before)
+     -----------------------------------------------------------
+     1. Paste your Web App URL below.
+     2. Identify the camper via ?name=...&email=... on this page's
+        own URL, e.g.:
+        sports.html?name=Fady+Nabil&email=fady@example.com
+        (Stand-in for real login — swap this out once you have one.)
+     Without SCRIPT_URL/name/email set, the page shows a banner and
+     runs in local demo mode only (nothing is saved).
+  ========================================================= */
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSFYFUTQoreOZr3eP4b6YN16nPenoiZJ8FUg0UacVWd3SRmQ3W01_PfGcBtGMC5vkgfA/exec'; // e.g. 'https://script.google.com/macros/s/XXXX/exec'
+
+  const params = new URLSearchParams(window.location.search);
+  const currentName = params.get('name') || '';
+  const currentEmail = params.get('email') || '';
+  const hasIdentity = Boolean(SCRIPT_URL && currentName && currentEmail);
+
+  if (!hasIdentity) {
+    document.getElementById('identity-banner').style.display = 'flex';
+  }
+
+  const SPORT_ROSTER_IDS = {
+    'Soccer': 'roster-sport-Soccer',
+    'Dodgeball': 'roster-sport-Dodgeball',
+    'Chairball': 'roster-sport-Chairball',
+    'Big Game': 'roster-sport-BigGame',
+    'Pool Time': 'roster-sport-PoolTime',
+  };
+
+  function renderRosterInto(elId, names) {
+    const el = document.getElementById(elId);
+    if (!el) return;
+    el.innerHTML = '';
+    if (!names || names.length === 0) return;
+    names.forEach(name => {
+      const tag = document.createElement('span');
+      tag.className = 'roster-tag';
+      tag.textContent = name;
+      el.appendChild(tag);
+    });
+  }
+
+  async function loadTeamRosters() {
+    if (!SCRIPT_URL) return;
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=getTeamRosters`);
+      const data = await res.json();
+      if (!data.success) return;
+      Object.keys(data.rosters).forEach(team => {
+        renderRosterInto(`roster-${team}`, data.rosters[team]);
+      });
+    } catch (err) {
+      console.warn('Could not load team rosters:', err);
+    }
+  }
+
+  async function loadSportRosters() {
+    if (!SCRIPT_URL) return;
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=getSportRosters`);
+      const data = await res.json();
+      if (!data.success) return;
+      Object.keys(SPORT_ROSTER_IDS).forEach(sport => {
+        renderRosterInto(SPORT_ROSTER_IDS[sport], data.rosters[sport] || []);
+      });
+      // Reflect "already joined" state on the buttons for this camper.
+      if (currentName) {
+        document.querySelectorAll('.sport-join').forEach(btn => {
+          const sport = btn.dataset.sport;
+          const roster = data.rosters[sport] || [];
+          if (roster.includes(currentName)) {
+            btn.classList.add('joined');
+            btn.textContent = 'Joined ✓';
+          }
+        });
+      }
+    } catch (err) {
+      console.warn('Could not load sport rosters:', err);
+    }
+  }
+
+  loadTeamRosters();
+  loadSportRosters();
+
+  /* ---------------- Sport join/leave ---------------- */
+  document.querySelectorAll('.sport-join').forEach(btn => {
+    if (btn.disabled) return;
+    btn.addEventListener('click', async () => {
+      const sport = btn.dataset.sport;
+      const joining = !btn.classList.contains('joined');
+
+      if (!hasIdentity) {
+        // Local-only demo behavior when there's no backend/identity configured.
+        btn.classList.toggle('joined');
+        btn.textContent = joining ? 'Joined ✓' : 'Join';
+        return;
+      }
+
+      btn.disabled = true;
+      try {
+        const res = await fetch(SCRIPT_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+          body: JSON.stringify({
+            action: joining ? 'joinSport' : 'leaveSport',
+            name: currentName,
+            email: currentEmail,
+            sport: sport,
+          }),
+        });
+        const data = await res.json();
+        if (!data.success) throw new Error(data.error || 'Could not update your sports.');
+
+        btn.classList.toggle('joined');
+        btn.textContent = joining ? 'Joined ✓' : 'Join';
+        loadSportRosters();
+      } catch (err) {
+        alert(err.message);
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  });
+
+  /* ---------------- Team switching ---------------- */
+  let switchesRemaining = 3; // local fallback display when no backend is connected
+  const switchesLabel = document.getElementById('switches-remaining');
+
+  async function requestJoinTeam(team) {
+    if (!hasIdentity) {
+      // Local-only demo behavior.
+      if (switchesRemaining <= 0) {
+        alert("You've used all your team switches for this camp.");
+        return;
+      }
+      switchesRemaining--;
+      switchesLabel.textContent = `${switchesRemaining} switch${switchesRemaining === 1 ? '' : 'es'} remaining`;
+      alert(`You've joined the ${team} Team! 🎉 (demo mode — connect the backend to save this)`);
+      return;
+    }
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'joinTeam', name: currentName, email: currentEmail, team: team }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Could not join that team.');
+
+      if (typeof data.switchesRemaining === 'number') {
+        switchesLabel.textContent = `${data.switchesRemaining} switch${data.switchesRemaining === 1 ? '' : 'es'} remaining`;
+      }
+      alert(`You've joined the ${team} Team! 🎉`);
+      loadTeamRosters();
+    } catch (err) {
+      alert(err.message);
+    }
+  }
+
+  document.getElementById('btn-green').addEventListener('click', () => requestJoinTeam('Green'));
+  document.getElementById('btn-yellow').addEventListener('click', () => {
+    if (!hasIdentity) {
+      alert("You're already on the Yellow Team.");
+      return;
+    }
+    requestJoinTeam('Yellow');
+  });
+</script>
+
+<script src="page-transitions.js"></script>
+</body>
+</html>

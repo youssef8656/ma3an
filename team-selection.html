@@ -1,0 +1,463 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Choose Your Team — MA3AN Camp Teams</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --card-shadow: 0 20px 40px -18px rgba(15,61,62,0.18);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--cream);
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+    min-height:100vh;
+    position:relative;
+    overflow-x:hidden;
+  }
+
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ TOP BAR ============ */
+  .topbar{
+    position:relative;
+    z-index:20;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:26px 40px 0;
+  }
+  .back-link{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:700;
+    font-size:16px;
+  }
+  .back-link svg{width:20px; height:20px;}
+  .back-link:hover{color:var(--teal);}
+
+  .btn-signin-top{
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+    background:var(--green);
+    color:#fff;
+    border:none;
+    padding:12px 22px;
+    border-radius:999px;
+    font-weight:700;
+    font-size:15px;
+    font-family:'Nunito', sans-serif;
+    cursor:pointer;
+    text-decoration:none;
+    box-shadow:0 10px 20px -8px rgba(47,168,79,0.55);
+    transition:transform .15s ease;
+  }
+  .btn-signin-top:hover{ transform:translateY(-2px); }
+  .btn-signin-top svg{ width:16px; height:16px; }
+
+  /* ============ DECORATION ============ */
+  .deco-piece{
+    position:absolute;
+    filter:drop-shadow(0 12px 18px rgba(0,0,0,0.08));
+    z-index:1;
+  }
+  .dot{ position:absolute; border-radius:50%; }
+  .dotgrid{
+    position:absolute;
+    display:grid;
+    grid-template-columns:repeat(5, 10px);
+    gap:12px;
+  }
+  .dotgrid span{
+    width:6px; height:6px; border-radius:50%;
+    background:rgba(30,142,130,0.28);
+  }
+  .spark{ position:absolute; }
+
+  @media (prefers-reduced-motion: no-preference){
+    .float{ animation:float 6s ease-in-out infinite; }
+    @keyframes float{
+      0%,100%{transform:translateY(0px);}
+      50%{transform:translateY(-14px);}
+    }
+  }
+
+  /* ============ MAIN CONTENT ============ */
+  main{
+    position:relative;
+    z-index:5;
+    max-width:700px;
+    margin:0 auto;
+    padding:6px 20px 100px;
+    text-align:center;
+  }
+
+  .icon-badge{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    margin:0 auto 6px;
+  }
+  .icon-badge svg{ width:36px; height:36px; color:var(--orange); }
+
+  h1.wordmark{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(44px, 8vw, 68px);
+    letter-spacing:1px;
+    margin:0 0 8px;
+  }
+  .wordmark .c1{color:var(--orange);}
+  .wordmark .c2{color:var(--blue);}
+  .wordmark .c3{color:var(--green);}
+  .wordmark .c4{color:var(--purple);}
+  .wordmark .c5{color:var(--red);}
+
+  h2.page-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:clamp(26px, 4vw, 34px);
+    color:var(--teal);
+    margin:0 0 8px;
+  }
+
+  .page-subtitle{
+    font-size:16px;
+    font-weight:700;
+    color:#5c6e6e;
+    margin:0 0 28px;
+  }
+
+  .card{
+    background:#fff;
+    border-radius:22px;
+    box-shadow:var(--card-shadow);
+    padding:30px 34px 28px;
+    text-align:left;
+  }
+
+  .card-heading{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    margin-bottom:20px;
+  }
+  .card-heading svg{ width:22px; height:22px; color:var(--green); }
+  .card-heading h3{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    color:var(--ink);
+    margin:0;
+  }
+
+  .team-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
+    margin-bottom:24px;
+  }
+
+  .team-option{
+    position:relative;
+    display:block;
+    border-radius:16px;
+    border:1.5px solid #d9dbd2;
+    padding:26px 18px 22px;
+    text-align:center;
+    cursor:pointer;
+    transition:border-color .15s ease, background .15s ease, transform .1s ease;
+  }
+  .team-option input{
+    position:absolute;
+    opacity:0;
+    pointer-events:none;
+  }
+  .team-radio{
+    position:absolute;
+    top:14px;
+    right:14px;
+    width:20px;
+    height:20px;
+    border-radius:50%;
+    border:2px solid;
+    background:#fff;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .team-radio::after{
+    content:"";
+    width:10px;
+    height:10px;
+    border-radius:50%;
+    background:transparent;
+  }
+  .team-option input:checked ~ .team-radio::after{
+    background:currentColor;
+  }
+  .team-dot{
+    width:56px;
+    height:56px;
+    border-radius:50%;
+    margin:0 auto 14px;
+  }
+  .team-name{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:17px;
+  }
+
+  .team-option.red{ background:#fdeceb; border-color:#f4c3bd; color:var(--red); }
+  .team-option.blue{ background:#eaf2fb; border-color:#c3d9f2; color:var(--blue); }
+  .team-option.green{ background:#eaf7ee; border-color:#bfe3cb; color:var(--green); }
+  .team-option.yellow{ background:#fdf3df; border-color:#f2ddab; color:var(--orange); }
+
+  .team-option.red .team-dot{ background:var(--red); }
+  .team-option.blue .team-dot{ background:var(--blue); }
+  .team-option.green .team-dot{ background:var(--green); }
+  .team-option.yellow .team-dot{ background:var(--orange); }
+
+  .team-option.selected{
+    transform:translateY(-2px);
+    box-shadow:0 12px 22px -12px rgba(15,61,62,0.35);
+  }
+  .team-option.red.selected{ border-color:var(--red); border-width:2px; }
+  .team-option.blue.selected{ border-color:var(--blue); border-width:2px; }
+  .team-option.green.selected{ border-color:var(--green); border-width:2px; }
+  .team-option.yellow.selected{ border-color:var(--orange); border-width:2px; }
+
+  .btn-continue{
+    width:100%;
+    background:var(--teal);
+    color:#fff;
+    border:none;
+    padding:17px 20px;
+    border-radius:12px;
+    font-family:'Nunito', sans-serif;
+    font-weight:800;
+    font-size:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:10px;
+    cursor:pointer;
+    box-shadow:0 14px 26px -10px rgba(30,142,130,0.5);
+    transition:transform .15s ease, box-shadow .15s ease, opacity .15s ease;
+  }
+  .btn-continue svg{ width:20px; height:20px; }
+  .btn-continue:hover:not(:disabled){ transform:translateY(-2px); }
+  .btn-continue:disabled{
+    background:#1e8e82;
+    opacity:0.45;
+    cursor:not-allowed;
+    box-shadow:none;
+    transform:none;
+  }
+
+  .helper-note{
+    margin:18px 0 0;
+    font-size:14.5px;
+    font-weight:700;
+    color:#5c6e6e;
+  }
+
+  .ground{
+    position:absolute;
+    bottom:0; left:0; right:0;
+    height:260px;
+    z-index:0;
+    pointer-events:none;
+  }
+
+  :focus-visible{
+    outline:3px solid var(--teal);
+    outline-offset:3px;
+  }
+
+  @media (max-width:640px){
+    .team-grid{ grid-template-columns:1fr; }
+    .card{ padding:24px 20px; }
+    .topbar{ padding:20px 20px 0; }
+    .deco-piece{ display:none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <a href="index.html" class="back-link">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+    Back to Home
+  </a>
+  <a href="#" class="btn-signin-top">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Sign in
+  </a>
+</div>
+
+<!-- decorative puzzle pieces -->
+<svg class="deco-piece float" style="top:90px; left:-40px; width:230px;" viewBox="0 0 100 100"><path fill="#f2a022" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="top:210px; left:-90px; width:180px;" viewBox="0 0 100 100"><path fill="#e8562f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece float" style="top:60px; right:-60px; width:250px;" viewBox="0 0 100 100"><path fill="#6c4bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="top:220px; right:-70px; width:190px;" viewBox="0 0 100 100"><path fill="#2fa84f" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece float" style="bottom:180px; left:-40px; width:210px;" viewBox="0 0 100 100"><path fill="#1e8e82" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<svg class="deco-piece" style="bottom:120px; left:130px; width:120px;" viewBox="0 0 100 100"><path fill="#2f7bd6" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
+
+<!-- sparks -->
+<svg class="spark" style="top:135px; left:36%; width:26px;" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#2f7bd6"/></svg>
+<svg class="spark" style="top:135px; right:36%; width:26px;" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#6c4bd6"/></svg>
+<svg class="spark" style="top:250px; right:22%; width:20px; opacity:.8" viewBox="0 0 40 40"><path d="M20 2 L24 16 L38 20 L24 24 L20 38 L16 24 L2 20 L16 16 Z" fill="#1e8e82"/></svg>
+
+<!-- small dots -->
+<div class="dot" style="top:360px; left:200px; width:10px; height:10px; background:#6c4bd6;"></div>
+<div class="dot" style="top:430px; left:242px; width:14px; height:14px; background:#2fa84f;"></div>
+<div class="dot" style="top:500px; right:265px; width:12px; height:12px; background:#2fa84f;"></div>
+<div class="dot" style="top:540px; right:200px; width:14px; height:14px; background:#2f7bd6;"></div>
+
+<div class="dotgrid" style="top:440px; left:100px;">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+<div class="dotgrid" style="top:440px; right:100px;">
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+  <span></span><span></span><span></span><span></span><span></span>
+</div>
+
+<main>
+  <div class="icon-badge">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+  </div>
+
+  <h1 class="wordmark">
+    <span class="c1">M</span><span class="c2">A</span><span class="c3">3</span><span class="c4">A</span><span class="c5">N</span>
+  </h1>
+
+  <h2 class="page-title" id="welcome-title">Welcome, Camper! 👋</h2>
+  <p class="page-subtitle">Let's start your journey at camp MA3AN</p>
+
+  <div class="card">
+    <div class="card-heading">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      <h3>Choose Your Team</h3>
+    </div>
+
+    <form id="team-form">
+      <div class="team-grid">
+        <label class="team-option red" for="team-red">
+          <input type="radio" name="team" id="team-red" value="red">
+          <span class="team-radio"></span>
+          <span class="team-dot"></span>
+          <span class="team-name">Red</span>
+        </label>
+
+        <label class="team-option blue" for="team-blue">
+          <input type="radio" name="team" id="team-blue" value="blue">
+          <span class="team-radio"></span>
+          <span class="team-dot"></span>
+          <span class="team-name">Blue</span>
+        </label>
+
+        <label class="team-option green" for="team-green">
+          <input type="radio" name="team" id="team-green" value="green">
+          <span class="team-radio"></span>
+          <span class="team-dot"></span>
+          <span class="team-name">Green</span>
+        </label>
+
+        <label class="team-option yellow" for="team-yellow">
+          <input type="radio" name="team" id="team-yellow" value="yellow">
+          <span class="team-radio"></span>
+          <span class="team-dot"></span>
+          <span class="team-name">Yellow</span>
+        </label>
+      </div>
+
+      <button type="submit" class="btn-continue" id="btn-continue" disabled>
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+        Continue
+      </button>
+    </form>
+
+    <p class="helper-note">You can edit it later in your profile 💚</p>
+  </div>
+</main>
+
+<div class="ground">
+  <svg viewBox="0 0 1440 260" preserveAspectRatio="none" style="position:absolute; bottom:0; left:0; width:100%; height:100%;">
+    <path d="M0 140 C 200 60, 400 60, 620 130 C 850 200, 1050 90, 1440 150 L1440 260 L0 260 Z" fill="#2fa84f" opacity="0.85"/>
+    <path d="M0 180 C 250 120, 500 200, 760 150 C 1000 105, 1200 200, 1440 170 L1440 260 L0 260 Z" fill="#f2a022" opacity="0.9"/>
+    <path d="M900 260 C 950 150, 1150 150, 1200 260 Z" fill="#1e8e82"/>
+  </svg>
+</div>
+
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
+<script>
+  const _session = window.MA3AN.requireLogin();
+
+  const teamRadios = document.querySelectorAll('input[name="team"]');
+  const teamOptions = document.querySelectorAll('.team-option');
+  const continueBtn = document.getElementById('btn-continue');
+
+  teamRadios.forEach(radio => {
+    radio.addEventListener('change', () => {
+      teamOptions.forEach(opt => opt.classList.remove('selected'));
+      if (radio.checked){
+        radio.closest('.team-option').classList.add('selected');
+      }
+      continueBtn.disabled = !Array.from(teamRadios).some(r => r.checked);
+    });
+  });
+
+  document.getElementById('team-form').addEventListener('submit', async function(e){
+    e.preventDefault();
+    if (continueBtn.disabled || !_session) return;
+
+    const chosen = Array.from(teamRadios).find(r => r.checked);
+    const team = chosen.value.charAt(0).toUpperCase() + chosen.value.slice(1); // 'red' -> 'Red'
+
+    continueBtn.disabled = true;
+    continueBtn.textContent = 'Continuing…';
+
+    const res = await window.MA3AN.joinTeam(team);
+
+    if (!res.success) {
+      alert(res.error || 'Could not join that team.');
+      continueBtn.disabled = false;
+      continueBtn.textContent = 'Continue';
+      return;
+    }
+
+    window.location.href = window.MA3AN_buildUrl('Home.html');
+  });
+</script>
+
+</body>
+</html>
