@@ -240,7 +240,7 @@
 </head>
 <body>
 
-<a href="index.html" class="back-link">
+<a href="../index.html" class="back-link">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
   Back to Home
 </a>
@@ -350,20 +350,31 @@
     btn.disabled = true;
     btn.textContent = 'Creating your account…';
 
-    const res = await window.MA3AN.register({ email, password, fullName });
+    try {
+      if (typeof window.MA3AN === 'undefined') {
+        throw new Error('ma3an-data.js did not load (check the browser console/network tab for a 404).');
+      }
 
-    if (res.success) {
-      window.location.href = window.MA3AN_buildUrl('/camp-registration.html', { email: res.profile.email, name: res.profile.fullName });
-    } else {
+      const res = await window.MA3AN.register({ email, password, fullName });
+      console.log('register response:', res);
+
+      if (res && res.success && res.profile && res.profile.email) {
+        window.location.href = window.MA3AN_buildUrl('../camp-registration.html', { email: res.profile.email, name: res.profile.fullName });
+        return; // leave button disabled — we're navigating away
+      }
+
+      throw new Error((res && res.error) || 'Something went wrong. Please try again.');
+    } catch (err) {
+      console.error('Registration failed:', err);
       btn.disabled = false;
       btn.textContent = 'Create Account';
-      errorBox.textContent = res.error || 'Something went wrong. Please try again.';
+      errorBox.textContent = err.message;
       errorBox.style.display = 'block';
     }
   });
 </script>
 
-<script src="/page-transitions.js"></script>
-<script src="/ma3an-data.js"></script>
+<script src="../page-transitions.js"></script>
+<script src="../ma3an-data.js"></script>
 </body>
 </html>
