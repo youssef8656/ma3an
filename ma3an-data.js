@@ -45,6 +45,10 @@
   const CAMP_START = new Date('2026-08-20T09:00:00');
   const CAMP_END = new Date('2026-08-24T17:00:00');
   const CAMP_DATE_LABEL = 'Aug 20 - Aug 24, 2026';
+
+  // Max members per team, used only for the "FULL" / "N spots left"
+  // display on sports.html — not enforced by the backend.
+  const TEAM_CAPACITY = 24;
   // ---------------------------------------------------------------------
 
   const SESSION_KEY = 'ma3an_session';
@@ -248,6 +252,8 @@
   global.MA3AN = {
     // camp dates
     CAMP_START, CAMP_END, CAMP_DATE_LABEL,
+    // team display config
+    TEAM_CAPACITY,
     // session
     getSession, setSession, clearSession, isLoggedIn, requireLogin, logout,
     // auth

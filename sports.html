@@ -591,26 +591,9 @@
   </nav>
 
   <div class="topnav-right">
-    <button class="icon-btn" aria-label="Light mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Dark mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Notifications">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Messages">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-    </button>
-    <div class="lang-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      العربية EG
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
     <div class="profile-pill">
-      <div class="profile-avatar">NN</div>
-      Yellow
+      <div class="profile-avatar" id="nav-avatar">NN</div>
+      <span id="nav-team">—</span>
       <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
     </div>
   </div>
@@ -620,7 +603,7 @@
 
   <div class="identity-banner" id="identity-banner" style="display:none;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-    <span>Open this page as <code>sports.html?name=Your+Name&email=you@example.com</code> so your name is saved with your team &amp; sports. Showing demo data for now.</span>
+    <span>You need to be signed in to join a team or sport. <a href="/auth/login.html">Sign in</a> to continue.</span>
   </div>
 
   <div class="page-header">
@@ -645,89 +628,89 @@
 
   <div class="team-grid">
 
-    <div class="team-card red">
+    <div class="team-card red" data-team="Red">
       <div class="team-card-head">
         <div>
           <h3>Red</h3>
-          <p>24/24 Members</p>
+          <p id="count-Red">0/24 Members</p>
         </div>
-        <span class="status-pill">FULL</span>
+        <span class="status-pill" id="pill-Red">FULL</span>
       </div>
       <div class="team-card-body">
         <div class="team-icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h4>Team is full</h4>
-        <p>This team has reached its maximum capacity.</p>
+        <h4 id="title-Red">&nbsp;</h4>
+        <p id="sub-Red">&nbsp;</p>
         <div class="roster-list" id="roster-Red"></div>
-        <button class="team-btn locked" disabled>
+        <button class="team-btn locked" id="btn-Red" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Team Full
         </button>
       </div>
     </div>
 
-    <div class="team-card blue">
+    <div class="team-card blue" data-team="Blue">
       <div class="team-card-head">
         <div>
           <h3>Blue</h3>
-          <p>24/24 Members</p>
+          <p id="count-Blue">0/24 Members</p>
         </div>
-        <span class="status-pill">FULL</span>
+        <span class="status-pill" id="pill-Blue">FULL</span>
       </div>
       <div class="team-card-body">
         <div class="team-icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h4>Team is full</h4>
-        <p>This team has reached its maximum capacity.</p>
+        <h4 id="title-Blue">&nbsp;</h4>
+        <p id="sub-Blue">&nbsp;</p>
         <div class="roster-list" id="roster-Blue"></div>
-        <button class="team-btn locked" disabled>
+        <button class="team-btn locked" id="btn-Blue" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Team Full
         </button>
       </div>
     </div>
 
-    <div class="team-card green best">
-      <div class="best-badge">BEST CHOICE</div>
+    <div class="team-card green" id="card-Green" data-team="Green">
+      <div class="best-badge" id="best-badge" style="display:none;">BEST CHOICE</div>
       <div class="team-card-head">
         <div>
           <h3>Green</h3>
-          <p>23/24 Members</p>
+          <p id="count-Green">0/24 Members</p>
         </div>
-        <span class="status-pill spot">1 spot left!</span>
+        <span class="status-pill" id="pill-Green">&nbsp;</span>
       </div>
       <div class="team-card-body">
         <div class="team-icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h4 id="green-title">Join Green Team</h4>
-        <p id="green-sub">Spots are limited! Be part of something great.</p>
+        <h4 id="title-Green">&nbsp;</h4>
+        <p id="sub-Green">&nbsp;</p>
         <div class="roster-list" id="roster-Green"></div>
-        <button class="team-btn join" id="btn-green">
+        <button class="team-btn join" id="btn-Green">
           <span>Join Green Team</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </div>
     </div>
 
-    <div class="team-card yellow you">
+    <div class="team-card yellow" id="card-Yellow" data-team="Yellow">
       <div class="team-card-head">
         <div>
           <h3>Yellow</h3>
-          <p>13/24 Members</p>
+          <p id="count-Yellow">0/24 Members</p>
         </div>
-        <span class="status-pill you">YOU</span>
+        <span class="status-pill" id="pill-Yellow">&nbsp;</span>
       </div>
       <div class="team-card-body">
         <div class="team-icon-circle">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         </div>
-        <h4>&nbsp;</h4>
-        <p>&nbsp;</p>
+        <h4 id="title-Yellow">&nbsp;</h4>
+        <p id="sub-Yellow">&nbsp;</p>
         <div class="roster-list" id="roster-Yellow"></div>
-        <button class="team-btn switch" id="btn-yellow">
+        <button class="team-btn switch" id="btn-Yellow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
           Switch to Yellow
         </button>
@@ -752,7 +735,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polygon points="12 8 15 10 14 14 10 14 9 10"/></svg>
         </div>
         <h3>Soccer</h3>
-        <p class="sport-count">17 participants</p>
+        <p class="sport-count" id="sport-count-Soccer">0 participants</p>
         <p class="sport-desc">Team football matches on the sports field</p>
         <div class="roster-list" id="roster-sport-Soccer"></div>
         <button class="sport-join" data-sport="Soccer">Join</button>
@@ -763,7 +746,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 2a10 10 0 0 1 0 20"/></svg>
         </div>
         <h3>Dodgeball</h3>
-        <p class="sport-count">32 participants</p>
+        <p class="sport-count" id="sport-count-Dodgeball">0 participants</p>
         <p class="sport-desc">Fast-paced team dodgeball games in the gym</p>
         <div class="roster-list" id="roster-sport-Dodgeball"></div>
         <button class="sport-join" data-sport="Dodgeball">Join</button>
@@ -774,14 +757,15 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 4h12v8H6z"/><path d="M6 12v6a2 2 0 0 0 2 2h2"/><path d="M18 12v8"/><path d="M6 20h2"/></svg>
         </div>
         <h3>Chairball</h3>
-        <p class="sport-count">25 participants</p>
+        <p class="sport-count" id="sport-count-Chairball">0 participants</p>
         <p class="sport-desc">Unique chair-based ball game for all skill levels</p>
         <div class="roster-list" id="roster-sport-Chairball"></div>
-        <button class="sport-join" data-sport="Chairball" disabled>Join</button>
         <div class="sport-restriction">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Chairball is for girls only.
         </div>
+        <br>
+        <button class="sport-join" data-sport="Chairball" data-locked disabled>Join</button>
       </div>
 
       <div class="sport-card biggame">
@@ -789,7 +773,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
         </div>
         <h3>Big Game</h3>
-        <p class="sport-count">47 participants</p>
+        <p class="sport-count" id="sport-count-BigGame">0 participants</p>
         <p class="sport-desc">Exciting large-scale team challenges</p>
         <div class="roster-list" id="roster-sport-BigGame"></div>
         <button class="sport-join" data-sport="Big Game">Join</button>
@@ -800,7 +784,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12h20"/><path d="M2 12c0-1 6-1 6 0s6 1 6 0 6-1 6 0"/><path d="M2 17c0-1 6-1 6 0s6 1 6 0 6-1 6 0"/><circle cx="12" cy="6" r="3"/></svg>
         </div>
         <h3>Pool Time</h3>
-        <p class="sport-count">21 participants</p>
+        <p class="sport-count" id="sport-count-PoolTime">0 participants</p>
         <p class="sport-desc">Fun and relaxing water activities</p>
         <div class="roster-list" id="roster-sport-PoolTime"></div>
         <button class="sport-join" data-sport="Pool Time">Join</button>
@@ -867,43 +851,30 @@
 
 </main>
 
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
 <script>
-  /* =========================================================
-     Backend connection (same Google Apps Script from before)
-     -----------------------------------------------------------
-     1. Paste your Web App URL below.
-     2. Identify the camper via ?name=...&email=... on this page's
-        own URL, e.g.:
-        sports.html?name=Fady+Nabil&email=fady@example.com
-        (Stand-in for real login — swap this out once you have one.)
-     Without SCRIPT_URL/name/email set, the page shows a banner and
-     runs in local demo mode only (nothing is saved).
-  ========================================================= */
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSFYFUTQoreOZr3eP4b6YN16nPenoiZJ8FUg0UacVWd3SRmQ3W01_PfGcBtGMC5vkgfA/exec'; // e.g. 'https://script.google.com/macros/s/XXXX/exec'
+  const TEAMS = ['Red', 'Blue', 'Green', 'Yellow'];
+  const GAMES = ['Soccer', 'Dodgeball', 'Chairball', 'Big Game', 'Pool Time'];
+  const GAME_DOM_KEY = { 'Soccer':'Soccer', 'Dodgeball':'Dodgeball', 'Chairball':'Chairball', 'Big Game':'BigGame', 'Pool Time':'PoolTime' };
+  const CAPACITY = window.MA3AN.TEAM_CAPACITY;
 
-  const params = new URLSearchParams(window.location.search);
-  const currentName = params.get('name') || '';
-  const currentEmail = params.get('email') || '';
-  const hasIdentity = Boolean(SCRIPT_URL && currentName && currentEmail);
-
-  if (!hasIdentity) {
-    document.getElementById('identity-banner').style.display = 'flex';
+  const session = window.MA3AN.requireLogin();
+  if (!session) {
+    // requireLogin() already redirected to login.html; stop here.
+    throw new Error('Not logged in — redirecting.');
   }
 
-  const SPORT_ROSTER_IDS = {
-    'Soccer': 'roster-sport-Soccer',
-    'Dodgeball': 'roster-sport-Dodgeball',
-    'Chairball': 'roster-sport-Chairball',
-    'Big Game': 'roster-sport-BigGame',
-    'Pool Time': 'roster-sport-PoolTime',
-  };
+  document.getElementById('identity-banner').style.display = 'none';
+  document.getElementById('nav-avatar').textContent =
+    (session.fullName || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  document.getElementById('nav-team').textContent = session.team || 'No team yet';
 
   function renderRosterInto(elId, names) {
     const el = document.getElementById(elId);
     if (!el) return;
     el.innerHTML = '';
-    if (!names || names.length === 0) return;
-    names.forEach(name => {
+    (names || []).forEach(name => {
       const tag = document.createElement('span');
       tag.className = 'roster-tag';
       tag.textContent = name;
@@ -911,134 +882,183 @@
     });
   }
 
-  async function loadTeamRosters() {
-    if (!SCRIPT_URL) return;
-    try {
-      const res = await fetch(`${SCRIPT_URL}?action=getTeamRosters`);
-      const data = await res.json();
-      if (!data.success) return;
-      Object.keys(data.rosters).forEach(team => {
-        renderRosterInto(`roster-${team}`, data.rosters[team]);
-      });
-    } catch (err) {
-      console.warn('Could not load team rosters:', err);
-    }
-  }
+  /** Redraws all four team cards, the tally strip, and the switches count from fresh data. */
+  function renderTeams(pub, mySession) {
+    const rosters = pub.teamRosters || {};
+    const myTeam = mySession.team || '';
 
-  async function loadSportRosters() {
-    if (!SCRIPT_URL) return;
-    try {
-      const res = await fetch(`${SCRIPT_URL}?action=getSportRosters`);
-      const data = await res.json();
-      if (!data.success) return;
-      Object.keys(SPORT_ROSTER_IDS).forEach(sport => {
-        renderRosterInto(SPORT_ROSTER_IDS[sport], data.rosters[sport] || []);
-      });
-      // Reflect "already joined" state on the buttons for this camper.
-      if (currentName) {
-        document.querySelectorAll('.sport-join').forEach(btn => {
-          const sport = btn.dataset.sport;
-          const roster = data.rosters[sport] || [];
-          if (roster.includes(currentName)) {
-            btn.classList.add('joined');
-            btn.textContent = 'Joined ✓';
-          }
-        });
+    // Which non-full team currently has the fewest members? That one gets the "BEST CHOICE" badge.
+    const candidates = TEAMS.filter(t => t !== myTeam && (rosters[t] || []).length < CAPACITY);
+    let bestTeam = null;
+    candidates.forEach(t => {
+      if (bestTeam === null || (rosters[t] || []).length < (rosters[bestTeam] || []).length) bestTeam = t;
+    });
+
+    TEAMS.forEach(team => {
+      const members = rosters[team] || [];
+      const count = members.length;
+      const isFull = count >= CAPACITY;
+      const isMine = team === myTeam;
+      const isBest = team === bestTeam;
+
+      document.getElementById(`count-${team}`).textContent = `${count}/${CAPACITY} Members`;
+      document.getElementById(`tally-${team.toLowerCase()}`).textContent =
+        isFull ? `${count}/${CAPACITY} FULL` : `${count}/${CAPACITY}`;
+      renderRosterInto(`roster-${team}`, members);
+
+      const pill = document.getElementById(`pill-${team}`);
+      const title = document.getElementById(`title-${team}`);
+      const sub = document.getElementById(`sub-${team}`);
+      const btn = document.getElementById(`btn-${team}`);
+      const card = document.querySelector(`.team-card[data-team="${team}"]`);
+
+      card.classList.toggle('you', isMine);
+      card.classList.toggle('best', isBest);
+
+      if (isMine) {
+        pill.className = 'status-pill you';
+        pill.textContent = 'YOU';
+        title.textContent = 'This is your team!';
+        sub.textContent = `You're one of ${count} campers on Team ${team}.`;
+        btn.className = 'team-btn locked';
+        btn.disabled = true;
+        btn.innerHTML = 'Your Team';
+      } else if (isFull) {
+        pill.className = 'status-pill';
+        pill.textContent = 'FULL';
+        title.textContent = 'Team is full';
+        sub.textContent = 'This team has reached its maximum capacity.';
+        btn.className = 'team-btn locked';
+        btn.disabled = true;
+        btn.innerHTML =
+          '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Team Full';
+      } else {
+        const spotsLeft = CAPACITY - count;
+        pill.className = 'status-pill spot';
+        pill.textContent = spotsLeft <= 3 ? `${spotsLeft} spot${spotsLeft === 1 ? '' : 's'} left!` : 'Open';
+        title.textContent = myTeam ? `Switch to ${team}` : `Join ${team} Team`;
+        sub.textContent = isBest ? 'Spots are limited! Be part of something great.' : 'Spots available.';
+        btn.disabled = false;
+        if (myTeam) {
+          btn.className = 'team-btn switch';
+          btn.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg> Switch to ' + team;
+        } else {
+          btn.className = 'team-btn join';
+          btn.innerHTML = `<span>Join ${team} Team</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+        }
       }
-    } catch (err) {
-      console.warn('Could not load sport rosters:', err);
+    });
+
+    // Move the "BEST CHOICE" badge onto whichever card earned it this render.
+    const badge = document.getElementById('best-badge');
+    if (bestTeam) {
+      document.getElementById(`card-${bestTeam}`).prepend(badge);
+      badge.style.display = 'block';
+    } else {
+      badge.style.display = 'none';
     }
+
+    const switches = typeof mySession.switchesRemaining === 'number' ? mySession.switchesRemaining : 3;
+    document.getElementById('switches-remaining').textContent =
+      `${switches} switch${switches === 1 ? '' : 'es'} remaining`;
   }
 
-  loadTeamRosters();
-  loadSportRosters();
+  function renderGames(pub, mySession) {
+    const rosters = pub.gameRosters || {};
+    GAMES.forEach(game => {
+      const domKey = GAME_DOM_KEY[game];
+      const members = rosters[game] || [];
+      document.getElementById(`sport-count-${domKey}`).textContent =
+        `${members.length} participant${members.length === 1 ? '' : 's'}`;
+      renderRosterInto(`roster-sport-${domKey}`, members);
+
+      const btn = document.querySelector(`.sport-join[data-sport="${game}"]`);
+      if (!btn || btn.hasAttribute('data-locked')) return; // e.g. Chairball's girls-only restriction
+      const joined = members.includes(mySession.fullName);
+      btn.classList.toggle('joined', joined);
+      btn.textContent = joined ? 'Joined ✓' : 'Join';
+    });
+  }
+
+  async function loadEverything(forceRefresh) {
+    const pub = await window.MA3AN.getPublicData(forceRefresh);
+    if (!pub || pub.success === false) {
+      console.warn('Could not load team/sport data:', pub && pub.error);
+      return;
+    }
+    renderTeams(pub, window.MA3AN.getSession());
+    renderGames(pub, window.MA3AN.getSession());
+  }
+
+  loadEverything();
 
   /* ---------------- Sport join/leave ---------------- */
   document.querySelectorAll('.sport-join').forEach(btn => {
-    if (btn.disabled) return;
+    if (btn.hasAttribute('data-locked')) return; // Chairball stays girls-only, never wired up
     btn.addEventListener('click', async () => {
       const sport = btn.dataset.sport;
       const joining = !btn.classList.contains('joined');
 
-      if (!hasIdentity) {
-        // Local-only demo behavior when there's no backend/identity configured.
-        btn.classList.toggle('joined');
-        btn.textContent = joining ? 'Joined ✓' : 'Join';
+      btn.disabled = true;
+      const res = joining ? await window.MA3AN.joinGame(sport) : await window.MA3AN.leaveGame(sport);
+      btn.disabled = false;
+
+      if (!res.success) {
+        alert(res.error || 'Could not update your sports.');
         return;
       }
 
-      btn.disabled = true;
-      try {
-        const res = await fetch(SCRIPT_URL, {
-          method: 'POST',
-          headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-          body: JSON.stringify({
-            action: joining ? 'joinSport' : 'leaveSport',
-            name: currentName,
-            email: currentEmail,
-            sport: sport,
-          }),
-        });
-        const data = await res.json();
-        if (!data.success) throw new Error(data.error || 'Could not update your sports.');
+      // The write is already confirmed successful at this point, so reflect
+      // it right away rather than waiting on a fresh GET (which can
+      // occasionally hiccup on Apps Script's end and return a non-JSON
+      // response — that shouldn't make a *successful* join look like it failed).
+      btn.classList.toggle('joined', joining);
+      btn.textContent = joining ? 'Joined ✓' : 'Join';
 
-        btn.classList.toggle('joined');
-        btn.textContent = joining ? 'Joined ✓' : 'Join';
-        loadSportRosters();
-      } catch (err) {
-        alert(err.message);
-      } finally {
-        btn.disabled = false;
+      const domKey = GAME_DOM_KEY[sport];
+      const countEl = document.getElementById(`sport-count-${domKey}`);
+      const currentCount = parseInt(countEl.textContent, 10) || 0;
+      const newCount = Math.max(0, currentCount + (joining ? 1 : -1));
+      countEl.textContent = `${newCount} participant${newCount === 1 ? '' : 's'}`;
+
+      const rosterEl = document.getElementById(`roster-sport-${domKey}`);
+      const myName = session.fullName;
+      if (joining) {
+        const tag = document.createElement('span');
+        tag.className = 'roster-tag';
+        tag.textContent = myName;
+        rosterEl.appendChild(tag);
+      } else {
+        Array.from(rosterEl.children).forEach(tag => {
+          if (tag.textContent === myName) tag.remove();
+        });
       }
+
+      // Refresh counts/rosters in the background; if this particular call
+      // flakes, everything above still correctly shows what just happened.
+      loadEverything(true).catch(err => console.warn('Background refresh failed:', err));
     });
   });
 
-  /* ---------------- Team switching ---------------- */
-  let switchesRemaining = 3; // local fallback display when no backend is connected
-  const switchesLabel = document.getElementById('switches-remaining');
+  /* ---------------- Team join/switch ---------------- */
+  TEAMS.forEach(team => {
+    document.getElementById(`btn-${team}`).addEventListener('click', async () => {
+      const btn = document.getElementById(`btn-${team}`);
+      if (btn.disabled) return;
+      btn.disabled = true;
 
-  async function requestJoinTeam(team) {
-    if (!hasIdentity) {
-      // Local-only demo behavior.
-      if (switchesRemaining <= 0) {
-        alert("You've used all your team switches for this camp.");
+      const res = await window.MA3AN.joinTeam(team);
+      btn.disabled = false;
+
+      if (!res.success) {
+        alert(res.error || 'Could not join that team.');
         return;
       }
-      switchesRemaining--;
-      switchesLabel.textContent = `${switchesRemaining} switch${switchesRemaining === 1 ? '' : 'es'} remaining`;
-      alert(`You've joined the ${team} Team! 🎉 (demo mode — connect the backend to save this)`);
-      return;
-    }
-
-    try {
-      const res = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({ action: 'joinTeam', name: currentName, email: currentEmail, team: team }),
-      });
-      const data = await res.json();
-      if (!data.success) throw new Error(data.error || 'Could not join that team.');
-
-      if (typeof data.switchesRemaining === 'number') {
-        switchesLabel.textContent = `${data.switchesRemaining} switch${data.switchesRemaining === 1 ? '' : 'es'} remaining`;
-      }
       alert(`You've joined the ${team} Team! 🎉`);
-      loadTeamRosters();
-    } catch (err) {
-      alert(err.message);
-    }
-  }
-
-  document.getElementById('btn-green').addEventListener('click', () => requestJoinTeam('Green'));
-  document.getElementById('btn-yellow').addEventListener('click', () => {
-    if (!hasIdentity) {
-      alert("You're already on the Yellow Team.");
-      return;
-    }
-    requestJoinTeam('Yellow');
+      loadEverything(true);
+    });
   });
 </script>
-
-<script src="page-transitions.js"></script>
 </body>
 </html>

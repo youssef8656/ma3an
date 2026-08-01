@@ -379,7 +379,7 @@
     if (res.success) {
       // Send the camper wherever they were headed (?next=...), or the dashboard.
       const params = new URLSearchParams(window.location.search);
-      const next = params.get('next') || 'dashboard.html';
+      const next = params.get('next') || '/Home.html';
       window.location.href = window.MA3AN_buildUrl(next, { email: res.profile.email, name: res.profile.fullName });
     } else {
       btn.disabled = false;
@@ -390,7 +390,7 @@
   });
 </script>
 
-<script src="page-transitions.js"></script>
-<script src="ma3an-data.js"></script>
+<script src="/page-transitions.js"></script>
+<script src="/ma3an-data.js"></script>
 </body>
 </html>
