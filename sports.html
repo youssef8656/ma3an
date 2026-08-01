@@ -42,31 +42,6 @@
     flex-wrap:wrap;
   }
   .topnav-left{ display:flex; align-items:center; gap:18px; }
-  .menu-btn{
-    background:none; border:none; cursor:pointer; color:var(--ink);
-    display:none;
-  }
-  .menu-btn svg{ width:24px; height:24px; }
-
-  /* ============ MOBILE NAV PANEL ============ */
-  .mobile-nav-panel{
-    display:none;
-    flex-direction:column;
-    gap:2px;
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    padding:10px 14px 16px;
-  }
-  .mobile-nav-panel.open{ display:flex; }
-  .mobile-nav-panel a{
-    display:flex; align-items:center; gap:12px;
-    padding:12px 14px; border-radius:10px;
-    text-decoration:none; color:var(--ink);
-    font-weight:700; font-size:15px;
-  }
-  .mobile-nav-panel a svg{ width:19px; height:19px; flex-shrink:0; }
-  .mobile-nav-panel a:hover{ background:#f3f4ee; }
-  .mobile-nav-panel a.active{ background:var(--orange); color:#fff; }
   .brand{ display:flex; align-items:baseline; gap:10px; }
   .brand-mark{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; }
   .brand-mark span:nth-child(1){color:var(--orange);}
@@ -573,7 +548,6 @@
   }
   @media (max-width:900px){
     .topnav-center{ display:none; }
-    .menu-btn{ display:flex; }
   }
   @media (max-width:640px){
     .team-grid, .sports-grid, .strip{ grid-template-columns:1fr; }
@@ -591,9 +565,6 @@
 
 <div class="topnav">
   <div class="topnav-left">
-    <button class="menu-btn" aria-label="Toggle menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
     <div class="brand">
       <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
       <div class="brand-youth">YOUTH</div>
@@ -609,10 +580,6 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Sports
     </a>
-    <a href="media.html" class="nav-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      Media
-    </a>
     <a href="#" class="nav-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       Check In
@@ -624,23 +591,6 @@
   </nav>
 
   <div class="topnav-right">
-    <button class="icon-btn" aria-label="Light mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Dark mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Notifications">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Messages">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-    </button>
-    <div class="lang-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      العربية EG
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
     <div class="profile-pill">
       <div class="profile-avatar" id="nav-avatar">NN</div>
       <span id="nav-team">—</span>
@@ -649,30 +599,11 @@
   </div>
 </div>
 
-<nav class="mobile-nav-panel" id="mobile-nav-panel">
-  <a href="Home.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </a>
-  <a href="sports.html" class="active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Sports
-  </a>
-  <a href="media.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-    Media
-  </a>
-  <a href="my-profile.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    Profile
-  </a>
-</nav>
-
 <main class="content">
 
   <div class="identity-banner" id="identity-banner" style="display:none;">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-    <span>You need to be signed in to join a team or sport. <a href="auth/login.html">Sign in</a> to continue.</span>
+    <span>You need to be signed in to join a team or sport. <a href="/auth/login.html">Sign in</a> to continue.</span>
   </div>
 
   <div class="page-header">
@@ -688,11 +619,11 @@
         <span><span class="tally-dot" style="background:var(--orange);"></span>Yellow: <strong id="tally-yellow">13/24</strong></span>
       </div>
     </div>
-    <div class="switches-info">
+    <!-- <div class="switches-info">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
       <span id="switches-remaining">3 switches remaining</span>
       <svg class="info-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-    </div>
+    </div> -->
   </div>
 
   <div class="team-grid">
@@ -712,10 +643,10 @@
         <h4 id="title-Red">&nbsp;</h4>
         <p id="sub-Red">&nbsp;</p>
         <div class="roster-list" id="roster-Red"></div>
-        <button class="team-btn locked" id="btn-Red" disabled>
+        <!-- <button class="team-btn locked" id="btn-Red" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Team Full
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -734,10 +665,10 @@
         <h4 id="title-Blue">&nbsp;</h4>
         <p id="sub-Blue">&nbsp;</p>
         <div class="roster-list" id="roster-Blue"></div>
-        <button class="team-btn locked" id="btn-Blue" disabled>
+        <!-- <button class="team-btn locked" id="btn-Blue" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Team Full
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -757,10 +688,10 @@
         <h4 id="title-Green">&nbsp;</h4>
         <p id="sub-Green">&nbsp;</p>
         <div class="roster-list" id="roster-Green"></div>
-        <button class="team-btn join" id="btn-Green">
+        <!-- <button class="team-btn join" id="btn-Green">
           <span>Join Green Team</span>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -779,10 +710,10 @@
         <h4 id="title-Yellow">&nbsp;</h4>
         <p id="sub-Yellow">&nbsp;</p>
         <div class="roster-list" id="roster-Yellow"></div>
-        <button class="team-btn switch" id="btn-Yellow">
+        <!-- <button class="team-btn switch" id="btn-Yellow">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
           Switch to Yellow
-        </button>
+        </button> -->
       </div>
     </div>
 
@@ -829,11 +760,12 @@
         <p class="sport-count" id="sport-count-Chairball">0 participants</p>
         <p class="sport-desc">Unique chair-based ball game for all skill levels</p>
         <div class="roster-list" id="roster-sport-Chairball"></div>
-        <button class="sport-join" data-sport="Chairball" data-locked disabled>Join</button>
         <div class="sport-restriction">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
           Chairball is for girls only.
         </div>
+        <br>
+        <button class="sport-join" data-sport="Chairball" data-locked disabled>Join</button>
       </div>
 
       <div class="sport-card biggame">
@@ -922,10 +854,6 @@
 <script src="page-transitions.js"></script>
 <script src="ma3an-data.js"></script>
 <script>
-  document.querySelector('.menu-btn').addEventListener('click', () => {
-    document.getElementById('mobile-nav-panel').classList.toggle('open');
-  });
-
   const TEAMS = ['Red', 'Blue', 'Green', 'Yellow'];
   const GAMES = ['Soccer', 'Dodgeball', 'Chairball', 'Big Game', 'Pool Time'];
   const GAME_DOM_KEY = { 'Soccer':'Soccer', 'Dodgeball':'Dodgeball', 'Chairball':'Chairball', 'Big Game':'BigGame', 'Pool Time':'PoolTime' };
