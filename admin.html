@@ -185,6 +185,125 @@
     font-weight:800;
     font-size:22px;
   }
+  .team-score-actions{
+    display:flex; gap:6px; align-items:center; margin-top:10px;
+  }
+  .team-score-actions input{
+    width:56px;
+    padding:7px 8px;
+    border-radius:8px;
+    border:1.5px solid var(--border);
+    font-family:'Nunito', sans-serif;
+    font-size:13px;
+    text-align:center;
+  }
+  .team-score-actions input:focus{ outline:none; border-color:var(--green); }
+  .team-score-actions button{
+    padding:7px 10px;
+    border-radius:8px;
+    border:none;
+    font-weight:800;
+    font-size:12px;
+    cursor:pointer;
+  }
+  .team-score-status{
+    font-size:11.5px;
+    font-weight:700;
+    margin-top:6px;
+    min-height:14px;
+  }
+  .team-score-status.ok{ color:var(--green); }
+  .team-score-status.err{ color:var(--red); }
+
+  /* ============ MEDIA SECTION ============ */
+  .section-title{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:19px;
+    margin:34px 0 14px;
+  }
+  .media-form-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--card-shadow);
+    padding:18px 20px;
+    margin-bottom:18px;
+    display:flex;
+    gap:10px;
+    flex-wrap:wrap;
+    align-items:flex-end;
+  }
+  .media-form-field{ flex:1; min-width:220px; }
+  .media-form-field label{
+    display:block;
+    font-weight:700;
+    font-size:12.5px;
+    color:#5c6e6e;
+    margin-bottom:6px;
+  }
+  .media-form-field input{
+    width:100%;
+    padding:11px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    font-family:'Nunito', sans-serif;
+    font-size:14px;
+  }
+  .media-form-field input:focus{ outline:none; border-color:var(--purple); box-shadow:0 0 0 4px rgba(108,75,214,0.12); }
+  .btn-add-media{
+    padding:11px 20px;
+    border-radius:10px;
+    border:none;
+    background:var(--purple);
+    color:#fff;
+    font-weight:800;
+    font-size:14px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .btn-add-media:disabled{ opacity:0.6; cursor:default; }
+  .media-form-status{
+    width:100%;
+    font-size:13px;
+    font-weight:700;
+  }
+  .media-form-status.ok{ color:var(--green); }
+  .media-form-status.err{ color:var(--red); }
+
+  .media-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(160px, 1fr));
+    gap:14px;
+  }
+  .media-thumb-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    overflow:hidden;
+    box-shadow:var(--card-shadow);
+  }
+  .media-thumb-card img{
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    display:block;
+    background:#f0f0e8;
+  }
+  .media-thumb-body{ padding:10px 12px; }
+  .media-thumb-caption{ font-size:12.5px; font-weight:700; margin-bottom:8px; min-height:16px; }
+  .btn-delete-media{
+    width:100%;
+    padding:7px 10px;
+    border-radius:8px;
+    border:none;
+    background:#fdeceb;
+    color:var(--red);
+    font-weight:800;
+    font-size:12px;
+    cursor:pointer;
+  }
+  .btn-delete-media:hover{ background:#fbdedb; }
 
   .table-card{
     background:#fff;
@@ -284,7 +403,7 @@
     <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
     <div class="brand-sub">ADMIN</div>
   </div>
-  <a href="dashboard.html" class="back-link">
+  <a href="Home.html" class="back-link">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
     Back to app
   </a>
@@ -326,6 +445,22 @@
       </div>
       <div id="participant-list"></div>
     </div>
+
+    <h2 class="section-title">Camp Media</h2>
+    <form class="media-form-card" id="media-form">
+      <div class="media-form-field">
+        <label for="media-url-input">Google Drive photo link</label>
+        <input type="url" id="media-url-input" placeholder="https://drive.google.com/file/d/..." required>
+      </div>
+      <div class="media-form-field">
+        <label for="media-caption-input">Caption (optional)</label>
+        <input type="text" id="media-caption-input" placeholder="Day 1 — team building!">
+      </div>
+      <button type="submit" class="btn-add-media" id="media-submit-btn">Add Photo</button>
+      <div class="media-form-status" id="media-form-status"></div>
+    </form>
+
+    <div class="media-grid" id="media-grid"></div>
   </div>
 
 </main>
@@ -334,6 +469,8 @@
   let SCRIPT_URL = '';
   let ADMIN_KEY = '';
   let allProfiles = [];
+  let teamScores = { Red: 0, Blue: 0, Green: 0, Yellow: 0 };
+  let allMedia = [];
 
   const TEAM_COLORS = { Red: '#e8562f', Blue: '#2f7bd6', Green: '#2fa84f', Yellow: '#f2a022' };
 
@@ -355,13 +492,14 @@
     if (ok) {
       lockCard.style.display = 'none';
       dashboard.style.display = 'block';
+      loadMedia();
     } else {
       lockError.textContent = "Incorrect key, or the backend didn't respond. Check the URL and key.";
       lockError.style.display = 'block';
     }
   });
 
-  document.getElementById('refresh-btn').addEventListener('click', () => loadProfiles());
+  document.getElementById('refresh-btn').addEventListener('click', () => { loadProfiles(); loadMedia(); });
   document.getElementById('search-input').addEventListener('input', renderParticipants);
 
   async function loadProfiles() {
@@ -371,6 +509,14 @@
       const data = await res.json();
       if (!data.success) return false;
       allProfiles = data.profiles;
+
+      // Team totals (individual points + whole-team bonus) come from
+      // the public getPublicData endpoint, same numbers everyone sees
+      // on the dashboard scoreboard.
+      const pubRes = await fetch(`${SCRIPT_URL}?action=getPublicData`);
+      const pub = await pubRes.json();
+      if (pub.success && pub.teamScores) teamScores = pub.teamScores;
+
       renderTeamSummary();
       renderParticipants();
       return true;
@@ -386,7 +532,7 @@
     el.innerHTML = '';
     teams.forEach(team => {
       const members = allProfiles.filter(p => p.team === team);
-      const totalPoints = members.reduce((sum, p) => sum + (p.points || 0), 0);
+      const total = teamScores[team] || 0;
       const card = document.createElement('div');
       card.className = 'team-summary-card';
       card.innerHTML = `
@@ -394,10 +540,53 @@
           <span class="team-dot" style="background:${TEAM_COLORS[team]};"></span>
           ${team} · ${members.length} camper${members.length === 1 ? '' : 's'}
         </div>
-        <div class="value">${totalPoints} pts</div>
+        <div class="value" id="team-value-${team}">${total} pts</div>
+        <div class="team-score-actions">
+          <input type="number" min="1" value="10" aria-label="Team point amount" id="team-input-${team}">
+          <button class="btn-add-points" data-team="${team}" data-sign="1">+ Add</button>
+          <button class="btn-sub-points" data-team="${team}" data-sign="-1">− Sub</button>
+        </div>
+        <div class="team-score-status" id="team-status-${team}"></div>
       `;
       el.appendChild(card);
     });
+
+    el.querySelectorAll('.btn-add-points, .btn-sub-points').forEach(btn => {
+      btn.addEventListener('click', () => applyTeamDelta(btn.dataset.team, Number(btn.dataset.sign)));
+    });
+  }
+
+  async function applyTeamDelta(team, sign) {
+    const input = document.getElementById(`team-input-${team}`);
+    const status = document.getElementById(`team-status-${team}`);
+    const valueEl = document.getElementById(`team-value-${team}`);
+    const amount = Number(input.value);
+
+    if (!amount || amount <= 0) {
+      status.textContent = 'Enter a positive number';
+      status.className = 'team-score-status err';
+      return;
+    }
+    status.textContent = 'Saving…';
+    status.className = 'team-score-status';
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'addTeamPoints', adminKey: ADMIN_KEY, team: team, delta: sign * amount }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Could not update the team score.');
+
+      teamScores = data.teamScores;
+      valueEl.textContent = `${teamScores[team]} pts`;
+      status.textContent = 'Saved!';
+      status.className = 'team-score-status ok';
+    } catch (err) {
+      status.textContent = err.message;
+      status.className = 'team-score-status err';
+    }
   }
 
   function renderParticipants() {
@@ -480,6 +669,101 @@
 
       list.appendChild(row);
     });
+  }
+
+  /* ============ MEDIA MANAGEMENT ============ */
+
+  async function loadMedia() {
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=getMedia`);
+      const data = await res.json();
+      if (!data.success) return;
+      allMedia = data.media;
+      renderMedia();
+    } catch (err) {
+      console.error('Could not load media:', err);
+    }
+  }
+
+  function renderMedia() {
+    const grid = document.getElementById('media-grid');
+    grid.innerHTML = '';
+
+    if (allMedia.length === 0) {
+      grid.innerHTML = '<div class="empty-state">No photos yet. Add one above.</div>';
+      return;
+    }
+
+    allMedia.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'media-thumb-card';
+      card.innerHTML = `
+        <img src="${escapeHtml(item.displayUrl)}" alt="${escapeHtml(item.caption || 'Camp photo')}" loading="lazy">
+        <div class="media-thumb-body">
+          <div class="media-thumb-caption">${escapeHtml(item.caption || '(no caption)')}</div>
+          <button class="btn-delete-media">Delete</button>
+        </div>
+      `;
+      card.querySelector('.btn-delete-media').addEventListener('click', () => deleteMedia(item.id, card));
+      grid.appendChild(card);
+    });
+  }
+
+  document.getElementById('media-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const urlInput = document.getElementById('media-url-input');
+    const captionInput = document.getElementById('media-caption-input');
+    const btn = document.getElementById('media-submit-btn');
+    const status = document.getElementById('media-form-status');
+
+    const url = urlInput.value.trim();
+    const caption = captionInput.value.trim();
+    if (!url) return;
+
+    btn.disabled = true;
+    btn.textContent = 'Adding…';
+    status.textContent = '';
+    status.className = 'media-form-status';
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'addMedia', adminKey: ADMIN_KEY, url: url, caption: caption }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Could not add that photo.');
+
+      urlInput.value = '';
+      captionInput.value = '';
+      status.textContent = 'Photo added!';
+      status.className = 'media-form-status ok';
+      loadMedia();
+    } catch (err) {
+      status.textContent = err.message;
+      status.className = 'media-form-status err';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Add Photo';
+    }
+  });
+
+  async function deleteMedia(id, cardEl) {
+    if (!confirm('Remove this photo?')) return;
+    cardEl.style.opacity = '0.5';
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'deleteMedia', adminKey: ADMIN_KEY, id: id }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Could not delete that photo.');
+      loadMedia();
+    } catch (err) {
+      alert(err.message);
+      cardEl.style.opacity = '1';
+    }
   }
 
   function escapeHtml(str) {

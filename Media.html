@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Media — MA3AN Youth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --border:#e7e5db;
+    --card-shadow: 0 12px 28px -16px rgba(15,61,62,0.12);
+  }
+
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:#fbfaf5;
+    font-family:'Nunito', sans-serif;
+    color:var(--ink);
+  }
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ TOP NAV (shared) ============ */
+  .topnav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; padding:16px 28px; background:#fff;
+    border-bottom:1px solid var(--border); flex-wrap:wrap;
+  }
+  .topnav-left{ display:flex; align-items:center; gap:18px; }
+  .brand{ display:flex; align-items:baseline; gap:10px; }
+  .brand-mark{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; }
+  .brand-mark span:nth-child(1){color:var(--orange);}
+  .brand-mark span:nth-child(2){color:var(--blue);}
+  .brand-mark span:nth-child(3){color:var(--green);}
+  .brand-mark span:nth-child(4){color:var(--purple);}
+  .brand-mark span:nth-child(5){color:var(--red);}
+  .brand-youth{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:16px; letter-spacing:2px; color:var(--green); }
+
+  .topnav-center{ display:flex; align-items:center; gap:8px; }
+  .nav-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:14.5px;
+    transition:background .15s ease;
+  }
+  .nav-pill svg{ width:18px; height:18px; }
+  .nav-pill:hover{ background:#f3f4ee; }
+  .nav-pill.active{ background:var(--orange); color:#fff; }
+
+  .topnav-right{ display:flex; align-items:center; gap:10px; }
+  .profile-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:999px;
+    border:1px solid var(--border); background:#fff;
+    font-weight:700; font-size:14px; color:var(--ink);
+  }
+  .profile-avatar{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--orange); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:12px;
+    flex-shrink:0;
+  }
+
+  /* ============ PAGE ============ */
+  main.content{
+    max-width:1200px;
+    margin:0 auto;
+    padding:28px 32px 70px;
+  }
+
+  .page-header h1{
+    display:flex; align-items:center; gap:10px;
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800; font-size:26px;
+    margin:0 0 6px;
+  }
+  .page-header h1 svg{ width:26px; height:26px; color:var(--orange); }
+  .page-header p{
+    margin:0 0 26px;
+    font-weight:700;
+    color:#5c6e6e;
+    font-size:15px;
+  }
+
+  .media-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fill, minmax(230px, 1fr));
+    gap:18px;
+  }
+
+  .media-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    overflow:hidden;
+    box-shadow:var(--card-shadow);
+    cursor:pointer;
+    transition:transform .15s ease;
+  }
+  .media-card:hover{ transform:translateY(-3px); }
+  .media-card img{
+    display:block;
+    width:100%;
+    aspect-ratio:4/3;
+    object-fit:cover;
+    background:#f0f0e8;
+  }
+  .media-caption{
+    padding:10px 12px;
+    font-size:13.5px;
+    font-weight:700;
+    color:var(--ink);
+    min-height:20px;
+  }
+  .media-date{
+    padding:0 12px 12px;
+    font-size:12px;
+    font-weight:600;
+    color:#9aa8a8;
+  }
+
+  .empty-state, .loading-state{
+    text-align:center;
+    padding:70px 20px;
+    color:#9aa8a8;
+    font-weight:700;
+  }
+
+  /* ============ LIGHTBOX ============ */
+  .lightbox{
+    display:none;
+    position:fixed; inset:0;
+    background:rgba(15,61,62,0.9);
+    z-index:100;
+    align-items:center;
+    justify-content:center;
+    padding:40px;
+  }
+  .lightbox.open{ display:flex; }
+  .lightbox img{
+    max-width:100%;
+    max-height:80vh;
+    border-radius:12px;
+    box-shadow:0 20px 60px rgba(0,0,0,0.4);
+  }
+  .lightbox-caption{
+    position:absolute;
+    bottom:28px; left:0; right:0;
+    text-align:center;
+    color:#fff;
+    font-weight:700;
+    font-size:15px;
+  }
+  .lightbox-close{
+    position:absolute;
+    top:22px; right:28px;
+    width:40px; height:40px;
+    border-radius:50%;
+    border:none;
+    background:rgba(255,255,255,0.15);
+    color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    cursor:pointer;
+  }
+  .lightbox-close svg{ width:20px; height:20px; }
+
+  :focus-visible{ outline:3px solid var(--teal); outline-offset:3px; }
+
+  @media (max-width:640px){
+    main.content{ padding:20px 16px 60px; }
+    .media-grid{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <div class="brand">
+      <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
+      <div class="brand-youth">YOUTH</div>
+    </div>
+  </div>
+
+  <nav class="topnav-center">
+    <a href="Home.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="sports.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Sports
+    </a>
+    <a href="media.html" class="nav-pill active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Media
+    </a>
+    <a href="my-profile.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="topnav-right">
+    <div class="profile-pill">
+      <div class="profile-avatar" id="nav-avatar">NN</div>
+      <span id="nav-team">—</span>
+    </div>
+  </div>
+</div>
+
+<main class="content">
+  <div class="page-header">
+    <h1>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Camp Media
+    </h1>
+    <p>Photos from camp, added by your camp admin.</p>
+  </div>
+
+  <div id="media-container">
+    <div class="loading-state">Loading photos…</div>
+  </div>
+</main>
+
+<div class="lightbox" id="lightbox">
+  <button class="lightbox-close" id="lightbox-close" aria-label="Close">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+  </button>
+  <img id="lightbox-img" src="" alt="">
+  <div class="lightbox-caption" id="lightbox-caption"></div>
+</div>
+
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
+<script>
+  const session = window.MA3AN.requireLogin();
+  if (!session) throw new Error('Not logged in — redirecting.');
+
+  document.getElementById('nav-avatar').textContent =
+    (session.fullName || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  document.getElementById('nav-team').textContent = session.team || 'No team yet';
+
+  function escapeHtml(str) {
+    const div = document.createElement('div');
+    div.textContent = str;
+    return div.innerHTML;
+  }
+
+  function formatDate(iso) {
+    if (!iso) return '';
+    const d = new Date(iso);
+    if (isNaN(d)) return '';
+    return d.toLocaleDateString(undefined, { month: 'short', day: 'numeric', year: 'numeric' });
+  }
+
+  const lightbox = document.getElementById('lightbox');
+  const lightboxImg = document.getElementById('lightbox-img');
+  const lightboxCaption = document.getElementById('lightbox-caption');
+
+  function openLightbox(url, caption) {
+    lightboxImg.src = url;
+    lightboxCaption.textContent = caption || '';
+    lightbox.classList.add('open');
+  }
+  document.getElementById('lightbox-close').addEventListener('click', () => lightbox.classList.remove('open'));
+  lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
+
+  async function loadMedia() {
+    const container = document.getElementById('media-container');
+    const res = await window.MA3AN.getMedia();
+
+    if (!res || !res.success) {
+      container.innerHTML = `<div class="empty-state">Could not load photos${res && res.error ? ': ' + escapeHtml(res.error) : '.'}</div>`;
+      return;
+    }
+
+    if (!res.media || res.media.length === 0) {
+      container.innerHTML = '<div class="empty-state">No photos yet — check back once camp starts! 📸</div>';
+      return;
+    }
+
+    const grid = document.createElement('div');
+    grid.className = 'media-grid';
+
+    res.media.forEach(item => {
+      const card = document.createElement('div');
+      card.className = 'media-card';
+      card.innerHTML = `
+        <img src="${escapeHtml(item.displayUrl)}" alt="${escapeHtml(item.caption || 'Camp photo')}" loading="lazy">
+        ${item.caption ? `<div class="media-caption">${escapeHtml(item.caption)}</div>` : ''}
+        <div class="media-date">${escapeHtml(formatDate(item.addedAt))}</div>
+      `;
+      card.addEventListener('click', () => openLightbox(item.displayUrl, item.caption));
+      grid.appendChild(card);
+    });
+
+    container.innerHTML = '';
+    container.appendChild(grid);
+  }
+
+  loadMedia();
+</script>
+</body>
+</html>

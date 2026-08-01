@@ -38,7 +38,7 @@
   'use strict';
 
   // ---- CONFIGURE THIS ------------------------------------------------
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzSFYFUTQoreOZr3eP4b6YN16nPenoiZJ8FUg0UacVWd3SRmQ3W01_PfGcBtGMC5vkgfA/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8h8IJy_D8WdQpm82O7omEMe7TRrpJbqvbUQUwpm_b_FWbx_MEmbwFtahqihIXxRZ2nA/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
   // Camp dates — used for "Days Until Camp" / the countdown on the
   // dashboard. Change these if the camp dates move.
@@ -133,8 +133,8 @@
   function requireLogin() {
     const s = getSession();
     if (!s || !s.email) {
-      const next = encodeURIComponent(location.pathname.split('/').pop() + location.search);
-      location.href = 'login.html?next=' + next;
+      const next = encodeURIComponent('../' + location.pathname.split('/').pop() + location.search);
+      location.href = 'auth/login.html?next=' + next;
       return null;
     }
     return s;
@@ -143,7 +143,7 @@
   function logout() {
     clearSession();
     localStorage.removeItem(PUBLIC_KEY);
-    location.href = 'login.html';
+    location.href = 'auth/login.html';
   }
 
   // ============ AUTH ============
@@ -239,6 +239,13 @@
     return stale ? stale.data : res;
   }
 
+  // ============ MEDIA (photo links, public to view) ============
+
+  /** Returns [{ id, url, displayUrl, caption, addedAt }, ...], newest first. No caching — media.html always wants the freshest list. */
+  async function getMedia() {
+    return apiGet({ action: 'getMedia' });
+  }
+
   // ============ ADMIN ============
 
   async function adminGetAllProfiles(adminKey) {
@@ -247,6 +254,21 @@
 
   async function adminAddPoints(adminKey, email, delta) {
     return apiPost('addPoints', { adminKey: adminKey, email: email, delta: delta });
+  }
+
+  /** Adds/subtracts points from a WHOLE team's score at once (independent of individual campers' points). */
+  async function adminAddTeamPoints(adminKey, team, delta) {
+    return apiPost('addTeamPoints', { adminKey: adminKey, team: team, delta: delta });
+  }
+
+  /** Adds a Google Drive photo link (any normal share link) to media.html, with an optional caption. */
+  async function adminAddMedia(adminKey, url, caption) {
+    return apiPost('addMedia', { adminKey: adminKey, url: url, caption: caption });
+  }
+
+  /** Removes a photo by its `id` (from getMedia()'s response). */
+  async function adminDeleteMedia(adminKey, id) {
+    return apiPost('deleteMedia', { adminKey: adminKey, id: id });
   }
 
   global.MA3AN = {
@@ -261,9 +283,9 @@
     // self-service edits
     updateContact, joinTeam, joinGame, leaveGame,
     // shared/public data
-    getPublicData,
+    getPublicData, getMedia,
     // admin
-    adminGetAllProfiles, adminAddPoints,
+    adminGetAllProfiles, adminAddPoints, adminAddTeamPoints, adminAddMedia, adminDeleteMedia,
     // low-level, in case a page needs a custom call
     apiGet, apiPost,
   };
