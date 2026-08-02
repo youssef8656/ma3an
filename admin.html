@@ -305,6 +305,101 @@
   }
   .btn-delete-media:hover{ background:#fbdedb; }
 
+  /* ============ CHECK-IN SCANNER ============ */
+  .scanner-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--card-shadow);
+    padding:22px 24px;
+    margin-bottom:18px;
+  }
+  #qr-reader{
+    max-width:340px;
+    margin:0 auto 16px;
+    border-radius:14px;
+    overflow:hidden;
+  }
+  #qr-reader img{ display:none; } /* hide the library's default camera-permission icon */
+  .scanner-toggle-row{ display:flex; gap:10px; justify-content:center; margin-bottom:16px; flex-wrap:wrap; }
+  .btn-scanner-toggle{
+    padding:10px 18px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    background:#fff;
+    font-weight:700;
+    font-size:13.5px;
+    cursor:pointer;
+  }
+  .btn-scanner-toggle.active{ background:var(--blue); color:#fff; border-color:var(--blue); }
+
+  .manual-checkin-row{
+    display:flex;
+    gap:10px;
+    max-width:420px;
+    margin:0 auto 16px;
+  }
+  .manual-checkin-row input{
+    flex:1;
+    padding:12px 16px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    font-family:'Baloo 2', sans-serif;
+    font-weight:700;
+    font-size:16px;
+    letter-spacing:2px;
+    text-transform:uppercase;
+    text-align:center;
+  }
+  .manual-checkin-row input:focus{ outline:none; border-color:var(--blue); }
+  .manual-checkin-row button{
+    padding:12px 20px;
+    border-radius:10px;
+    border:none;
+    background:var(--blue);
+    color:#fff;
+    font-weight:800;
+    font-size:14px;
+    cursor:pointer;
+    white-space:nowrap;
+  }
+  .manual-checkin-row button:disabled{ opacity:0.6; cursor:default; }
+
+  .checkin-result{
+    max-width:420px;
+    margin:0 auto;
+    display:none;
+    align-items:flex-start;
+    gap:12px;
+    padding:16px 18px;
+    border-radius:14px;
+  }
+  .checkin-result.show{ display:flex; }
+  .checkin-result.ok{ background:#e9f6ec; }
+  .checkin-result.err{ background:#fdeceb; }
+  .checkin-result .icon{
+    width:26px; height:26px; border-radius:50%;
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0; color:#fff;
+  }
+  .checkin-result.ok .icon{ background:var(--green); }
+  .checkin-result.err .icon{ background:var(--red); }
+  .checkin-result .icon svg{ width:15px; height:15px; }
+  .checkin-result strong{ display:block; font-weight:800; font-size:15px; margin-bottom:2px; }
+  .checkin-result.ok strong{ color:var(--green); }
+  .checkin-result.err strong{ color:var(--red); }
+  .checkin-result .detail{ font-size:13.5px; font-weight:700; color:var(--ink); }
+
+  .checkin-log{ max-width:420px; margin:16px auto 0; }
+  .checkin-log-title{ font-size:12.5px; font-weight:700; color:#5c6e6e; margin-bottom:8px; }
+  .checkin-log-row{
+    display:flex; justify-content:space-between;
+    padding:8px 4px;
+    border-bottom:1px solid var(--border);
+    font-size:13.5px; font-weight:700;
+  }
+  .checkin-log-row span:last-child{ color:#5c6e6e; font-weight:600; }
+
   .table-card{
     background:#fff;
     border:1px solid var(--border);
@@ -395,6 +490,7 @@
 
   :focus-visible{ outline:3px solid var(--teal); outline-offset:3px; }
 </style>
+<script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
 </head>
 <body>
 
@@ -461,6 +557,34 @@
     </form>
 
     <div class="media-grid" id="media-grid"></div>
+
+    <h2 class="section-title">Check-In Scanner</h2>
+    <div class="scanner-card">
+      <div class="scanner-toggle-row">
+        <button class="btn-scanner-toggle active" id="scan-camera-btn">📷 Scan with Camera</button>
+        <button class="btn-scanner-toggle" id="scan-manual-btn">⌨️ Type Code Manually</button>
+      </div>
+
+      <div id="qr-reader"></div>
+
+      <form class="manual-checkin-row" id="manual-checkin-form" style="display:none;">
+        <input type="text" id="manual-code-input" maxlength="6" placeholder="CODE" autocomplete="off">
+        <button type="submit">Check In</button>
+      </form>
+
+      <div class="checkin-result" id="checkin-result">
+        <div class="icon" id="checkin-result-icon"></div>
+        <div>
+          <strong id="checkin-result-title"></strong>
+          <div class="detail" id="checkin-result-detail"></div>
+        </div>
+      </div>
+
+      <div class="checkin-log" id="checkin-log" style="display:none;">
+        <div class="checkin-log-title">Checked in this session</div>
+        <div id="checkin-log-rows"></div>
+      </div>
+    </div>
   </div>
 
 </main>
@@ -493,6 +617,7 @@
       lockCard.style.display = 'none';
       dashboard.style.display = 'block';
       loadMedia();
+      startScanner();
     } else {
       lockError.textContent = "Incorrect key, or the backend didn't respond. Check the URL and key.";
       lockError.style.display = 'block';
@@ -770,6 +895,119 @@
     const div = document.createElement('div');
     div.textContent = str;
     return div.innerHTML;
+  }
+
+  /* ============ CHECK-IN SCANNER ============ */
+  let html5QrCode = null;
+  let scannerRunning = false;
+  let scannerBusy = false; // true briefly after a scan, so we don't fire the same code 10x/sec
+  const checkinLogRows = [];
+
+  const cameraBtn = document.getElementById('scan-camera-btn');
+  const manualBtn = document.getElementById('scan-manual-btn');
+  const qrReaderEl = document.getElementById('qr-reader');
+  const manualForm = document.getElementById('manual-checkin-form');
+  const manualInput = document.getElementById('manual-code-input');
+
+  cameraBtn.addEventListener('click', () => {
+    cameraBtn.classList.add('active');
+    manualBtn.classList.remove('active');
+    qrReaderEl.style.display = 'block';
+    manualForm.style.display = 'none';
+    startScanner();
+  });
+
+  manualBtn.addEventListener('click', () => {
+    manualBtn.classList.add('active');
+    cameraBtn.classList.remove('active');
+    qrReaderEl.style.display = 'none';
+    manualForm.style.display = 'flex';
+    stopScanner();
+    manualInput.focus();
+  });
+
+  function startScanner() {
+    if (scannerRunning || typeof Html5Qrcode === 'undefined') return;
+    html5QrCode = new Html5Qrcode('qr-reader');
+    html5QrCode.start(
+      { facingMode: 'environment' },
+      { fps: 10, qrbox: 240 },
+      (decodedText) => { if (!scannerBusy) submitCheckIn(decodedText); },
+      () => { /* per-frame "no QR found" noise — ignore */ }
+    ).then(() => { scannerRunning = true; })
+      .catch(() => {
+        // Camera unavailable/blocked — fall back to manual entry automatically.
+        manualBtn.click();
+      });
+  }
+
+  function stopScanner() {
+    if (html5QrCode && scannerRunning) {
+      html5QrCode.stop().catch(() => {});
+      scannerRunning = false;
+    }
+  }
+
+  manualForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const code = manualInput.value.trim();
+    if (code) submitCheckIn(code);
+    manualInput.value = '';
+  });
+
+  async function submitCheckIn(code) {
+    scannerBusy = true;
+    const resultBox = document.getElementById('checkin-result');
+    const icon = document.getElementById('checkin-result-icon');
+    const title = document.getElementById('checkin-result-title');
+    const detail = document.getElementById('checkin-result-detail');
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({ action: 'checkIn', adminKey: ADMIN_KEY, code: code }),
+      });
+      const data = await res.json();
+
+      if (!data.success) {
+        resultBox.className = 'checkin-result err show';
+        icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+        title.textContent = 'Check-in failed';
+        detail.textContent = data.error || 'Could not check in that code.';
+      } else {
+        const m = data.member;
+        resultBox.className = 'checkin-result ok show';
+        icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>';
+        title.textContent = data.alreadyCheckedIn ? 'Already checked in today' : 'Checked In Successfully!';
+        detail.textContent = `${m.fullName} • ${m.team || 'No team'} — ${m.date} • ${m.time}`;
+
+        if (!data.alreadyCheckedIn) {
+          checkinLogRows.unshift(m);
+          renderCheckinLog();
+        }
+      }
+    } catch (err) {
+      resultBox.className = 'checkin-result err show';
+      icon.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>';
+      title.textContent = 'Network error';
+      detail.textContent = err.message;
+    }
+
+    // Debounce so the camera doesn't immediately re-fire on the same code.
+    setTimeout(() => { scannerBusy = false; }, 2500);
+  }
+
+  function renderCheckinLog() {
+    const log = document.getElementById('checkin-log');
+    const rows = document.getElementById('checkin-log-rows');
+    log.style.display = 'block';
+    rows.innerHTML = checkinLogRows.slice(0, 10).map(m => `
+      <div class="checkin-log-row">
+        <span>${escapeHtml(m.fullName)} · ${escapeHtml(m.team || '—')}</span>
+        <span>${escapeHtml(m.time)}</span>
+      </div>
+    `).join('');
   }
 </script>
 

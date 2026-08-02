@@ -45,6 +45,31 @@
     flex-wrap:wrap;
   }
   .topnav-left{ display:flex; align-items:baseline; gap:12px; }
+  .menu-btn{
+    background:none; border:none; cursor:pointer; color:var(--ink);
+    display:none;
+  }
+  .menu-btn svg{ width:24px; height:24px; }
+
+  /* ============ MOBILE NAV PANEL ============ */
+  .mobile-nav-panel{
+    display:none;
+    flex-direction:column;
+    gap:2px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    padding:10px 14px 16px;
+  }
+  .mobile-nav-panel.open{ display:flex; }
+  .mobile-nav-panel a{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 14px; border-radius:10px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:15px;
+  }
+  .mobile-nav-panel a svg{ width:19px; height:19px; flex-shrink:0; }
+  .mobile-nav-panel a:hover{ background:#f3f4ee; }
+  .mobile-nav-panel a.active{ background:#e9f6ec; color:var(--green); }
   .brand-mark{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; }
   .brand-mark span:nth-child(1){color:var(--orange);}
   .brand-mark span:nth-child(2){color:var(--blue);}
@@ -343,6 +368,7 @@
 
   @media (max-width:640px){
     .topnav-center{ display:none; }
+    .menu-btn{ display:flex; }
     .topnav{ padding:16px 20px; }
     main.content{ padding:6px 18px 60px; }
     .profile-card{ padding:26px 22px; }
@@ -360,12 +386,15 @@
 
 <div class="topnav">
   <div class="topnav-left">
+    <button class="menu-btn" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
     <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
     <div class="brand-sub">Camp Teams</div>
   </div>
 
   <nav class="topnav-center">
-    <a href="dashboard.html" class="nav-pill">
+    <a href="Home.html" class="nav-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Home
     </a>
@@ -373,31 +402,17 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
       Sports
     </a>
-    <a href="#" class="nav-pill">
+    <a href="CheckIn.html" class="nav-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Check In
     </a>
-    <a href="my-profile.html" class="nav-pill active">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-      Profile
+    <a href="media.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Media
     </a>
   </nav>
 
   <div class="topnav-right">
-    <button class="icon-btn" aria-label="Light mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Dark mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Messages">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-    </button>
-    <div class="lang-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      العربية EG
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
     <div class="profile-pill">
       <div class="profile-avatar" id="nav-avatar">MM</div>
       <span id="nav-team">Yellow</span>
@@ -405,6 +420,25 @@
     </div>
   </div>
 </div>
+
+<nav class="mobile-nav-panel" id="mobile-nav-panel">
+  <a href="Home.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a href="sports.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
+    Sports
+  </a>
+  <a href="media.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    Media
+  </a>
+  <a href="CheckIn.html" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Check In
+  </a>
+</nav>
 
 <!-- decorative puzzle pieces -->
 <svg class="deco-piece float" style="top:200px; left:-40px; width:190px;" viewBox="0 0 100 100"><path fill="#f2a022" d="M35 5c8-6 22-6 25 6 1 5-2 9-2 13 0 5 5 8 10 8 6 0 13-4 17 3 4 7 1 17-7 20-6 2-12-1-17 2-4 3-4 9-1 13 4 6 2 15-6 17-8 2-15-4-18-10-2-5-8-6-13-4-6 2-14 0-16-8-2-7 3-13 9-15 5-2 6-8 4-13-3-6 1-14 8-16 3-1 5-3 5-6 0-4-3-7-3-10 0-4 2-7 5-9z"/></svg>
@@ -432,7 +466,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
           <span id="profile-team">Yellow Team</span>
         </span>
-        <span class="info-pill switches">
+        <span class="info-pill switches" style="display: none;">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="17 1 21 5 17 9"/><path d="M3 11V9a4 4 0 0 1 4-4h14"/><polyline points="7 23 3 19 7 15"/><path d="M21 13v2a4 4 0 0 1-4 4H3"/></svg>
           <span id="profile-switches">3 Switches remaining</span>
         </span>
@@ -504,22 +538,15 @@
   <p class="footnote">Name, age, grade, and gender can only be changed by an admin.</p>
 </main>
 
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
 <script>
-  /* =========================================================
-     Backend connection (Google Apps Script + Google Sheets)
-     -----------------------------------------------------------
-     1. Paste your Web App URL below (see sheets-backend/README.md).
-     2. Identify the camper via a ?email= query param on this page's
-        URL, e.g. my-profile.html?email=fady@example.com
-        (Swap this for your real login/session mechanism later —
-        there's no auth system built yet, so this is a stand-in.)
-     If no SCRIPT_URL is set or the request fails, the page falls
-     back to showing the placeholder demo profile from the design.
-  ========================================================= */
-  const SCRIPT_URL = ''; // e.g. 'https://script.google.com/macros/s/XXXX/exec'
+  document.querySelector('.menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-nav-panel').classList.toggle('open');
+  });
 
-  const params = new URLSearchParams(window.location.search);
-  const currentEmail = params.get('email') || '';
+  const session = window.MA3AN.requireLogin();
+  if (!session) throw new Error('Not logged in — redirecting.');
 
   const els = {
     avatarNav: document.getElementById('nav-avatar'),
@@ -544,13 +571,13 @@
   }
 
   function renderProfile(p){
-    els.name.textContent = p.name || 'Camper';
+    els.name.textContent = p.fullName || 'Camper';
     els.grade.textContent = p.grade || 'Grade not set';
     els.gender.textContent = p.gender || '—';
     els.team.textContent = p.team ? `${p.team} Team` : 'No team yet';
     els.switches.textContent = `${p.switchesRemaining ?? 3} Switches remaining`;
     els.points.textContent = `${p.points ?? 0} pts`;
-    const ini = initials(p.name || 'MM');
+    const ini = initials(p.fullName || '??');
     els.avatar.textContent = ini;
     els.avatarNav.textContent = ini;
     els.teamNav.textContent = p.team || '—';
@@ -571,25 +598,12 @@
     inputEl.value = value || '';
   }
 
-  async function loadProfile(){
-    if (!SCRIPT_URL || !currentEmail){
-      // No backend configured (or no email in the URL) — keep the demo
-      // placeholder from the design so the page still looks complete.
-      return;
-    }
-    try{
-      const url = `${SCRIPT_URL}?action=getProfile&email=${encodeURIComponent(currentEmail)}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      if (data.success && data.profile){
-        renderProfile(data.profile);
-      }
-    }catch(err){
-      console.warn('Could not load profile from backend:', err);
-    }
-  }
-
-  loadProfile();
+  // Show what's already cached locally right away, then refresh from the
+  // sheet in case something changed since last login (admin edits, etc.).
+  renderProfile(session);
+  window.MA3AN.refreshProfile().then(res => {
+    if (res.success) renderProfile(window.MA3AN.getSession());
+  });
 
   /* ---------------- Edit / Save / Cancel ---------------- */
   const editBtn = document.getElementById('btn-edit');
@@ -622,37 +636,18 @@
     e.preventDefault();
 
     const payload = {
-      action: 'updateContact',
-      email: currentEmail,
       mobile: els.inputMobile.value.trim(),
       parentGuardianName: els.inputGuardian.value.trim(),
       parentPhone: els.inputParentPhone.value.trim(),
     };
 
-    if (!SCRIPT_URL){
-      saveStatus.textContent = 'No backend connected yet — add your Web App URL in the script to save for real.';
-      saveStatus.classList.add('err');
-      // Still reflect the change locally so the UI feels responsive in the meantime.
-      setContactValue(els.viewMobile, els.inputMobile, payload.mobile);
-      setContactValue(els.viewGuardian, els.inputGuardian, payload.parentGuardianName);
-      setContactValue(els.viewParentPhone, els.inputParentPhone, payload.parentPhone);
-      setEditMode(false);
-      return;
-    }
-
     saveBtn.disabled = true;
     saveBtn.textContent = 'Saving…';
 
     try{
-      const res = await fetch(SCRIPT_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify(payload),
-      });
-      const data = await res.json();
-
-      if (!data.success){
-        throw new Error(data.error || 'Could not save your changes.');
+      const res = await window.MA3AN.updateContact(payload);
+      if (!res.success){
+        throw new Error(res.error || 'Could not save your changes.');
       }
 
       setContactValue(els.viewMobile, els.inputMobile, payload.mobile);
@@ -670,7 +665,5 @@
     }
   });
 </script>
-
-<script src="page-transitions.js"></script>
 </body>
 </html>

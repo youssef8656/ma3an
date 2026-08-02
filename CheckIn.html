@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Check In — MA3AN Youth</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --cream:#faf6ee;
+    --ink:#0f3d3e;
+    --orange:#f2a022;
+    --blue:#2f7bd6;
+    --green:#2fa84f;
+    --purple:#6c4bd6;
+    --red:#e8562f;
+    --teal:#1e8e82;
+    --border:#e7e5db;
+    --card-shadow: 0 12px 28px -16px rgba(15,61,62,0.12);
+  }
+  *{box-sizing:border-box;}
+  body{ margin:0; background:#fbfaf5; font-family:'Nunito', sans-serif; color:var(--ink); }
+  .heading-font{ font-family:'Baloo 2', sans-serif; }
+
+  /* ============ TOP NAV (shared) ============ */
+  .topnav{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:20px; padding:16px 28px; background:#fff;
+    border-bottom:1px solid var(--border); flex-wrap:wrap;
+  }
+  .topnav-left{ display:flex; align-items:center; gap:18px; }
+  .menu-btn{ background:none; border:none; cursor:pointer; color:var(--ink); display:none; }
+  .menu-btn svg{ width:24px; height:24px; }
+  .brand{ display:flex; align-items:baseline; gap:10px; }
+  .brand-mark{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:24px; }
+  .brand-mark span:nth-child(1){color:var(--orange);}
+  .brand-mark span:nth-child(2){color:var(--blue);}
+  .brand-mark span:nth-child(3){color:var(--green);}
+  .brand-mark span:nth-child(4){color:var(--purple);}
+  .brand-mark span:nth-child(5){color:var(--red);}
+  .brand-youth{ font-family:'Baloo 2', sans-serif; font-weight:700; font-size:16px; letter-spacing:2px; color:var(--green); }
+
+  .topnav-center{ display:flex; align-items:center; gap:8px; }
+  .nav-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:14.5px;
+    transition:background .15s ease;
+  }
+  .nav-pill svg{ width:18px; height:18px; }
+  .nav-pill:hover{ background:#f3f4ee; }
+  .nav-pill.active{ background:var(--orange); color:#fff; }
+
+  .topnav-right{ display:flex; align-items:center; gap:10px; }
+  .profile-pill{
+    display:flex; align-items:center; gap:8px;
+    padding:8px 14px; border-radius:999px;
+    border:1px solid var(--border); background:#fff;
+    font-weight:700; font-size:14px; color:var(--ink);
+  }
+  .profile-avatar{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--orange); color:#fff;
+    display:flex; align-items:center; justify-content:center;
+    font-family:'Baloo 2', sans-serif; font-weight:700; font-size:12px;
+    flex-shrink:0;
+  }
+
+  /* ============ MOBILE NAV PANEL ============ */
+  .mobile-nav-panel{ display:none; flex-direction:column; gap:2px; background:#fff; border-bottom:1px solid var(--border); padding:10px 14px 16px; }
+  .mobile-nav-panel.open{ display:flex; }
+  .mobile-nav-panel a{ display:flex; align-items:center; gap:12px; padding:12px 14px; border-radius:10px; text-decoration:none; color:var(--ink); font-weight:700; font-size:15px; }
+  .mobile-nav-panel a svg{ width:19px; height:19px; flex-shrink:0; }
+  .mobile-nav-panel a:hover{ background:#f3f4ee; }
+  .mobile-nav-panel a.active{ background:var(--orange); color:#fff; }
+
+  @media (max-width:900px){
+    .topnav-center{ display:none; }
+    .menu-btn{ display:flex; }
+  }
+
+  /* ============ PAGE ============ */
+  main.content{
+    max-width:1200px;
+    margin:0 auto;
+    padding:28px 32px 70px;
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:22px;
+    align-items:start;
+  }
+  @media (max-width:900px){
+    main.content{ grid-template-columns:1fr; padding:20px 16px 60px; }
+  }
+
+  .panel{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:20px;
+    box-shadow:var(--card-shadow);
+    padding:26px 28px;
+  }
+
+  .panel-head{ display:flex; align-items:flex-start; justify-content:space-between; gap:14px; margin-bottom:22px; flex-wrap:wrap; }
+  .panel-head-left{ display:flex; gap:14px; align-items:flex-start; }
+  .panel-icon{
+    width:48px; height:48px; border-radius:14px;
+    background:#e9f0fb; color:var(--blue);
+    display:flex; align-items:center; justify-content:center;
+    flex-shrink:0;
+  }
+  .panel-icon svg{ width:24px; height:24px; }
+  .panel-icon.orange{ background:#fdeeda; color:var(--orange); }
+  .panel-head h2{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:21px; margin:0 0 4px; }
+  .panel-head p{ margin:0; font-size:13.5px; font-weight:700; color:#5c6e6e; }
+
+  .team-badge{
+    display:flex; align-items:center; gap:8px;
+    padding:9px 16px; border-radius:999px;
+    border:1px solid var(--border); background:#fbfaf5;
+    font-weight:800; font-size:14px;
+  }
+  .team-dot{ width:9px; height:9px; border-radius:50%; }
+
+  /* ============ QR CARD ============ */
+  .qr-wrap{
+    display:flex; justify-content:center;
+    padding:30px 0 22px;
+  }
+  .qr-frame{
+    padding:14px;
+    border:3px solid var(--blue);
+    border-radius:18px;
+    background:#fff;
+  }
+  .qr-frame img{ display:block; width:220px; height:220px; }
+
+  .btn-manual{
+    display:flex; align-items:center; justify-content:center; gap:10px;
+    width:100%;
+    padding:14px 20px;
+    border-radius:12px;
+    border:none;
+    background:var(--blue);
+    color:#fff;
+    font-weight:800;
+    font-size:15px;
+    cursor:pointer;
+    margin-bottom:16px;
+  }
+  .btn-manual svg{ width:19px; height:19px; }
+
+  .manual-code-box{
+    display:none;
+    text-align:center;
+    padding:14px;
+    border-radius:12px;
+    background:#f3f4ee;
+    margin-bottom:16px;
+  }
+  .manual-code-box.open{ display:block; }
+  .manual-code-box .label{ font-size:12px; font-weight:700; color:#5c6e6e; margin-bottom:6px; }
+  .manual-code-box .code{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:26px; letter-spacing:4px; color:var(--blue); }
+
+  .success-box{
+    display:none;
+    align-items:flex-start; gap:12px;
+    padding:16px 18px;
+    border-radius:14px;
+    background:#e9f6ec;
+  }
+  .success-box.show{ display:flex; }
+  .success-check{
+    width:26px; height:26px; border-radius:50%;
+    background:var(--green); color:#fff; flex-shrink:0;
+    display:flex; align-items:center; justify-content:center;
+  }
+  .success-check svg{ width:15px; height:15px; }
+  .success-box strong{ display:block; color:var(--green); font-weight:800; font-size:15px; margin-bottom:4px; }
+  .success-box .who{ font-weight:700; font-size:14.5px; color:var(--ink); }
+  .success-box .when{ font-size:13px; font-weight:600; color:#5c6e6e; margin-top:2px; }
+
+  /* ============ ATTENDANCE PANEL ============ */
+  .attendance-pct{
+    display:flex; align-items:center; gap:6px;
+    padding:9px 16px; border-radius:999px;
+    background:#e9f6ec; color:var(--green);
+    font-weight:800; font-size:15px;
+  }
+
+  .attendance-list{ display:flex; flex-direction:column; gap:12px; max-height:520px; overflow-y:auto; }
+  .attendance-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:12px;
+    padding:14px 16px;
+    border-radius:14px;
+    border:1px solid var(--border);
+  }
+  .attendance-row-left{ display:flex; align-items:center; gap:12px; }
+  .att-icon{
+    width:36px; height:36px; border-radius:10px;
+    background:#e9f0fb; color:var(--blue);
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .att-icon svg{ width:17px; height:17px; }
+  .attendance-row .date{ font-weight:800; font-size:14.5px; }
+  .attendance-row-right{ display:flex; align-items:center; gap:6px; color:#5c6e6e; font-weight:700; font-size:13.5px; }
+  .attendance-row-right svg{ width:15px; height:15px; }
+
+  .empty-state{ text-align:center; padding:50px 10px; color:#9aa8a8; font-weight:700; }
+
+  .tip-bar{
+    max-width:1200px; margin:0 auto 40px; padding:0 32px;
+  }
+  .tip-inner{
+    display:flex; align-items:center; gap:14px;
+    background:#eef1e6;
+    border-radius:16px;
+    padding:18px 22px;
+  }
+  .tip-icon{
+    width:38px; height:38px; border-radius:50%;
+    background:var(--blue); color:#fff;
+    display:flex; align-items:center; justify-content:center; flex-shrink:0;
+  }
+  .tip-icon svg{ width:19px; height:19px; }
+  .tip-inner strong{ display:block; font-size:14.5px; }
+  .tip-inner p{ margin:2px 0 0; font-size:13.5px; color:#5c6e6e; font-weight:600; }
+
+  @media (max-width:640px){
+    .tip-bar{ padding:0 16px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="topnav">
+  <div class="topnav-left">
+    <button class="menu-btn" aria-label="Toggle menu">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
+    <div class="brand">
+      <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
+      <div class="brand-youth">YOUTH</div>
+    </div>
+  </div>
+
+  <nav class="topnav-center">
+    <a href="Home.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      Home
+    </a>
+    <a href="sports.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Sports
+    </a>
+    <a href="check-in.html" class="nav-pill active">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+      Check In
+    </a>
+    <a href="media.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Media
+    </a>
+    <a href="my-profile.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
+    </a>
+  </nav>
+
+  <div class="topnav-right">
+    <div class="profile-pill">
+      <div class="profile-avatar" id="nav-avatar">NN</div>
+      <span id="nav-team">—</span>
+    </div>
+  </div>
+</div>
+
+<nav class="mobile-nav-panel" id="mobile-nav-panel">
+  <a href="Home.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a href="sports.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Sports
+  </a>
+  <a href="check-in.html" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Check In
+  </a>
+  <a href="media.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    Media
+  </a>
+  <a href="my-profile.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
+  </a>
+</nav>
+
+<main class="content">
+  <!-- LEFT: my QR code -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-head-left">
+        <div class="panel-icon">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><line x1="14" y1="14" x2="14" y2="21"/><line x1="21" y1="14" x2="21" y2="21"/><line x1="14" y1="17.5" x2="21" y2="17.5"/></svg>
+        </div>
+        <div>
+          <h2>Check In</h2>
+          <p>Show this code to an admin to mark your attendance</p>
+        </div>
+      </div>
+      <div class="team-badge">
+        <span class="team-dot" id="team-dot"></span>
+        <span id="team-badge-label">No team yet</span>
+      </div>
+    </div>
+
+    <div class="qr-wrap">
+      <div class="qr-frame">
+        <img id="qr-image" src="" alt="Your check-in QR code">
+      </div>
+    </div>
+
+    <button class="btn-manual" id="manual-toggle-btn">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M8 12h.01M12 12h.01M16 12h.01M7 16h10"/></svg>
+      Show Code Manually
+    </button>
+
+    <div class="manual-code-box" id="manual-code-box">
+      <div class="label">Read this code out loud to an admin:</div>
+      <div class="code" id="manual-code-text">——————</div>
+    </div>
+
+    <div class="success-box" id="success-box">
+      <div class="success-check">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+      </div>
+      <div>
+        <strong>Checked In Successfully!</strong>
+        <div class="who" id="success-who"></div>
+        <div class="when" id="success-when"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RIGHT: attendance history -->
+  <div class="panel">
+    <div class="panel-head">
+      <div class="panel-head-left">
+        <div class="panel-icon orange">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+        </div>
+        <div>
+          <h2>My Attendance</h2>
+          <p>Every session you've checked in for</p>
+        </div>
+      </div>
+      <div class="attendance-pct" id="attendance-pct">— %</div>
+    </div>
+
+    <div id="attendance-list">
+      <div class="empty-state">Loading your attendance…</div>
+    </div>
+  </div>
+</main>
+
+<div class="tip-bar">
+  <div class="tip-inner">
+    <div class="tip-icon">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+    </div>
+    <div>
+      <strong>Important Tip</strong>
+      <p>Make sure to check in for each session to earn your points!</p>
+    </div>
+  </div>
+</div>
+
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
+<script>
+  document.querySelector('.menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-nav-panel').classList.toggle('open');
+  });
+
+  const TEAM_COLORS = { Red: '#e8562f', Blue: '#2f7bd6', Green: '#2fa84f', Yellow: '#f2a022' };
+
+  const session = window.MA3AN.requireLogin();
+  if (!session) throw new Error('Not logged in — redirecting.');
+
+  document.getElementById('nav-avatar').textContent =
+    (session.fullName || '?').trim().split(/\s+/).map(w => w[0]).slice(0, 2).join('').toUpperCase();
+  document.getElementById('nav-team').textContent = session.team || 'No team yet';
+
+  if (session.team) {
+    document.getElementById('team-dot').style.background = TEAM_COLORS[session.team] || '#999';
+    document.getElementById('team-badge-label').textContent = session.team + ' Team';
+  }
+
+  function renderQr(memberId) {
+    const url = 'https://api.qrserver.com/v1/create-qr-code/?size=260x260&margin=6&data=' + encodeURIComponent(memberId);
+    document.getElementById('qr-image').src = url;
+    document.getElementById('manual-code-text').textContent = memberId.split('').join(' ');
+  }
+
+  document.getElementById('manual-toggle-btn').addEventListener('click', () => {
+    document.getElementById('manual-code-box').classList.toggle('open');
+  });
+
+  function formatDate(iso) {
+    const d = new Date(iso);
+    if (isNaN(d)) return iso;
+    return d.toLocaleDateString(undefined, { weekday: 'short', month: 'short', day: 'numeric' });
+  }
+
+  async function loadAttendance() {
+    const res = await window.MA3AN.getMyAttendance();
+    const list = document.getElementById('attendance-list');
+
+    if (!res || !res.success) {
+      list.innerHTML = `<div class="empty-state">Could not load attendance${res && res.error ? ': ' + res.error : '.'}</div>`;
+      return;
+    }
+
+    renderQr(res.memberId);
+    document.getElementById('attendance-pct').textContent = res.percentage + '%';
+
+    if (!res.records || res.records.length === 0) {
+      list.innerHTML = '<div class="empty-state">No check-ins yet — see you at the first session! 🎉</div>';
+      return;
+    }
+
+    list.innerHTML = '';
+    const wrap = document.createElement('div');
+    wrap.className = 'attendance-list';
+    res.records.forEach(r => {
+      const row = document.createElement('div');
+      row.className = 'attendance-row';
+      row.innerHTML = `
+        <div class="attendance-row-left">
+          <div class="att-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          </div>
+          <div class="date">${formatDate(r.date)}</div>
+        </div>
+        <div class="attendance-row-right">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+          ${r.time}
+        </div>
+      `;
+      wrap.appendChild(row);
+    });
+    list.appendChild(wrap);
+  }
+
+  loadAttendance();
+</script>
+</body>
+</html>

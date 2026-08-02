@@ -38,13 +38,13 @@
   'use strict';
 
   // ---- CONFIGURE THIS ------------------------------------------------
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycby8h8IJy_D8WdQpm82O7omEMe7TRrpJbqvbUQUwpm_b_FWbx_MEmbwFtahqihIXxRZ2nA/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHOJ6LtD2rwAmwdD_IH9TSxty-QuEo9YiSNwfO1MtHxo0ohIh_hG-1ikFfSizHO75MUw/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
   // Camp dates — used for "Days Until Camp" / the countdown on the
   // dashboard. Change these if the camp dates move.
-  const CAMP_START = new Date('2026-08-20T09:00:00');
+  const CAMP_START = new Date('2026-08-03T06:00:00');
   const CAMP_END = new Date('2026-08-24T17:00:00');
-  const CAMP_DATE_LABEL = 'Aug 20 - Aug 24, 2026';
+  const CAMP_DATE_LABEL = 'Aug 03 - Aug 24, 2026';
 
   // Max members per team, used only for the "FULL" / "N spots left"
   // display on sports.html — not enforced by the backend.
@@ -246,6 +246,20 @@
     return apiGet({ action: 'getMedia' });
   }
 
+  // ============ ATTENDANCE (check-in.html) ============
+
+  /** The logged-in camper's own attendance history + % attended, for check-in.html. */
+  async function getMyAttendance() {
+    const s = getSession();
+    if (!s || !s.email) return { success: false, error: 'Not logged in.' };
+    return apiGet({ action: 'getAttendance', email: s.email });
+  }
+
+  /** [ADMIN] Marks a camper present, by their scanned/typed Member ID. */
+  async function adminCheckIn(adminKey, code) {
+    return apiPost('checkIn', { adminKey: adminKey, code: code });
+  }
+
   // ============ ADMIN ============
 
   async function adminGetAllProfiles(adminKey) {
@@ -284,6 +298,8 @@
     updateContact, joinTeam, joinGame, leaveGame,
     // shared/public data
     getPublicData, getMedia,
+    // attendance
+    getMyAttendance, adminCheckIn,
     // admin
     adminGetAllProfiles, adminAddPoints, adminAddTeamPoints, adminAddMedia, adminDeleteMedia,
     // low-level, in case a page needs a custom call
