@@ -424,14 +424,6 @@
         </div>
       </div>
 
-      <div class="field">
-        <label for="grade">Grade <span class="req">*</span></label>
-        <div class="input-wrap">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/></svg>
-          <input type="number" id="grade" name="grade" placeholder="Enter your grade (1-12)" min="1" max="12" required>
-        </div>
-      </div>
-
       <div class="gender-row">
         <label class="radio-box" for="gender-male">
           <input type="radio" id="gender-male" name="gender" value="male" required>
@@ -491,7 +483,6 @@
 
     const payload = {
       age: document.getElementById('age').value,
-      grade: document.getElementById('grade').value,
       gender: (document.querySelector('input[name="gender"]:checked') || {}).value || '',
       mobile: document.getElementById('mobile').value,
       parentGuardianName: document.getElementById('guardian').value,

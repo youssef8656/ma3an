@@ -38,12 +38,12 @@
   'use strict';
 
   // ---- CONFIGURE THIS ------------------------------------------------
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwHOJ6LtD2rwAmwdD_IH9TSxty-QuEo9YiSNwfO1MtHxo0ohIh_hG-1ikFfSizHO75MUw/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykkE2d_OnAd08M5LcRMcQtHsb_SR3TQvUm-AbWLlNzZLsdxpEynP3VUjWdlD0E6TOXIg/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
   // Camp dates — used for "Days Until Camp" / the countdown on the
   // dashboard. Change these if the camp dates move.
-  const CAMP_START = new Date('2026-08-03T06:00:00');
-  const CAMP_END = new Date('2026-08-24T17:00:00');
+  const CAMP_START = new Date('2026-08-03T18:00:00');
+  const CAMP_END = new Date('2026-08-24T18:00:00');
   const CAMP_DATE_LABEL = 'Aug 03 - Aug 24, 2026';
 
   // Max members per team, used only for the "FULL" / "N spots left"
