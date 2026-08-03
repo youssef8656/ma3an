@@ -400,6 +400,91 @@
   }
   .checkin-log-row span:last-child{ color:#5c6e6e; font-weight:600; }
 
+  /* ============ ANNOUNCEMENTS ============ */
+  .announce-form-card{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:16px;
+    box-shadow:var(--card-shadow);
+    padding:20px 22px;
+    margin-bottom:18px;
+  }
+  .announce-field{ margin-bottom:14px; }
+  .announce-field label{
+    display:block;
+    font-weight:700;
+    font-size:12.5px;
+    color:#5c6e6e;
+    margin-bottom:6px;
+  }
+  .announce-field input[type="text"],
+  .announce-field textarea{
+    width:100%;
+    padding:11px 14px;
+    border-radius:10px;
+    border:1.5px solid var(--border);
+    font-family:'Nunito', sans-serif;
+    font-size:14px;
+    resize:vertical;
+  }
+  .announce-field textarea{ min-height:80px; }
+  .announce-field input:focus, .announce-field textarea:focus{
+    outline:none; border-color:var(--purple); box-shadow:0 0 0 4px rgba(108,75,214,0.12);
+  }
+
+  .announce-expiry-row{ display:flex; gap:18px; align-items:center; margin-bottom:14px; flex-wrap:wrap; }
+  .announce-expiry-row label{ display:flex; align-items:center; gap:7px; font-weight:700; font-size:13.5px; cursor:pointer; }
+  .announce-expiry-row input[type="date"]{
+    padding:9px 12px;
+    border-radius:8px;
+    border:1.5px solid var(--border);
+    font-family:'Nunito', sans-serif;
+    font-size:13.5px;
+  }
+
+  .btn-publish{
+    padding:11px 22px;
+    border-radius:10px;
+    border:none;
+    background:var(--purple);
+    color:#fff;
+    font-weight:800;
+    font-size:14px;
+    cursor:pointer;
+  }
+  .btn-publish:disabled{ opacity:0.6; cursor:default; }
+  .announce-form-status{ margin-top:10px; font-size:13px; font-weight:700; }
+  .announce-form-status.ok{ color:var(--green); }
+  .announce-form-status.err{ color:var(--red); }
+
+  .announce-list{ display:flex; flex-direction:column; gap:10px; }
+  .announce-item{
+    background:#fff;
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:14px 18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    gap:12px;
+  }
+  .announce-item-title{ font-weight:800; font-size:14.5px; margin-bottom:3px; }
+  .announce-item-message{ font-size:13px; color:#5c6e6e; font-weight:600; margin-bottom:6px; white-space:pre-wrap; }
+  .announce-item-meta{ font-size:11.5px; font-weight:700; color:#9aa8a8; }
+  .btn-delete-announce{
+    padding:7px 12px;
+    border-radius:8px;
+    border:none;
+    background:#fdeceb;
+    color:var(--red);
+    font-weight:800;
+    font-size:12px;
+    cursor:pointer;
+    flex-shrink:0;
+    white-space:nowrap;
+  }
+  .btn-delete-announce:hover{ background:#fbdedb; }
+
   .table-card{
     background:#fff;
     border:1px solid var(--border);
@@ -585,6 +670,27 @@
         <div id="checkin-log-rows"></div>
       </div>
     </div>
+
+    <h2 class="section-title">Post an Announcement</h2>
+    <form class="announce-form-card" id="announce-form">
+      <div class="announce-field">
+        <label for="announce-title-input">Title</label>
+        <input type="text" id="announce-title-input" placeholder="e.g. Pool Time moved to 3 PM" required>
+      </div>
+      <div class="announce-field">
+        <label for="announce-message-input">Message</label>
+        <textarea id="announce-message-input" placeholder="Details for campers..." required></textarea>
+      </div>
+      <div class="announce-expiry-row">
+        <label><input type="radio" name="announce-expiry" value="forever" checked> Stays forever</label>
+        <label><input type="radio" name="announce-expiry" value="until"> Until a specific date</label>
+        <input type="date" id="announce-expiry-date" disabled>
+      </div>
+      <button type="submit" class="btn-publish" id="announce-submit-btn">Publish</button>
+      <div class="announce-form-status" id="announce-form-status"></div>
+    </form>
+
+    <div class="announce-list" id="announce-list"></div>
   </div>
 
 </main>
@@ -617,6 +723,7 @@
       lockCard.style.display = 'none';
       dashboard.style.display = 'block';
       loadMedia();
+      loadAnnouncements();
       startScanner();
     } else {
       lockError.textContent = "Incorrect key, or the backend didn't respond. Check the URL and key.";
@@ -624,7 +731,7 @@
     }
   });
 
-  document.getElementById('refresh-btn').addEventListener('click', () => { loadProfiles(); loadMedia(); });
+  document.getElementById('refresh-btn').addEventListener('click', () => { loadProfiles(); loadMedia(); loadAnnouncements(); });
   document.getElementById('search-input').addEventListener('input', renderParticipants);
 
   async function loadProfiles() {
@@ -1008,6 +1115,118 @@
         <span>${escapeHtml(m.time)}</span>
       </div>
     `).join('');
+  }
+
+  /* ============ ANNOUNCEMENTS ============ */
+  const expiryDateInput = document.getElementById('announce-expiry-date');
+  document.querySelectorAll('input[name="announce-expiry"]').forEach(radio => {
+    radio.addEventListener('change', () => {
+      expiryDateInput.disabled = document.querySelector('input[name="announce-expiry"]:checked').value !== 'until';
+    });
+  });
+
+  document.getElementById('announce-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const titleInput = document.getElementById('announce-title-input');
+    const messageInput = document.getElementById('announce-message-input');
+    const btn = document.getElementById('announce-submit-btn');
+    const status = document.getElementById('announce-form-status');
+
+    const wantsExpiry = document.querySelector('input[name="announce-expiry"]:checked').value === 'until';
+    const expiresAt = wantsExpiry ? expiryDateInput.value : '';
+
+    if (wantsExpiry && !expiresAt) {
+      status.textContent = 'Pick a date, or choose "Stays forever" instead.';
+      status.className = 'announce-form-status err';
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = 'Publishing…';
+    status.textContent = '';
+    status.className = 'announce-form-status';
+
+    try {
+      const res = await fetch(SCRIPT_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          action: 'addAnnouncement',
+          adminKey: ADMIN_KEY,
+          title: titleInput.value.trim(),
+          message: messageInput.value.trim(),
+          expiresAt: expiresAt,
+        }),
+      });
+      const data = await res.json();
+      if (!data.success) throw new Error(data.error || 'Could not publish that announcement.');
+
+      titleInput.value = '';
+      messageInput.value = '';
+      expiryDateInput.value = '';
+      document.querySelector('input[name="announce-expiry"][value="forever"]').checked = true;
+      expiryDateInput.disabled = true;
+      status.textContent = 'Published!';
+      status.className = 'announce-form-status ok';
+      loadAnnouncements();
+    } catch (err) {
+      status.textContent = err.message;
+      status.className = 'announce-form-status err';
+    } finally {
+      btn.disabled = false;
+      btn.textContent = 'Publish';
+    }
+  });
+
+  async function loadAnnouncements() {
+    try {
+      const res = await fetch(`${SCRIPT_URL}?action=getAnnouncements`);
+      const data = await res.json();
+      if (!data.success) return;
+      renderAnnouncements(data.announcements);
+    } catch (err) {
+      console.error('Could not load announcements:', err);
+    }
+  }
+
+  function renderAnnouncements(posts) {
+    const list = document.getElementById('announce-list');
+    if (!posts || posts.length === 0) {
+      list.innerHTML = '<div class="empty-state">No announcements posted yet.</div>';
+      return;
+    }
+    list.innerHTML = posts.map(p => `
+      <div class="announce-item" data-id="${escapeHtml(p.id)}">
+        <div>
+          <div class="announce-item-title">${escapeHtml(p.title)}</div>
+          <div class="announce-item-message">${escapeHtml(p.message)}</div>
+          <div class="announce-item-meta">${p.expiresAt ? 'Until ' + escapeHtml(p.expiresAt) : 'Stays forever'}</div>
+        </div>
+        <button class="btn-delete-announce">Delete</button>
+      </div>
+    `).join('');
+
+    list.querySelectorAll('.btn-delete-announce').forEach(btn => {
+      btn.addEventListener('click', async () => {
+        const item = btn.closest('.announce-item');
+        const id = item.dataset.id;
+        if (!confirm('Delete this announcement?')) return;
+        item.style.opacity = '0.5';
+        try {
+          const res = await fetch(SCRIPT_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+            body: JSON.stringify({ action: 'deleteAnnouncement', adminKey: ADMIN_KEY, id: id }),
+          });
+          const data = await res.json();
+          if (!data.success) throw new Error(data.error || 'Could not delete that announcement.');
+          loadAnnouncements();
+        } catch (err) {
+          alert(err.message);
+          item.style.opacity = '1';
+        }
+      });
+    });
   }
 </script>
 

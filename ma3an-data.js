@@ -38,13 +38,13 @@
   'use strict';
 
   // ---- CONFIGURE THIS ------------------------------------------------
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbykkE2d_OnAd08M5LcRMcQtHsb_SR3TQvUm-AbWLlNzZLsdxpEynP3VUjWdlD0E6TOXIg/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz96-btBKA-ZZfI_u9nClwcXYlUqfXJYmBsoVD4fpNO5BW10vAs2TY9lF7soycHHseasw/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
   // Camp dates — used for "Days Until Camp" / the countdown on the
   // dashboard. Change these if the camp dates move.
-  const CAMP_START = new Date('2026-08-03T18:00:00');
-  const CAMP_END = new Date('2026-08-24T18:00:00');
-  const CAMP_DATE_LABEL = 'Aug 03 - Aug 24, 2026';
+  const CAMP_START = new Date('2026-08-20T09:00:00');
+  const CAMP_END = new Date('2026-08-24T17:00:00');
+  const CAMP_DATE_LABEL = 'Aug 20 - Aug 24, 2026';
 
   // Max members per team, used only for the "FULL" / "N spots left"
   // display on sports.html — not enforced by the backend.
@@ -260,6 +260,23 @@
     return apiPost('checkIn', { adminKey: adminKey, code: code });
   }
 
+  // ============ ANNOUNCEMENTS (schedule.html) ============
+
+  /** Every non-expired announcement, newest first — for schedule.html. */
+  async function getAnnouncements() {
+    return apiGet({ action: 'getAnnouncements' });
+  }
+
+  /** [ADMIN] Publishes an announcement. Pass expiresAt as '' (or omit it) for a post that stays up forever. */
+  async function adminAddAnnouncement(adminKey, title, message, expiresAt) {
+    return apiPost('addAnnouncement', { adminKey: adminKey, title: title, message: message, expiresAt: expiresAt || '' });
+  }
+
+  /** [ADMIN] Removes an announcement by its `id` (from getAnnouncements()'s response). */
+  async function adminDeleteAnnouncement(adminKey, id) {
+    return apiPost('deleteAnnouncement', { adminKey: adminKey, id: id });
+  }
+
   // ============ ADMIN ============
 
   async function adminGetAllProfiles(adminKey) {
@@ -300,6 +317,8 @@
     getPublicData, getMedia,
     // attendance
     getMyAttendance, adminCheckIn,
+    // announcements
+    getAnnouncements, adminAddAnnouncement, adminDeleteAnnouncement,
     // admin
     adminGetAllProfiles, adminAddPoints, adminAddTeamPoints, adminAddMedia, adminDeleteMedia,
     // low-level, in case a page needs a custom call
