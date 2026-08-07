@@ -25,6 +25,8 @@
   body{
     margin:0;
     background:#fbfaf5;
+    background-image:url(imgs/WhatsApp\ Image\ 2026-08-07\ at\ 1.58.41\ PM.jpeg);
+    background-size:auto;
     font-family:'Nunito', sans-serif;
     color:var(--ink);
   }
@@ -200,10 +202,6 @@
     font-weight:700;
     opacity:0.9;
   }
-  .team-card.red .team-card-head{ background:var(--red); }
-  .team-card.blue .team-card-head{ background:var(--blue); }
-  .team-card.green .team-card-head{ background:var(--green);}
-  .team-card.yellow .team-card-head{ background:var(--orange); }
 
   .status-pill{
     font-size:11.5px;
@@ -255,10 +253,6 @@
     margin-bottom:16px;
   }
   .team-icon-circle svg{ width:30px; height:30px; }
-  .team-card.red .team-icon-circle{ background:#fbe4df; color:var(--red); }
-  .team-card.blue .team-icon-circle{ background:#dfeafa; color:var(--blue); }
-  .team-card.green .team-icon-circle{ background:#e1f5e6; color:var(--green); }
-  .team-card.yellow .team-icon-circle{ background:#fdecc7; color:var(--orange); }
 
   .team-card-body h4{
     font-family:'Baloo 2', sans-serif;
@@ -266,7 +260,6 @@
     font-size:17px;
     margin:0 0 6px;
   }
-  .team-card.green .team-card-body h4{ color:var(--green); }
   .team-card-body p{
     margin:0 0 20px;
     font-size:13.5px;
@@ -601,21 +594,25 @@
   </div>
 
   <nav class="topnav-center">
-    <a href="Home.html" class="nav-pill">
+    <a href="Home.html" class="nav-pill ">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Home
     </a>
     <a href="sports.html" class="nav-pill active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-      Sports
-    </a>
-    <a href="media.html" class="nav-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-      Media
+      Teams
     </a>
     <a href="CheckIn.html" class="nav-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       Check In
+    </a>
+    <a href="schedule.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Schedule
+    </a>
+    <a href="media.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Media
     </a>
     <a href="my-profile.html" class="nav-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -624,23 +621,6 @@
   </nav>
 
   <div class="topnav-right">
-    <button class="icon-btn" aria-label="Light mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Dark mode">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Notifications">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
-    </button>
-    <button class="icon-btn" aria-label="Messages">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-    </button>
-    <div class="lang-pill">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
-      العربية EG
-      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
-    </div>
     <div class="profile-pill">
       <div class="profile-avatar" id="nav-avatar">NN</div>
       <span id="nav-team">—</span>
@@ -690,107 +670,13 @@
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
         Team Rosters
       </h1>
-      <div class="team-tally">
-        <span><span class="tally-dot" style="background:var(--red);"></span>Red: <strong id="tally-red">24/24 FULL</strong></span>
-        <span><span class="tally-dot" style="background:var(--blue);"></span>Blue: <strong id="tally-blue">24/24 FULL</strong></span>
-        <span><span class="tally-dot" style="background:var(--green);"></span>Green: <strong id="tally-green">23/24</strong></span>
-        <span><span class="tally-dot" style="background:var(--orange);"></span>Yellow: <strong id="tally-yellow">13/24</strong></span>
-      </div>
+      <!-- Built dynamically from pub.teams / pub.teamRosters — teams are admin-defined and can change. -->
+      <div class="team-tally" id="team-tally"></div>
     </div>
   </div>
 
-  <div class="team-grid">
-
-    <div class="team-card red" id="card-Red" data-team="Red">
-      <div class="team-card-head">
-        <div>
-          <h3>Red</h3>
-          <p id="count-Red">Loading…</p>
-        </div>
-        <span class="status-pill" id="pill-Red">&nbsp;</span>
-      </div>
-      <div class="team-card-body">
-        <div class="team-icon-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h4 id="title-Red">&nbsp;</h4>
-        <p id="sub-Red">&nbsp;</p>
-        <div class="roster-list" id="roster-Red"></div>
-        <button class="team-btn locked" id="btn-Red" disabled>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Team Full
-        </button>
-      </div>
-    </div>
-
-    <div class="team-card blue" id="card-Blue" data-team="Blue">
-      <div class="team-card-head">
-        <div>
-          <h3>Blue</h3>
-          <p id="count-Blue">Loading…</p>
-        </div>
-        <span class="status-pill" id="pill-Blue">&nbsp;</span>
-      </div>
-      <div class="team-card-body">
-        <div class="team-icon-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h4 id="title-Blue">&nbsp;</h4>
-        <p id="sub-Blue">&nbsp;</p>
-        <div class="roster-list" id="roster-Blue"></div>
-        <button class="team-btn locked" id="btn-Blue" disabled>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          Team Full
-        </button>
-      </div>
-    </div>
-
-    <div class="team-card green" id="card-Green" data-team="Green">
-      <div class="best-badge" id="best-badge" style="display:none;">BEST CHOICE</div>
-      <div class="team-card-head">
-        <div>
-          <h3>Green</h3>
-          <p id="count-Green">Loading…</p>
-        </div>
-        <span class="status-pill" id="pill-Green">&nbsp;</span>
-      </div>
-      <div class="team-card-body">
-        <div class="team-icon-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h4 id="title-Green">&nbsp;</h4>
-        <p id="sub-Green">&nbsp;</p>
-        <div class="roster-list" id="roster-Green"></div>
-        <button class="team-btn join" id="btn-Green">
-          <span>Join Green Team</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
-      </div>
-    </div>
-
-    <div class="team-card yellow" id="card-Yellow" data-team="Yellow">
-      <div class="team-card-head">
-        <div>
-          <h3>Yellow</h3>
-          <p id="count-Yellow">Loading…</p>
-        </div>
-        <span class="status-pill" id="pill-Yellow">&nbsp;</span>
-      </div>
-      <div class="team-card-body">
-        <div class="team-icon-circle">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-        </div>
-        <h4 id="title-Yellow">&nbsp;</h4>
-        <p id="sub-Yellow">&nbsp;</p>
-        <div class="roster-list" id="roster-Yellow"></div>
-        <button class="team-btn join" id="btn-Yellow">
-          <span>Join Yellow Team</span>
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
-        </button>
-      </div>
-    </div>
-
-  </div>
+  <!-- Team cards are generated in JS from the live team list — see ensureTeamCards(). -->
+  <div class="team-grid" id="team-grid"></div>
 
   <div class="section-card">
     <div class="section-heading">
@@ -1025,7 +911,23 @@
     document.getElementById('mobile-nav-panel').classList.toggle('open');
   });
 
-  const TEAMS = ['Red', 'Blue', 'Green', 'Yellow'];
+  // Small helper — used whenever we drop admin-editable text (team
+  // names, etc.) into innerHTML.
+  function escapeHtml(str) {
+    return String(str)
+      .replace(/&/g, '&amp;')
+      .replace(/</g, '&lt;')
+      .replace(/>/g, '&gt;')
+      .replace(/"/g, '&quot;')
+      .replace(/'/g, '&#39;');
+  }
+
+  // Team names are admin-defined free text and can contain spaces/
+  // punctuation, so we can't use them directly as element ids.
+  function cssId(team) {
+    return String(team).replace(/[^a-zA-Z0-9_-]/g, '_');
+  }
+
   const GAMES = ['Soccer', 'Dodgeball', 'Chairball', 'Big Game', 'Pool Time'];
   const GAME_DOM_KEY = { 'Soccer':'Soccer', 'Dodgeball':'Dodgeball', 'Chairball':'Chairball', 'Big Game':'BigGame', 'Pool Time':'PoolTime' };
   const CAPACITY = window.MA3AN.TEAM_CAPACITY || 24;
@@ -1053,41 +955,102 @@
     });
   }
 
-  /** Redraws all four team cards, the tally strip, and the switches count from fresh data. */
+  /** Markup for one team card. Colors come from MA3AN.colorForTeam() so any admin-created team name gets a consistent color. */
+  function teamCardHTML(team) {
+    const id = cssId(team);
+    const color = window.MA3AN.colorForTeam(team);
+    return `
+      <div class="team-card" id="card-${id}" data-team="${escapeHtml(team)}">
+        <div class="team-card-head" style="background:${color};">
+          <div>
+            <h3>${escapeHtml(team)}</h3>
+            <p id="count-${id}">Loading…</p>
+          </div>
+          <span class="status-pill" id="pill-${id}">&nbsp;</span>
+        </div>
+        <div class="team-card-body">
+          <div class="team-icon-circle" style="background:${color}22;color:${color};">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+          </div>
+          <h4 id="title-${id}">&nbsp;</h4>
+          <p id="sub-${id}">&nbsp;</p>
+          <div class="roster-list" id="roster-${id}"></div>
+          <button class="team-btn locked" id="btn-${id}" disabled>Loading…</button>
+        </div>
+      </div>`;
+  }
+
+  /** Adds/removes team cards so the grid always matches the current list of teams (admin-defined, can change). */
+  function ensureTeamCards(teams) {
+    const grid = document.getElementById('team-grid');
+    const existing = new Set(Array.from(grid.children).map(c => c.dataset.team));
+    const wanted = new Set(teams);
+
+    Array.from(grid.children).forEach(c => {
+      if (!wanted.has(c.dataset.team)) c.remove();
+    });
+
+    teams.forEach(team => {
+      if (!existing.has(team)) {
+        grid.insertAdjacentHTML('beforeend', teamCardHTML(team));
+      }
+    });
+  }
+
+  function renderTally(teams, rosters) {
+    const el = document.getElementById('team-tally');
+    el.innerHTML = teams.map(team => {
+      const count = (rosters[team] || []).length;
+      const full = count >= CAPACITY ? ' FULL' : '';
+      const color = window.MA3AN.colorForTeam(team);
+      return `<span><span class="tally-dot" style="background:${color};"></span>${escapeHtml(team)}: <strong>${count}/${CAPACITY}${full}</strong></span>`;
+    }).join('');
+  }
+
+  /** Redraws all team cards, the tally strip, and picks the "BEST CHOICE" badge from fresh data. */
   function renderTeams(pub, mySession) {
     const rosters = pub.teamRosters || {};
+    const teams = (pub.teams && pub.teams.length) ? pub.teams : Object.keys(rosters);
     const myTeam = mySession.team || '';
 
-    // Which non-full team currently has the fewest members? That one gets the "BEST CHOICE" badge.
-    const candidates = myTeam ? [] : TEAMS.filter(t => (rosters[t] || []).length < CAPACITY);
+    ensureTeamCards(teams);
+    renderTally(teams, rosters);
+
+    const candidates = myTeam ? [] : teams.filter(t => (rosters[t] || []).length < CAPACITY);
     let bestTeam = null;
     candidates.forEach(t => {
       if (bestTeam === null || (rosters[t] || []).length < (rosters[bestTeam] || []).length) bestTeam = t;
     });
 
-    TEAMS.forEach(team => {
+    teams.forEach(team => {
+      const id = cssId(team);
       const members = rosters[team] || [];
       const count = members.length;
       const isFull = count >= CAPACITY;
       const isMine = team === myTeam;
       const isBest = team === bestTeam;
 
-      document.getElementById(`count-${team}`).textContent = `${count}/${CAPACITY} Members`;
-      document.getElementById(`tally-${team.toLowerCase()}`).textContent =
-        isFull ? `${count}/${CAPACITY} FULL` : `${count}/${CAPACITY}`;
-      renderRosterInto(`roster-${team}`, members);
+      document.getElementById(`count-${id}`).textContent = `${count}/${CAPACITY} Members`;
+      renderRosterInto(`roster-${id}`, members);
 
-      const pill = document.getElementById(`pill-${team}`);
-      const title = document.getElementById(`title-${team}`);
-      const sub = document.getElementById(`sub-${team}`);
-      const btn = document.getElementById(`btn-${team}`);
-      const card = document.querySelector(`.team-card[data-team="${team}"]`);
+      const pill = document.getElementById(`pill-${id}`);
+      const title = document.getElementById(`title-${id}`);
+      const sub = document.getElementById(`sub-${id}`);
+      const btn = document.getElementById(`btn-${id}`);
+      const card = document.getElementById(`card-${id}`);
+
+      // Clear any leftover "best" badge from a previous render before re-adding it below.
+      const oldBadge = card.querySelector('.best-badge');
+      if (oldBadge) oldBadge.remove();
 
       sub.style.display = '';
       btn.style.display = '';
-
       card.classList.toggle('you', isMine);
       card.classList.toggle('best', isBest);
+
+      if (isBest) {
+        card.insertAdjacentHTML('afterbegin', '<div class="best-badge">BEST CHOICE</div>');
+      }
 
       if (isMine) {
         pill.className = 'status-pill you';
@@ -1096,6 +1059,7 @@
         sub.textContent = `You're one of ${count} campers on Team ${team}.`;
         btn.className = 'team-btn locked';
         btn.disabled = true;
+        btn.onclick = null;
         btn.innerHTML = 'Your Team';
       } else if (isFull) {
         pill.className = 'status-pill';
@@ -1104,6 +1068,7 @@
         sub.textContent = 'This team has reached its maximum capacity.';
         btn.className = 'team-btn locked';
         btn.disabled = true;
+        btn.onclick = null;
         btn.innerHTML =
           '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg> Team Full';
       } else if (myTeam) {
@@ -1117,6 +1082,7 @@
         sub.textContent = '';
         sub.style.display = 'none';
         btn.style.display = 'none';
+        btn.onclick = null;
       } else {
         const spotsLeft = CAPACITY - count;
         pill.className = 'status-pill spot';
@@ -1125,18 +1091,21 @@
         sub.textContent = isBest ? 'Spots are limited! Be part of something great.' : 'Spots available.';
         btn.disabled = false;
         btn.className = 'team-btn join';
-        btn.innerHTML = `<span>Join ${team} Team</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+        btn.innerHTML = `<span>Join ${escapeHtml(team)} Team</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>`;
+        btn.onclick = async () => {
+          if (btn.disabled) return;
+          btn.disabled = true;
+          const res = await window.MA3AN.joinTeam(team);
+          btn.disabled = false;
+          if (!res.success) {
+            alert(res.error || 'Could not join that team.');
+            return;
+          }
+          alert(`You've joined the ${team} Team! 🎉`);
+          loadEverything(true);
+        };
       }
     });
-
-    // Move the "BEST CHOICE" badge onto whichever card earned it this render.
-    const badge = document.getElementById('best-badge');
-    if (bestTeam) {
-      document.getElementById(`card-${bestTeam}`).prepend(badge);
-      badge.style.display = 'block';
-    } else {
-      badge.style.display = 'none';
-    }
   }
 
   function renderGames(pub, mySession) {
@@ -1231,24 +1200,8 @@
     });
   });
 
-  /* ---------------- Team join/switch ---------------- */
-  TEAMS.forEach(team => {
-    document.getElementById(`btn-${team}`).addEventListener('click', async () => {
-      const btn = document.getElementById(`btn-${team}`);
-      if (btn.disabled) return;
-      btn.disabled = true;
-
-      const res = await window.MA3AN.joinTeam(team);
-      btn.disabled = false;
-
-      if (!res.success) {
-        alert(res.error || 'Could not join that team.');
-        return;
-      }
-      alert(`You've joined the ${team} Team! 🎉`);
-      loadEverything(true);
-    });
-  });
+  /* Team join/switch handlers are wired per-card, inline, inside renderTeams() above,
+     since the cards themselves are generated dynamically from the live team list. */
 </script>
 </body>
 </html>

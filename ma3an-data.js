@@ -38,7 +38,7 @@
   'use strict';
 
   // ---- CONFIGURE THIS ------------------------------------------------
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbz96-btBKA-ZZfI_u9nClwcXYlUqfXJYmBsoVD4fpNO5BW10vAs2TY9lF7soycHHseasw/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1TzZHZSlXJxI9qi9WV8SVYkxpgcqx-uMZWtDTJD4PnaTnnQofHWc84vYm8ryQY-fzHg/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
   // Camp dates — used for "Days Until Camp" / the countdown on the
   // dashboard. Change these if the camp dates move.
@@ -49,6 +49,25 @@
   // Max members per team, used only for the "FULL" / "N spots left"
   // display on sports.html — not enforced by the backend.
   const TEAM_CAPACITY = 24;
+
+  // Since teams are now admin-created/renamed (not fixed to
+  // Red/Blue/Green/Yellow), every page picks a team's display color
+  // from this shared palette via colorForTeam() below, instead of a
+  // hardcoded name->color map. Same team name always gets the same
+  // color, consistently across every page.
+  const TEAM_COLOR_PALETTE = [
+    '#e8562f', '#2f7bd6', '#2fa84f', '#f2a022', '#6c4bd6', '#1e8e82',
+    '#d6336c', '#0d9488', '#b45309', '#4338ca', '#059669', '#be123c',
+    '#0369a1', '#a16207', '#7c3aed',
+  ];
+
+  /** Deterministic color for a team name — same name always -> same color. */
+  function colorForTeam(teamName) {
+    const name = String(teamName || '');
+    let hash = 0;
+    for (let i = 0; i < name.length; i++) hash = (hash * 31 + name.charCodeAt(i)) >>> 0;
+    return TEAM_COLOR_PALETTE[hash % TEAM_COLOR_PALETTE.length];
+  }
   // ---------------------------------------------------------------------
 
   const SESSION_KEY = 'ma3an_session';
@@ -292,6 +311,11 @@
     return apiPost('addTeamPoints', { adminKey: adminKey, team: team, delta: delta });
   }
 
+  /** Assigns/reassigns a camper's team directly, no restrictions (pass team: '' to unassign). */
+  async function adminSetCamperTeam(adminKey, email, team) {
+    return apiPost('setCamperTeam', { adminKey: adminKey, email: email, team: team });
+  }
+
   /** Adds a Google Drive photo link (any normal share link) to media.html, with an optional caption. */
   async function adminAddMedia(adminKey, url, caption) {
     return apiPost('addMedia', { adminKey: adminKey, url: url, caption: caption });
@@ -306,7 +330,7 @@
     // camp dates
     CAMP_START, CAMP_END, CAMP_DATE_LABEL,
     // team display config
-    TEAM_CAPACITY,
+    TEAM_CAPACITY, colorForTeam,
     // session
     getSession, setSession, clearSession, isLoggedIn, requireLogin, logout,
     // auth
@@ -320,7 +344,7 @@
     // announcements
     getAnnouncements, adminAddAnnouncement, adminDeleteAnnouncement,
     // admin
-    adminGetAllProfiles, adminAddPoints, adminAddTeamPoints, adminAddMedia, adminDeleteMedia,
+    adminGetAllProfiles, adminAddPoints, adminAddTeamPoints, adminSetCamperTeam, adminAddMedia, adminDeleteMedia,
     // low-level, in case a page needs a custom call
     apiGet, apiPost,
   };

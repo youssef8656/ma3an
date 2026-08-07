@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Home — MA3AN Youth</title>
+<title>Dashboard — MA3AN Youth</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@500;600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
@@ -27,6 +27,9 @@
     background:#fbfaf5;
     font-family:'Nunito', sans-serif;
     color:var(--ink);
+        background-image:url(imgs/WhatsApp\ Image\ 2026-08-07\ at\ 1.58.41\ PM.jpeg);
+    background-size:auto;
+
   }
   .heading-font{ font-family:'Baloo 2', sans-serif; }
 
@@ -51,9 +54,29 @@
     border:none;
     cursor:pointer;
     color:var(--ink);
-    display:flex;
+    display:none;
   }
   .menu-btn svg{ width:24px; height:24px; }
+
+  /* ============ MOBILE NAV PANEL ============ */
+  .mobile-nav-panel{
+    display:none;
+    flex-direction:column;
+    gap:2px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
+    padding:10px 14px 16px;
+  }
+  .mobile-nav-panel.open{ display:flex; }
+  .mobile-nav-panel a{
+    display:flex; align-items:center; gap:12px;
+    padding:12px 14px; border-radius:10px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:15px;
+  }
+  .mobile-nav-panel a svg{ width:19px; height:19px; flex-shrink:0; }
+  .mobile-nav-panel a:hover{ background:#f3f4ee; }
+  .mobile-nav-panel a.active{ background:#e9f6ec; color:var(--green); }
 
   .brand{
     display:flex;
@@ -404,6 +427,7 @@
   }
   .scoreboard-heading-right svg{ width:16px; height:16px; }
 
+  #score-rows{ max-height:420px; overflow-y:auto; }
   .score-row{
     display:grid;
     grid-template-columns:44px 160px 1fr 70px;
@@ -449,37 +473,13 @@
     text-align:right;
   }
 
-  /* ============ MOBILE SIDEBAR OVERLAY ============ */
-  .sidebar-overlay{
-    display:none;
-    position:fixed;
-    inset:0;
-    background:rgba(15,61,62,0.35);
-    z-index:999;
-  }
-  .sidebar-overlay.open{
-    display:block;
-  }
-
   @media (max-width:1200px){
     .stat-grid{ grid-template-columns:repeat(2, 1fr); }
   }
   @media (max-width:960px){
     .topnav-center{ display:none; }
-    .sidebar{
-      display:flex;
-      position:fixed;
-      top:0;
-      left:0;
-      height:100vh;
-      z-index:1000;
-      transform:translateX(-100%);
-      transition:transform .25s ease;
-      box-shadow:0 0 30px rgba(0,0,0,0.15);
-    }
-    .sidebar.open{
-      transform:translateX(0);
-    }
+    .sidebar{ display:none; }
+    .menu-btn{ display:flex; }
   }
   @media (max-width:640px){
     .stat-grid{ grid-template-columns:1fr; }
@@ -499,7 +499,7 @@
 
 <div class="topnav">
   <div class="topnav-left">
-    <button class="menu-btn" id="menuToggleBtn" aria-label="Toggle menu" aria-expanded="false" aria-controls="mainSidebar">
+    <button class="menu-btn" aria-label="Toggle menu">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
     </button>
     <div class="brand">
@@ -521,6 +521,14 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       Check In
     </a>
+    <a href="Schedule.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Schedule
+    </a>
+    <a href="media.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+      Media
+    </a>
     <a href="my-profile.html" class="nav-pill">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Profile
@@ -528,6 +536,20 @@
   </nav>
 
   <div class="topnav-right">
+    <!-- <button class="icon-btn" aria-label="Toggle theme">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Notifications">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>
+    </button>
+    <button class="icon-btn" aria-label="Messages">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+    </button> -->
+    <!-- <div class="lang-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>
+      English
+      <svg class="chevron" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
+    </div> -->
     <div class="profile-pill">
       <div class="profile-avatar">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
@@ -538,10 +560,35 @@
   </div>
 </div>
 
-<div class="sidebar-overlay" id="sidebarOverlay"></div>
+<nav class="mobile-nav-panel" id="mobile-nav-panel">
+  <a href="Home.html" class="active">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+    Home
+  </a>
+  <a href="sports.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+    Teams
+  </a>
+  <a href="CheckIn.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
+    Check In
+  </a>
+  <a href="Schedule.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+    Schedule
+  </a>
+  <a href="Media.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
+    Media
+  </a>
+  <a href="my-profile.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
+  </a>
+</nav>
 
 <div class="layout">
-  <aside class="sidebar" id="mainSidebar">
+  <aside class="sidebar">
     <a href="Home.html" class="side-link active">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       Home
@@ -554,13 +601,17 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
       Check In
     </a>
-    <a href="#" class="side-link">
+    <a href="Schedule.html" class="side-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
       Schedule
     </a>
-    <a href="Media.html" class="side-link">
+    <a href="media.html" class="side-link">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
       Media
+    </a>
+        <a href="my-profile.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Profile
     </a>
 
 
@@ -674,36 +725,147 @@
         </div>
       </div>
 
-      <div class="score-row">
-        <span class="score-rank">1st</span>
-        <span class="score-team"><span class="score-swatch" style="background:var(--red);"></span>Red Team</span>
-        <div class="score-bar-track"><div class="score-bar-fill" style="background:var(--red);"></div></div>
-        <span class="score-pts">0 pts</span>
-      </div>
-      <div class="score-row">
-        <span class="score-rank">2nd</span>
-        <span class="score-team"><span class="score-swatch" style="background:var(--blue);"></span>Blue Team</span>
-        <div class="score-bar-track"><div class="score-bar-fill" style="background:var(--blue);"></div></div>
-        <span class="score-pts">0 pts</span>
-      </div>
-      <div class="score-row">
-        <span class="score-rank">3rd</span>
-        <span class="score-team"><span class="score-swatch" style="background:var(--green);"></span>Green Team</span>
-        <div class="score-bar-track"><div class="score-bar-fill" style="background:var(--green);"></div></div>
-        <span class="score-pts">0 pts</span>
-      </div>
-      <div class="score-row">
-        <span class="score-rank">4th</span>
-        <span class="score-team"><span class="score-swatch" style="background:var(--orange);"></span>Yellow Team</span>
-        <div class="score-bar-track"><div class="score-bar-fill" style="background:var(--orange);"></div></div>
-        <span class="score-pts">0 pts</span>
-      </div>
+      <div id="score-rows"></div>
     </div>
 
   </main>
 </div>
 
-<!-- ============ FOOTER (paste at the bottom of every page, right before ) -->
+<script>
+  document.querySelector('.menu-btn').addEventListener('click', () => {
+    document.getElementById('mobile-nav-panel').classList.toggle('open');
+  });
+</script>
+
+<script src="page-transitions.js"></script>
+<script src="ma3an-data.js"></script>
+<script>
+(async function () {
+  let session = window.MA3AN.requireLogin();
+  if (!session) return; // requireLogin() already redirected to login.html
+
+  // The session cached in localStorage can be stale (e.g. an admin
+  // added points, or the camper switched teams, since last login).
+  // Re-fetch the camper's row from the sheet before rendering.
+  await window.MA3AN.refreshProfile();
+  session = window.MA3AN.getSession() || session;
+
+  const ORDINAL_UNIT = { 1: 'st', 2: 'nd', 3: 'rd' };
+
+  // ---- Name (topnav + greeting) ----
+  const fullName = session.fullName || 'Camper';
+  document.getElementById('profileName').textContent = fullName;
+  document.getElementById('greeting-name').textContent = fullName.split(' ')[0];
+
+  // ---- My Points ----
+  const myPoints = Number(session.points) || 0;
+  document.querySelector('.stat-card.points .stat-value').innerHTML =
+    myPoints + '<span class="unit">pts</span>';
+
+  // ---- Sports Score (greeting banner) ----
+  // Note: the sheet only tracks one running points total per camper —
+  // there's no separate "points earned today" field yet, so this
+  // shows the same total as "My Points" above.
+  document.getElementById('sports-score-value').textContent = myPoints;
+
+  // ---- Days Until Camp ----
+  const daysValueEl = document.querySelector('.stat-card.days .stat-value');
+  const daysSubEl = document.querySelector('.stat-card.days .stat-sub');
+  daysSubEl.textContent = window.MA3AN.CAMP_DATE_LABEL;
+
+  function msUntilCamp() {
+    return window.MA3AN.CAMP_START.getTime() - Date.now();
+  }
+
+  function updateDaysUntilCamp() {
+    const diff = msUntilCamp();
+    daysValueEl.textContent = diff > 0 ? Math.ceil(diff / 86400000) : 0;
+  }
+
+  // ---- Countdown to Camp ----
+  const countdownNums = document.querySelectorAll('.countdown-num');
+  const [cdDays, cdHours, cdMinutes, cdSeconds] = countdownNums;
+
+  function updateCountdown() {
+    let diff = msUntilCamp();
+    if (diff < 0) diff = 0;
+    cdDays.textContent = Math.floor(diff / 86400000);
+    cdHours.textContent = Math.floor((diff % 86400000) / 3600000);
+    cdMinutes.textContent = Math.floor((diff % 3600000) / 60000);
+    cdSeconds.textContent = Math.floor((diff % 60000) / 1000);
+  }
+
+  updateDaysUntilCamp();
+  updateCountdown();
+  setInterval(function () {
+    updateDaysUntilCamp();
+    updateCountdown();
+  }, 1000);
+
+  // ---- Your Standing + Scoreboard (needs team point totals) ----
+
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
+
+
+
+
+
+  async function loadScores() {
+    const pub = await window.MA3AN.getPublicData();
+    if (!pub || !pub.success || !pub.teamScores) return;
+
+    const ranked = Object.keys(pub.teamScores)
+      .map(function (team) { return { team: team, points: pub.teamScores[team] }; })
+      .sort(function (a, b) { return b.points - a.points; });
+
+    // Scoreboard rows — built fresh each time, since teams (and how
+    // many there are) are admin-defined and can change.
+    const rowsContainer = document.getElementById('score-rows');
+    rowsContainer.innerHTML = '';
+    const maxPts = Math.max(1, ranked.length ? ranked[0].points : 0);
+
+    ranked.forEach(function (entry, i) {
+      const place = i + 1;
+      const color = window.MA3AN.colorForTeam(entry.team);
+      const row = document.createElement('div');
+      row.className = 'score-row';
+      row.innerHTML =
+        '<span class="score-rank">' + place + (ORDINAL_UNIT[place] || 'th') + '</span>' +
+        '<span class="score-team"><span class="score-swatch" style="background:' + color + ';"></span>' + escapeHtml(entry.team) + ' Team</span>' +
+        '<div class="score-bar-track"><div class="score-bar-fill" style="background:' + color + '; width:' + Math.round((entry.points / maxPts) * 100) + '%;"></div></div>' +
+        '<span class="score-pts">' + entry.points + ' pts</span>';
+      rowsContainer.appendChild(row);
+    });
+
+    // Your Standing = rank of the camper's own team
+    const myTeam = session.team || '';
+    const standingIndex = ranked.findIndex(function (r) { return r.team === myTeam; });
+    const standingValueEl = document.querySelector('.stat-card.standing .stat-value');
+    const standingTeamEl = document.getElementById('standing-team');
+
+    if (myTeam && standingIndex > -1) {
+      const place = standingIndex + 1;
+      standingValueEl.innerHTML = place + '<span class="unit">' + (ORDINAL_UNIT[place] || 'th') + '</span>';
+      standingTeamEl.textContent = myTeam + ' Team';
+    } else {
+      standingValueEl.innerHTML = '&ndash;';
+      standingTeamEl.textContent = 'No team yet';
+    }
+  }
+
+  loadScores();
+})();
+</script>
+
+<!-- ============ FOOTER ============ -->
 <style>
   .site-footer{
     margin-top:40px;
@@ -797,147 +959,5 @@
   <div class="footer-note">&copy; 2026 MA3AN Camp Teams. All rights reserved.</div>
 </footer>
 
-
-<script src="page-transitions.js"></script>
-<script src="ma3an-data.js"></script>
-<script>
-(function () {
-  // ---- Mobile sidebar toggle (hamburger button) ----
-  const menuBtn = document.getElementById('menuToggleBtn');
-  const sidebar = document.getElementById('mainSidebar');
-  const overlay = document.getElementById('sidebarOverlay');
-
-  function openSidebar() {
-    sidebar.classList.add('open');
-    overlay.classList.add('open');
-    menuBtn.setAttribute('aria-expanded', 'true');
-  }
-  function closeSidebar() {
-    sidebar.classList.remove('open');
-    overlay.classList.remove('open');
-    menuBtn.setAttribute('aria-expanded', 'false');
-  }
-  menuBtn.addEventListener('click', function () {
-    if (sidebar.classList.contains('open')) {
-      closeSidebar();
-    } else {
-      openSidebar();
-    }
-  });
-  overlay.addEventListener('click', closeSidebar);
-  // Close it automatically if the viewport is resized back to desktop width
-  window.addEventListener('resize', function () {
-    if (window.innerWidth > 960) closeSidebar();
-  });
-})();
-
-(async function () {
-  let session = window.MA3AN.requireLogin();
-  if (!session) return; // requireLogin() already redirected to login.html
-
-  // The session cached in localStorage can be stale (e.g. an admin
-  // added points, or the camper switched teams, since last login).
-  // Re-fetch the camper's row from the sheet before rendering.
-  await window.MA3AN.refreshProfile();
-  session = window.MA3AN.getSession() || session;
-
-  const TEAM_COLORS = { Red: 'var(--red)', Blue: 'var(--blue)', Green: 'var(--green)', Yellow: 'var(--orange)' };
-  const ORDINAL_UNIT = { 1: 'st', 2: 'nd', 3: 'rd' };
-
-  // ---- Name (topnav + greeting) ----
-  const fullName = session.fullName || 'Camper';
-  document.getElementById('profileName').textContent = fullName;
-  document.getElementById('greeting-name').textContent = fullName.split(' ')[0];
-
-  // ---- My Points ----
-  const myPoints = Number(session.points) || 0;
-  document.querySelector('.stat-card.points .stat-value').innerHTML =
-    myPoints + '<span class="unit">pts</span>';
-
-  // ---- Sports Score (greeting banner) ----
-  // Note: the sheet only tracks one running points total per camper —
-  // there's no separate "points earned today" field yet, so this
-  // shows the same total as "My Points" above.
-  document.getElementById('sports-score-value').textContent = myPoints;
-
-  // ---- Days Until Camp ----
-  const daysValueEl = document.querySelector('.stat-card.days .stat-value');
-  const daysSubEl = document.querySelector('.stat-card.days .stat-sub');
-  daysSubEl.textContent = window.MA3AN.CAMP_DATE_LABEL;
-
-  function msUntilCamp() {
-    return window.MA3AN.CAMP_START.getTime() - Date.now();
-  }
-
-  function updateDaysUntilCamp() {
-    const diff = msUntilCamp();
-    daysValueEl.textContent = diff > 0 ? Math.ceil(diff / 86400000) : 0;
-  }
-
-  // ---- Countdown to Camp ----
-  const countdownNums = document.querySelectorAll('.countdown-num');
-  const [cdDays, cdHours, cdMinutes, cdSeconds] = countdownNums;
-
-  function updateCountdown() {
-    let diff = msUntilCamp();
-    if (diff < 0) diff = 0;
-    cdDays.textContent = Math.floor(diff / 86400000);
-    cdHours.textContent = Math.floor((diff % 86400000) / 3600000);
-    cdMinutes.textContent = Math.floor((diff % 3600000) / 60000);
-    cdSeconds.textContent = Math.floor((diff % 60000) / 1000);
-  }
-
-  updateDaysUntilCamp();
-  updateCountdown();
-  setInterval(function () {
-    updateDaysUntilCamp();
-    updateCountdown();
-  }, 1000);
-
-  // ---- Your Standing + Scoreboard (needs team point totals) ----
-  async function loadScores() {
-    const pub = await window.MA3AN.getPublicData();
-    if (!pub || !pub.success || !pub.teamScores) return;
-
-    const ranked = Object.keys(pub.teamScores)
-      .map(function (team) { return { team: team, points: pub.teamScores[team] }; })
-      .sort(function (a, b) { return b.points - a.points; });
-
-    // Scoreboard rows
-    const rows = document.querySelectorAll('.scoreboard-card .score-row');
-    const maxPts = Math.max(1, ranked.length ? ranked[0].points : 0);
-
-    ranked.forEach(function (entry, i) {
-      const row = rows[i];
-      if (!row) return;
-      const place = i + 1;
-      row.querySelector('.score-rank').textContent = place + (ORDINAL_UNIT[place] || 'th');
-      row.querySelector('.score-team').innerHTML =
-        '<span class="score-swatch" style="background:' + (TEAM_COLORS[entry.team] || 'var(--ink)') + ';"></span>' +
-        entry.team + ' Team';
-      row.querySelector('.score-bar-fill').style.background = TEAM_COLORS[entry.team] || 'var(--ink)';
-      row.querySelector('.score-bar-fill').style.width = Math.round((entry.points / maxPts) * 100) + '%';
-      row.querySelector('.score-pts').textContent = entry.points + ' pts';
-    });
-
-    // Your Standing = rank of the camper's own team
-    const myTeam = session.team || '';
-    const standingIndex = ranked.findIndex(function (r) { return r.team === myTeam; });
-    const standingValueEl = document.querySelector('.stat-card.standing .stat-value');
-    const standingTeamEl = document.getElementById('standing-team');
-
-    if (myTeam && standingIndex > -1) {
-      const place = standingIndex + 1;
-      standingValueEl.innerHTML = place + '<span class="unit">' + (ORDINAL_UNIT[place] || 'th') + '</span>';
-      standingTeamEl.textContent = myTeam + ' Team';
-    } else {
-      standingValueEl.innerHTML = '&ndash;';
-      standingTeamEl.textContent = 'No team yet';
-    }
-  }
-
-  loadScores();
-})();
-</script>
 </body>
 </html>

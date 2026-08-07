@@ -512,19 +512,18 @@
   }
   .p-name{ font-weight:800; font-size:14.5px; }
   .p-email{ font-size:13.5px; color:#7a8a89; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-  .p-team{
+  .p-team-select{
+    font-family:'Nunito', sans-serif;
     font-size:12.5px;
     font-weight:800;
-    padding:4px 10px;
-    border-radius:999px;
-    display:inline-block;
-    width:fit-content;
+    padding:6px 10px;
+    border-radius:8px;
+    border:1.5px solid var(--border);
+    background:color-mix(in srgb, var(--team-color, #9aa8a8) 14%, white);
+    color:var(--team-color, #9aa8a8);
+    cursor:pointer;
+    max-width:100%;
   }
-  .p-team.Red{ background:#fdeceb; color:var(--red); }
-  .p-team.Blue{ background:#eaf2fb; color:var(--blue); }
-  .p-team.Green{ background:#eaf7ee; color:var(--green); }
-  .p-team.Yellow{ background:#fdf3df; color:var(--orange); }
-  .p-team.none{ background:#f0f0e8; color:#9aa8a8; }
   .p-points{ font-family:'Baloo 2', sans-serif; font-weight:800; font-size:16px; }
 
   .p-actions{ display:flex; gap:6px; align-items:center; }
@@ -576,6 +575,7 @@
   :focus-visible{ outline:3px solid var(--teal); outline-offset:3px; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="ma3an-data.js"></script>
 </head>
 <body>
 
@@ -695,110 +695,13 @@
 
 </main>
 
-
-<!-- ============ FOOTER (paste at the bottom of every page, right before ) -->
-<style>
-  .site-footer{
-    margin-top:40px;
-    padding:28px 24px 24px;
-    background:#fff;
-    border-top:1px solid #e7e5db;
-    text-align:center;
-    font-family:'Nunito', sans-serif;
-  }
-  .site-footer .footer-brand{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:800;
-    font-size:18px;
-    margin-bottom:6px;
-  }
-  .site-footer .footer-brand span:nth-child(1){ color:#f2a022; }
-  .site-footer .footer-brand span:nth-child(2){ color:#2f7bd6; }
-  .site-footer .footer-brand span:nth-child(3){ color:#2fa84f; }
-  .site-footer .footer-brand span:nth-child(4){ color:#6c4bd6; }
-  .site-footer .footer-brand span:nth-child(5){ color:#e8562f; }
-
-  .site-footer .footer-credit{
-    font-size:13.5px;
-    font-weight:700;
-    color:#0f3d3e;
-    margin-bottom:10px;
-  }
-
-  .site-footer .footer-contact{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:18px;
-    flex-wrap:wrap;
-    margin-bottom:10px;
-  }
-  .site-footer .footer-contact a{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    color:#5c6e6e;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:700;
-  }
-  .site-footer .footer-contact a:hover{ color:#2f7bd6; }
-  .site-footer .footer-contact svg{ width:15px; height:15px; }
-
-  .site-footer .footer-note{
-    font-size:12px;
-    color:#9aa8a8;
-    font-weight:600;
-  }
-</style>
-
-<footer class="site-footer">
-  <div class="footer-brand">
-    <span>M</span><span>A</span><span>3</span><span>A</span><span>N</span>
-  </div>
-  <div class="footer-credit">Built by YOUSSEF NADY</div>
-  <div class="footer-contact">
-    <a href="mailto:your@email.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-      your@email.com
-    </a>
-    <a href="tel:+201287553264">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      +20 1287553264
-    </a>
-    <a href="https://wa.me/201287553264" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      WhatsApp
-    </a>
-  </div>
-    <div class="footer-credit">And FADY WAHIB</div>
-  <div class="footer-contact">
-    <a href="mailto:your@email.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-      your@email.com
-    </a>
-    <a href="tel:+201270215706">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      +20 1270215706
-    </a>
-    <a href="https://wa.me/201270215706" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      WhatsApp
-    </a>
-  </div>
-
-  <div class="footer-note">&copy; 2026 MA3AN Camp Teams. All rights reserved.</div>
-</footer>
-
-
 <script>
   let SCRIPT_URL = '';
   let ADMIN_KEY = '';
   let allProfiles = [];
-  let teamScores = { Red: 0, Blue: 0, Green: 0, Yellow: 0 };
+  let allTeams = [];
+  let teamScores = {};
   let allMedia = [];
-
-  const TEAM_COLORS = { Red: '#e8562f', Blue: '#2f7bd6', Green: '#2fa84f', Yellow: '#f2a022' };
 
   const lockCard = document.getElementById('lock-card');
   const dashboard = document.getElementById('admin-dashboard');
@@ -843,7 +746,10 @@
       // on the dashboard scoreboard.
       const pubRes = await fetch(`${SCRIPT_URL}?action=getPublicData`);
       const pub = await pubRes.json();
-      if (pub.success && pub.teamScores) teamScores = pub.teamScores;
+      if (pub.success) {
+        if (pub.teamScores) teamScores = pub.teamScores;
+        if (pub.teams) allTeams = pub.teams;
+      }
 
       renderTeamSummary();
       renderParticipants();
@@ -855,26 +761,32 @@
   }
 
   function renderTeamSummary() {
-    const teams = ['Red', 'Blue', 'Green', 'Yellow'];
     const el = document.getElementById('team-summary');
     el.innerHTML = '';
-    teams.forEach(team => {
+
+    if (allTeams.length === 0) {
+      el.innerHTML = '<div class="empty-state">No teams yet — add rows to the "Teams" sheet to create some.</div>';
+      return;
+    }
+
+    allTeams.forEach(team => {
       const members = allProfiles.filter(p => p.team === team);
       const total = teamScores[team] || 0;
+      const color = window.MA3AN.colorForTeam(team);
       const card = document.createElement('div');
       card.className = 'team-summary-card';
       card.innerHTML = `
         <div class="label">
-          <span class="team-dot" style="background:${TEAM_COLORS[team]};"></span>
-          ${team} · ${members.length} camper${members.length === 1 ? '' : 's'}
+          <span class="team-dot" style="background:${color};"></span>
+          ${escapeHtml(team)} · ${members.length} camper${members.length === 1 ? '' : 's'}
         </div>
-        <div class="value" id="team-value-${team}">${total} pts</div>
+        <div class="value" id="team-value-${cssId(team)}">${total} pts</div>
         <div class="team-score-actions">
-          <input type="number" min="1" value="10" aria-label="Team point amount" id="team-input-${team}">
-          <button class="btn-add-points" data-team="${team}" data-sign="1">+ Add</button>
-          <button class="btn-sub-points" data-team="${team}" data-sign="-1">− Sub</button>
+          <input type="number" min="1" value="10" aria-label="Team point amount" id="team-input-${cssId(team)}">
+          <button class="btn-add-points" data-team="${escapeHtml(team)}" data-sign="1">+ Add</button>
+          <button class="btn-sub-points" data-team="${escapeHtml(team)}" data-sign="-1">− Sub</button>
         </div>
-        <div class="team-score-status" id="team-status-${team}"></div>
+        <div class="team-score-status" id="team-status-${cssId(team)}"></div>
       `;
       el.appendChild(card);
     });
@@ -884,10 +796,15 @@
     });
   }
 
+  /** Turns any team name into a safe HTML element id (team names are admin-defined, so may contain spaces/punctuation). */
+  function cssId(name) {
+    return String(name).replace(/[^a-zA-Z0-9_-]/g, '_');
+  }
+
   async function applyTeamDelta(team, sign) {
-    const input = document.getElementById(`team-input-${team}`);
-    const status = document.getElementById(`team-status-${team}`);
-    const valueEl = document.getElementById(`team-value-${team}`);
+    const input = document.getElementById(`team-input-${cssId(team)}`);
+    const status = document.getElementById(`team-status-${cssId(team)}`);
+    const valueEl = document.getElementById(`team-value-${cssId(team)}`);
     const amount = Number(input.value);
 
     if (!amount || amount <= 0) {
@@ -937,11 +854,14 @@
     filtered.forEach(p => {
       const row = document.createElement('div');
       row.className = 'participant-row';
-      const teamClass = p.team && TEAM_COLORS[p.team] ? p.team : 'none';
+      const color = p.team ? window.MA3AN.colorForTeam(p.team) : '#9aa8a8';
+      const teamOptions = ['<option value="">No team</option>']
+        .concat(allTeams.map(t => `<option value="${escapeHtml(t)}"${t === p.team ? ' selected' : ''}>${escapeHtml(t)}</option>`))
+        .join('');
       row.innerHTML = `
         <span class="p-name">${escapeHtml(p.name)}</span>
         <span class="p-email">${escapeHtml(p.email)}</span>
-        <span class="p-team ${teamClass}">${escapeHtml(p.team || '—')}</span>
+        <select class="p-team-select" style="--team-color:${color};" aria-label="Team">${teamOptions}</select>
         <span class="p-points">${p.points} pts</span>
         <span class="p-actions">
           <input type="number" min="1" value="10" aria-label="Point amount">
@@ -950,6 +870,24 @@
           <span class="row-status"></span>
         </span>
       `;
+
+      const teamSelect = row.querySelector('.p-team-select');
+      teamSelect.addEventListener('change', async () => {
+        const newTeam = teamSelect.value;
+        teamSelect.disabled = true;
+        try {
+          const res = await window.MA3AN.adminSetCamperTeam(ADMIN_KEY, p.email, newTeam);
+          if (!res.success) throw new Error(res.error || 'Could not update team.');
+          p.team = newTeam;
+          teamSelect.style.setProperty('--team-color', newTeam ? window.MA3AN.colorForTeam(newTeam) : '#9aa8a8');
+          renderTeamSummary();
+        } catch (err) {
+          alert(err.message);
+          teamSelect.value = p.team || '';
+        } finally {
+          teamSelect.disabled = false;
+        }
+      });
 
       const input = row.querySelector('input');
       const addBtn = row.querySelector('.btn-add-points');
@@ -1327,5 +1265,100 @@
 </script>
 
 <script src="page-transitions.js"></script>
+
+<!-- ============ FOOTER ============ -->
+<style>
+  .site-footer{
+    margin-top:40px;
+    padding:28px 24px 24px;
+    background:#fff;
+    border-top:1px solid #e7e5db;
+    text-align:center;
+    font-family:'Nunito', sans-serif;
+  }
+  .site-footer .footer-brand{
+    font-family:'Baloo 2', sans-serif;
+    font-weight:800;
+    font-size:18px;
+    margin-bottom:6px;
+  }
+  .site-footer .footer-brand span:nth-child(1){ color:#f2a022; }
+  .site-footer .footer-brand span:nth-child(2){ color:#2f7bd6; }
+  .site-footer .footer-brand span:nth-child(3){ color:#2fa84f; }
+  .site-footer .footer-brand span:nth-child(4){ color:#6c4bd6; }
+  .site-footer .footer-brand span:nth-child(5){ color:#e8562f; }
+
+  .site-footer .footer-credit{
+    font-size:13.5px;
+    font-weight:700;
+    color:#0f3d3e;
+    margin-bottom:10px;
+  }
+
+  .site-footer .footer-contact{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap:18px;
+    flex-wrap:wrap;
+    margin-bottom:10px;
+  }
+  .site-footer .footer-contact a{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    color:#5c6e6e;
+    text-decoration:none;
+    font-size:13px;
+    font-weight:700;
+  }
+  .site-footer .footer-contact a:hover{ color:#2f7bd6; }
+  .site-footer .footer-contact svg{ width:15px; height:15px; }
+
+  .site-footer .footer-note{
+    font-size:12px;
+    color:#9aa8a8;
+    font-weight:600;
+  }
+</style>
+
+<footer class="site-footer">
+  <div class="footer-brand">
+    <span>M</span><span>A</span><span>3</span><span>A</span><span>N</span>
+  </div>
+  <div class="footer-credit">Built by YOUSSEF NADY</div>
+  <div class="footer-contact">
+    <a href="mailto:your@email.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+      your@email.com
+    </a>
+    <a href="tel:+201287553264">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +20 1287553264
+    </a>
+    <a href="https://wa.me/201287553264" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+    <div class="footer-credit">And FADY WAHIB</div>
+  <div class="footer-contact">
+    <a href="mailto:your@email.com">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
+      your@email.com
+    </a>
+    <a href="tel:+201270215706">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+      +20 1270215706
+    </a>
+    <a href="https://wa.me/201270215706" target="_blank" rel="noopener">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
+      WhatsApp
+    </a>
+  </div>
+
+  <div class="footer-note">&copy; 2026 MA3AN Camp Teams. All rights reserved.</div>
+</footer>
+
 </body>
 </html>
