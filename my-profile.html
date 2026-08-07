@@ -38,13 +38,13 @@
 
   /* ============ TOP NAV ============ */
   .topnav{
-    position:relative;
-    z-index:20;
     display:flex;
     align-items:center;
     justify-content:space-between;
     gap:20px;
-    padding:18px 40px;
+    padding:16px 28px;
+    background:#fff;
+    border-bottom:1px solid var(--border);
     flex-wrap:wrap;
   }
   .topnav-left{ display:flex; align-items:baseline; gap:12px; }
@@ -83,15 +83,20 @@
 
   .topnav-center{ display:flex; align-items:center; gap:36px; }
   .nav-pill{
-    display:flex; align-items:center; gap:8px;
-    text-decoration:none; color:var(--ink);
-    font-weight:700; font-size:15px;
-    padding-bottom:8px;
-    position:relative;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    padding:10px 16px;
+    border-radius:10px;
+    text-decoration:none;
+    color:var(--ink);
+    font-weight:700;
+    font-size:14.5px;
+    transition:background .15s ease;
   }
   .nav-pill svg{ width:18px; height:18px; }
   .nav-pill:hover{ color:var(--teal); }
-  .nav-pill.active{ color:var(--green); }
+  .nav-pill.active{ background:#e9f6ec; color:var(--green); }
   .nav-pill.active::after{
     content:"";
     position:absolute;
@@ -439,15 +444,24 @@
   </a>
   <a href="sports.html">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 21h8"/><path d="M12 17v4"/><path d="M7 4h10v5a5 5 0 0 1-10 0V4Z"/><path d="M17 5h3a3 3 0 0 1-3 4"/><path d="M7 5H4a3 3 0 0 0 3 4"/></svg>
-    Sports
+    Teams
   </a>
-  <a href="media.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
-    Media
-  </a>
+
   <a href="CheckIn.html" class="active">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
     Check In
+  </a>
+      <a href="schedule.html" class="nav-pill">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Schedule
+    </a>
+      <a href="media.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+    Media
+  </a>
+    <a href="my-profile.html">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+    Profile
   </a>
 </nav>
 
