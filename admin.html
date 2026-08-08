@@ -163,7 +163,8 @@
   .btn-refresh:hover{ background:#f3f4ee; }
 
   .team-summary{
-    display:grid;
+    display:flex;
+    flex-direction: column;
     grid-template-columns:repeat(4, 1fr);
     gap:14px;
     margin-bottom:22px;
@@ -335,6 +336,7 @@
 
   .manual-checkin-row{
     display:flex;
+    flex-direction: column;
     gap:10px;
     max-width:420px;
     margin:0 auto 16px;
@@ -630,15 +632,18 @@
     <h2 class="section-title">Camp Media</h2>
     <form class="media-form-card" id="media-form">
       <div class="media-form-field">
-        <label for="media-url-input">Google Drive photo link</label>
+        <label for="media-url-input">Google Drive link (photo, PDF, or PowerPoint)</label>
         <input type="url" id="media-url-input" placeholder="https://drive.google.com/file/d/..." required>
       </div>
       <div class="media-form-field">
         <label for="media-caption-input">Caption (optional)</label>
         <input type="text" id="media-caption-input" placeholder="Day 1 — team building!">
       </div>
-      <button type="submit" class="btn-add-media" id="media-submit-btn">Add Photo</button>
+      <button type="submit" class="btn-add-media" id="media-submit-btn">Add to Media</button>
       <div class="media-form-status" id="media-form-status"></div>
+      <p style="width:100%; margin:6px 0 0; font-size:12px; font-weight:600; color:#9aa8a8;">
+        File type (photo / PDF / PowerPoint) is detected automatically — just paste any normal Drive share link. Make sure it's shared as "Anyone with the link".
+      </p>
     </form>
 
     <div class="media-grid" id="media-grid"></div>
@@ -951,20 +956,28 @@
     }
   }
 
+  const ADMIN_DOC_LABELS = { pdf: 'PDF', pptx: 'PPT', other: 'FILE' };
+
   function renderMedia() {
     const grid = document.getElementById('media-grid');
     grid.innerHTML = '';
 
     if (allMedia.length === 0) {
-      grid.innerHTML = '<div class="empty-state">No photos yet. Add one above.</div>';
+      grid.innerHTML = '<div class="empty-state">Nothing added yet.</div>';
       return;
     }
 
     allMedia.forEach(item => {
       const card = document.createElement('div');
       card.className = 'media-thumb-card';
+      const isImage = item.kind === 'image';
+      const badge = isImage ? '' : `<span style="position:absolute; top:6px; left:6px; padding:3px 7px; border-radius:5px; font-size:9.5px; font-weight:800; color:#fff; background:rgba(15,61,62,0.75);">${ADMIN_DOC_LABELS[item.kind] || 'FILE'}</span>`;
+
       card.innerHTML = `
-        <img src="${escapeHtml(item.displayUrl)}" alt="${escapeHtml(item.caption || 'Camp photo')}" loading="lazy">
+        <div style="position:relative;">
+          <img src="${escapeHtml(item.displayUrl)}" alt="${escapeHtml(item.caption || 'Camp media')}" loading="lazy">
+          ${badge}
+        </div>
         <div class="media-thumb-body">
           <div class="media-thumb-caption">${escapeHtml(item.caption || '(no caption)')}</div>
           <button class="btn-delete-media">Delete</button>
@@ -998,11 +1011,11 @@
         body: JSON.stringify({ action: 'addMedia', adminKey: ADMIN_KEY, url: url, caption: caption }),
       });
       const data = await res.json();
-      if (!data.success) throw new Error(data.error || 'Could not add that photo.');
+      if (!data.success) throw new Error(data.error || 'Could not add that file.');
 
       urlInput.value = '';
       captionInput.value = '';
-      status.textContent = 'Photo added!';
+      status.textContent = 'Added!';
       status.className = 'media-form-status ok';
       loadMedia();
     } catch (err) {
@@ -1010,7 +1023,7 @@
       status.className = 'media-form-status err';
     } finally {
       btn.disabled = false;
-      btn.textContent = 'Add Photo';
+      btn.textContent = 'Add to Media';
     }
   });
 

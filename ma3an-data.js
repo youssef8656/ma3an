@@ -38,7 +38,7 @@
   'use strict';
 
   // ---- CONFIGURE THIS ------------------------------------------------
-  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbw1TzZHZSlXJxI9qi9WV8SVYkxpgcqx-uMZWtDTJD4PnaTnnQofHWc84vYm8ryQY-fzHg/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
+  const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxduqLivxKqZv_7dv5K6MZTzqqd6AA4fvW99ly3atk6PsIiRnjHpNbHzgdIbzHh7m8XEg/exec'; // e.g. 'https://script.google.com/macros/s/AKfycb.../exec'
 
   // Camp dates — used for "Days Until Camp" / the countdown on the
   // dashboard. Change these if the camp dates move.

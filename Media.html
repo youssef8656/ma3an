@@ -33,28 +33,6 @@
   }
   .heading-font{ font-family:'Baloo 2', sans-serif; }
 
-
-    /* ============ MOBILE NAV PANEL ============ */
-  .mobile-nav-panel{
-    display:none;
-    flex-direction:column;
-    gap:2px;
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    padding:10px 14px 16px;
-  }
-  .mobile-nav-panel.open{ display:flex; }
-  .mobile-nav-panel a{
-    display:flex; align-items:center; gap:12px;
-    padding:12px 14px; border-radius:10px;
-    text-decoration:none; color:var(--ink);
-    font-weight:700; font-size:15px;
-  }
-  .mobile-nav-panel a svg{ width:19px; height:19px; flex-shrink:0; }
-  .mobile-nav-panel a:hover{ background:#f3f4ee; }
-  .mobile-nav-panel a.active{ background:#e9f6ec; color:var(--green); }
-
-
   /* ============ TOP NAV (shared) ============ */
   .topnav{
     display:flex; align-items:center; justify-content:space-between;
@@ -73,20 +51,15 @@
 
   .topnav-center{ display:flex; align-items:center; gap:8px; }
   .nav-pill{
-    display:flex;
-    align-items:center;
-    gap:8px;
-    padding:10px 16px;
-    border-radius:10px;
-    text-decoration:none;
-    color:var(--ink);
-    font-weight:700;
-    font-size:14.5px;
+    display:flex; align-items:center; gap:8px;
+    padding:10px 18px; border-radius:999px;
+    text-decoration:none; color:var(--ink);
+    font-weight:700; font-size:14.5px;
     transition:background .15s ease;
   }
   .nav-pill svg{ width:18px; height:18px; }
   .nav-pill:hover{ background:#f3f4ee; }
-  .nav-pill.active{ background:#e9f6ec; color:var(--green); }
+  .nav-pill.active{ background:var(--orange); color:#fff; }
 
   .topnav-right{ display:flex; align-items:center; gap:10px; }
   .profile-pill{
@@ -102,17 +75,6 @@
     font-family:'Baloo 2', sans-serif; font-weight:700; font-size:12px;
     flex-shrink:0;
   }
-
-
-    .menu-btn{
-    background:none;
-    border:none;
-    cursor:pointer;
-    color:var(--ink);
-    display:none;
-  }
-  .menu-btn svg{ width:24px; height:24px; }
-
 
   /* ============ PAGE ============ */
   main.content{
@@ -157,6 +119,28 @@
     aspect-ratio:4/3;
     object-fit:cover;
     background:#f0f0e8;
+  }
+  .media-thumb-wrap{ position:relative; }
+  .media-type-badge{
+    position:absolute;
+    top:8px; left:8px;
+    padding:4px 9px;
+    border-radius:6px;
+    font-size:10.5px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    color:#fff;
+    background:rgba(15,61,62,0.75);
+  }
+  .media-type-badge.pdf{ background:rgba(232,86,47,0.85); }
+  .media-type-badge.pptx{ background:rgba(242,160,34,0.85); }
+  .media-doc-label{
+    padding:0 12px;
+    font-size:11px;
+    font-weight:800;
+    letter-spacing:0.5px;
+    text-transform:uppercase;
+    color:#9aa8a8;
   }
   .media-caption{
     padding:10px 12px;
@@ -223,22 +207,12 @@
     main.content{ padding:20px 16px 60px; }
     .media-grid{ grid-template-columns:repeat(auto-fill, minmax(150px, 1fr)); gap:12px; }
   }
-
-    @media (max-width:960px){
-    .topnav-center{ display:none; }
-    .sidebar{ display:none; }
-    .menu-btn{ display:flex; }
-  }
-
 </style>
 </head>
 <body>
 
 <div class="topnav">
   <div class="topnav-left">
-    <button class="menu-btn" aria-label="Toggle menu">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
-    </button>
     <div class="brand">
       <div class="brand-mark"><span>M</span><span>A</span><span>3</span><span>A</span><span>N</span></div>
       <div class="brand-youth">YOUTH</div>
@@ -273,36 +247,13 @@
   </nav>
 
 
-
-<nav class="mobile-nav-panel" id="mobile-nav-panel">
-  <a href="Home.html" >
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-    Home
-  </a>
-
-  <a href="sports.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
-    Teams
-  </a>
-  <a href="CheckIn.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 11 3 3L22 4"/><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"/></svg>
-    Check In
-  </a>
-  <a href="Schedule.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
-    Schedule
-  </a>
-  <a href="Media.html" class="active">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><circle cx="9" cy="9" r="2"/><path d="m21 15-3.086-3.086a2 2 0 0 0-2.828 0L6 21"/></svg>
-    Media
-  </a>
-  <a href="my-profile.html">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
-    Profile
-  </a>
-</nav>
-
-
+  <div class="topnav-right">
+    <div class="profile-pill">
+      <div class="profile-avatar" id="nav-avatar">NN</div>
+      <span id="nav-team">—</span>
+    </div>
+  </div>
+</div>
 
 <main class="content">
   <div class="page-header">
@@ -310,11 +261,11 @@
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
       Camp Media
     </h1>
-    <p>Photos from camp, added by your camp admin.</p>
+    <p>Photos, slides, and documents from camp, added by your camp admin.</p>
   </div>
 
   <div id="media-container">
-    <div class="loading-state">Loading photos…</div>
+    <div class="loading-state">Loading media…</div>
   </div>
 </main>
 
@@ -325,107 +276,6 @@
   <img id="lightbox-img" src="" alt="">
   <div class="lightbox-caption" id="lightbox-caption"></div>
 </div>
-
-<!-- ============ FOOTER (paste at the bottom of every page, right before ) -->
-<style>
-  .site-footer{
-    margin-top:40px;
-    padding:28px 24px 24px;
-    background:#fff;
-    border-top:1px solid #e7e5db;
-    text-align:center;
-    font-family:'Nunito', sans-serif;
-  }
-  .site-footer .footer-brand{
-    font-family:'Baloo 2', sans-serif;
-    font-weight:800;
-    font-size:18px;
-    margin-bottom:6px;
-  }
-  .site-footer .footer-brand span:nth-child(1){ color:#f2a022; }
-  .site-footer .footer-brand span:nth-child(2){ color:#2f7bd6; }
-  .site-footer .footer-brand span:nth-child(3){ color:#2fa84f; }
-  .site-footer .footer-brand span:nth-child(4){ color:#6c4bd6; }
-  .site-footer .footer-brand span:nth-child(5){ color:#e8562f; }
-
-  .site-footer .footer-credit{
-    font-size:13.5px;
-    font-weight:700;
-    color:#0f3d3e;
-    margin-bottom:10px;
-  }
-
-  .site-footer .footer-contact{
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    gap:18px;
-    flex-wrap:wrap;
-    margin-bottom:10px;
-  }
-  .site-footer .footer-contact a{
-    display:inline-flex;
-    align-items:center;
-    gap:6px;
-    color:#5c6e6e;
-    text-decoration:none;
-    font-size:13px;
-    font-weight:700;
-  }
-  .site-footer .footer-contact a:hover{ color:#2f7bd6; }
-  .site-footer .footer-contact svg{ width:15px; height:15px; }
-
-  .site-footer .footer-note{
-    font-size:12px;
-    color:#9aa8a8;
-    font-weight:600;
-  }
-</style>
-
-<footer class="site-footer">
-  <div class="footer-brand">
-    <span>M</span><span>A</span><span>3</span><span>A</span><span>N</span>
-  </div>
-  <div class="footer-credit">Built by YOUSSEF NADY</div>
-  <div class="footer-contact">
-    <a href="mailto:your@email.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-      your@email.com
-    </a>
-    <a href="tel:+201287553264">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      +20 1287553264
-    </a>
-    <a href="https://wa.me/201287553264" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      WhatsApp
-    </a>
-  </div>
-    <div class="footer-credit">And FADY WAHIB</div>
-  <div class="footer-contact">
-    <a href="mailto:your@email.com">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 6-10 7L2 6"/></svg>
-      your@email.com
-    </a>
-    <a href="tel:+201270215706">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
-      +20 1270215706
-    </a>
-    <a href="https://wa.me/201270215706" target="_blank" rel="noopener">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/></svg>
-      WhatsApp
-    </a>
-  </div>
-
-  <div class="footer-note">&copy; 2026 MA3AN Camp Teams. All rights reserved.</div>
-</footer>
-
-<script>
-  document.querySelector('.menu-btn').addEventListener('click', () => {
-    document.getElementById('mobile-nav-panel').classList.toggle('open');
-  });
-</script>
-
 
 <script src="page-transitions.js"></script>
 <script src="ma3an-data.js"></script>
@@ -463,17 +313,19 @@
   lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('open'); });
   document.addEventListener('keydown', (e) => { if (e.key === 'Escape') lightbox.classList.remove('open'); });
 
+  const DOC_LABELS = { pdf: 'PDF', pptx: 'PPT', other: 'FILE' };
+
   async function loadMedia() {
     const container = document.getElementById('media-container');
     const res = await window.MA3AN.getMedia();
 
     if (!res || !res.success) {
-      container.innerHTML = `<div class="empty-state">Could not load photos${res && res.error ? ': ' + escapeHtml(res.error) : '.'}</div>`;
+      container.innerHTML = `<div class="empty-state">Could not load media${res && res.error ? ': ' + escapeHtml(res.error) : '.'}</div>`;
       return;
     }
 
     if (!res.media || res.media.length === 0) {
-      container.innerHTML = '<div class="empty-state">No photos yet — check back once camp starts! 📸</div>';
+      container.innerHTML = '<div class="empty-state">Nothing here yet — check back once camp starts! 📸</div>';
       return;
     }
 
@@ -483,12 +335,24 @@
     res.media.forEach(item => {
       const card = document.createElement('div');
       card.className = 'media-card';
+      const isImage = item.kind === 'image';
+      const badge = isImage ? '' : `<span class="media-type-badge ${item.kind}">${DOC_LABELS[item.kind] || 'FILE'}</span>`;
+
       card.innerHTML = `
-        <img src="${escapeHtml(item.displayUrl)}" alt="${escapeHtml(item.caption || 'Camp photo')}" loading="lazy">
+        <div class="media-thumb-wrap">
+          <img src="${escapeHtml(item.displayUrl)}" alt="${escapeHtml(item.caption || 'Camp media')}" loading="lazy">
+          ${badge}
+        </div>
         ${item.caption ? `<div class="media-caption">${escapeHtml(item.caption)}</div>` : ''}
         <div class="media-date">${escapeHtml(formatDate(item.addedAt))}</div>
       `;
-      card.addEventListener('click', () => openLightbox(item.displayUrl, item.caption));
+
+      if (isImage) {
+        card.addEventListener('click', () => openLightbox(item.displayUrl, item.caption));
+      } else {
+        card.addEventListener('click', () => window.open(item.previewUrl || item.url, '_blank', 'noopener'));
+      }
+
       grid.appendChild(card);
     });
 
